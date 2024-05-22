@@ -2,11 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 
 import { Routes } from './routes'
-
-import './app.css'
+import { Providers } from './providers'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <Routes />
+    <Providers>
+      <Routes />
+    </Providers>
   </React.StrictMode>
 )
