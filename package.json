@@ -10,7 +10,10 @@
     "test": "lerna run test",
     "lint": "lerna run lint",
     "format": "lerna run format",
-    "preview": "lerna run preview"
+    "preview": "lerna run preview",
+    "scan": "auditjs ossi --quiet | (! grep -E 'CVSS Score.  [789]')",
+    "scan-full": "auditjs ossi",
+    "prepare": "husky install"
   },
   "license": "MIT",
   "workspaces": [
@@ -21,6 +24,9 @@
   },
   "devDependencies": {
     "@evilmartians/lefthook": "^1.3.9",
-    "lerna": "^5.4.3"
+    "auditjs": "^4.0.45",
+    "husky": "8.0.3",
+    "lerna": "^5.4.3",
+    "lint-staged": "12.5.0"
   }
 }
