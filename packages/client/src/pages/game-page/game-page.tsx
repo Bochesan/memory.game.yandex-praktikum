@@ -1,12 +1,43 @@
 import React, { useState, useEffect, useRef } from 'react'
 
 // Параметры игры
-const CARD_VALUES: string[] = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D']
+/**
+ * CARD_COUNT - количество карт
+ * CARD_COL - количество столбцов
+ * CARD_WIDTH - ширина карты px
+ * CARD_HEIGHT - высоты карты px
+ * CARD_MARGIN - расстояние между картами px
+ */
+const CARD_COUNT = 10
+const CARD_COL = 5
 const CARD_WIDTH = 100
 const CARD_HEIGHT = 150
 const CARD_MARGIN = 10
-const CANVAS_WIDTH = 450
-const CANVAS_HEIGHT = 350
+
+// Вычисляемые параметры игры
+const CARD_VALUES: string[] = createCardValues(CARD_COUNT)
+const CARD_ROW = Math.round(CARD_COUNT / CARD_COL)
+const CANVAS_WIDTH = CARD_WIDTH * CARD_COL + CARD_MARGIN * (CARD_COL - 1)
+const CANVAS_HEIGHT = CARD_HEIGHT * CARD_ROW + CARD_MARGIN * (CARD_ROW - 1)
+
+// Генерация значений карт
+function createCardValues(count: number): string[] {
+  // Определяем набор возможных значений для карт
+  const possibleValues = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  const result: string[] = []
+  const uniqueCount = count / 2
+
+  // Проверяем, что значение count является четным числом
+  if (count % 2 !== 0) {
+    throw new Error('Число карт CARD_COUNT должно быть четным')
+  }
+  // Добавляем по два значения для каждой буквы
+  for (let i = 0; i < uniqueCount; i++) {
+    const value = possibleValues[i]
+    result.push(value, value)
+  }
+  return result
+}
 
 // Перемешивает карты
 const shuffle = (array: string[]): string[] => {
@@ -69,8 +100,8 @@ export const GamePage: React.FC = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
     cards.forEach((card, index) => {
-      const x = (index % 4) * (CARD_WIDTH + CARD_MARGIN)
-      const y = Math.floor(index / 4) * (CARD_HEIGHT + CARD_MARGIN)
+      const x = (index % CARD_COL) * (CARD_WIDTH + CARD_MARGIN)
+      const y = Math.floor(index / CARD_COL) * (CARD_HEIGHT + CARD_MARGIN)
 
       if (flippedCards.includes(index) || matchedCards.includes(index)) {
         ctx.fillStyle = 'lightgray'
@@ -98,7 +129,7 @@ export const GamePage: React.FC = () => {
 
           const col = Math.floor(x / (CARD_WIDTH + CARD_MARGIN))
           const row = Math.floor(y / (CARD_HEIGHT + CARD_MARGIN))
-          const index = row * 4 + col
+          const index = row * CARD_COL + col
 
           handleCardClick(index)
         }}
