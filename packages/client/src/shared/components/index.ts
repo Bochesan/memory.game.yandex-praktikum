@@ -1,3 +1,5 @@
 export * from './error-boundary'
 export * from './game-canvas'
+export * from './game-countdown'
+export * from './game-score'
 export * from './app'
