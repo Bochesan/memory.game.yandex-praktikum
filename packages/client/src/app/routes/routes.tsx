@@ -36,8 +36,8 @@ const router = createBrowserRouter([
         Component: GamePage,
       },
       {
-        path: '/game',
-        Component: GamePage,
+        path: '/levels',
+        Component: ChooseLevelPage,
       },
       {
         path: '/profile',

@@ -1,29 +1,23 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { GameCanvas } from '../../shared/components/game-canvas'
 import { GameCountdown } from '../../shared/components/game-countdown'
 import { GameScore } from '../../shared/components/game-score'
 
+// Параметры
 const CARD_COUNT = 10
 const GAME_TIMER = 30
-
-const handleGameOver = (): void => {
-  const isRepeat = confirm('Вы проиграли! Заново?')
-  if (isRepeat) {
-    location.reload()
-  } else {
-    console.log('Отправляем на страницу уровней')
-  }
-}
 
 export const GamePage = () => {
   const [isPause, setPause] = useState(true)
   const [score, setScore] = useState(0)
   const [seconds, setSeconds] = useState(30)
+  const navigate = useNavigate()
 
   const handleMenu = (): void => {
     const isExit = confirm('Выйти из игры?')
     if (isExit) {
-      console.log('Отправляем на страницу уровней')
+      navigate('/levels')
     }
   }
 
@@ -40,7 +34,16 @@ export const GamePage = () => {
     if (isContinue) {
       location.reload()
     } else {
-      console.log('Отправляем на страницу уровней')
+      navigate('/levels')
+    }
+  }
+
+  const handleGameOver = (): void => {
+    const isRepeat = confirm('Вы проиграли! Заново?')
+    if (isRepeat) {
+      location.reload()
+    } else {
+      navigate('/levels')
     }
   }
 
