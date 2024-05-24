@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import styles from './styles.module.css'
 
 type GameCountdownProps = {
   isPause: boolean
@@ -34,7 +35,7 @@ export const GameCountdown: React.FC<GameCountdownProps> = ({
   }, [isPause, seconds, onComplete])
 
   return (
-    <div className="game-countdown">
+    <div className={styles['game-countdown']}>
       {seconds > 0 ? <p>Осталось секунд: {seconds}</p> : <p>Время вышло!</p>}
     </div>
   )

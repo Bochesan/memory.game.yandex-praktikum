@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import styles from './styles.module.css'
 
 type GameCanvasProps = {
   isPause: boolean
@@ -154,7 +155,7 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({
   }
 
   return (
-    <>
+    <div className={styles['game-canvas']}>
       <canvas
         ref={canvasRef}
         width={CANVAS_WIDTH}
@@ -171,6 +172,6 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({
           handleCardClick(index)
         }}
       />
-    </>
+    </div>
   )
 }

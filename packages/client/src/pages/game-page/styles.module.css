@@ -1,0 +1,15 @@
+.game-page {
+  width: fit-content;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.game-page__control {
+  display: flex;
+  justify-content: space-between;
+}
+
+.game-page__info {
+  display: flex;
+  justify-content: space-between;
+}

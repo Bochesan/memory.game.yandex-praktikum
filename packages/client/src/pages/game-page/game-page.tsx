@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { GameCanvas } from '../../shared/components/game-canvas'
 import { GameCountdown } from '../../shared/components/game-countdown'
 import { GameScore } from '../../shared/components/game-score'
+import styles from './styles.module.css'
 
 // Параметры
 const CARD_COUNT = 10
@@ -56,16 +57,20 @@ export const GamePage = () => {
   }
 
   return (
-    <>
-      <button onClick={handleMenu}>Меню</button>
-      <button onClick={handlePause}>{isPause ? 'Play' : 'Pause'}</button>
-      <GameScore score={score} />
-      <GameCountdown
-        isPause={isPause}
-        initialSeconds={GAME_TIMER}
-        onComplete={handleGameOver}
-        onSeconds={handleSeconds}
-      />
+    <main className={styles['game-page']}>
+      <div className={styles['game-page__control']}>
+        <button onClick={handleMenu}>Меню</button>
+        <button onClick={handlePause}>{isPause ? 'Play' : 'Pause'}</button>
+      </div>
+      <div className={styles['game-page__info']}>
+        <GameCountdown
+          isPause={isPause}
+          initialSeconds={GAME_TIMER}
+          onComplete={handleGameOver}
+          onSeconds={handleSeconds}
+        />
+        <GameScore score={score} />
+      </div>
       <GameCanvas
         isPause={isPause}
         cardCount={CARD_COUNT}
@@ -73,6 +78,6 @@ export const GamePage = () => {
         onPlay={handlePause}
         onVictory={handleGameWin}
       />
-    </>
+    </main>
   )
 }
