@@ -1,7 +1,0 @@
-.root {
-  transition: all 0.3s linear;
-
-  &:has(:hover, :active) img {
-    opacity: 0.8;
-  }
-}
