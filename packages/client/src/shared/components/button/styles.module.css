@@ -1,0 +1,17 @@
+.root {
+  transition: all 0.3s linear;
+
+  &:has(:hover, :active) img {
+    opacity: 0.8;
+  }
+}
+
+.text {
+  --line-height: 1.25rem;
+  position: absolute;
+  top: calc(50% - calc(var(--line-height) / 2));
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 38px;
+  text-transform: capitalize;
+}
