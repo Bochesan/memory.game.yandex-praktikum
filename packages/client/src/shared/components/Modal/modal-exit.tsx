@@ -4,7 +4,7 @@ import { Button, Typography } from '@mui/material'
 import { MouseEvent } from 'react'
 import { TModalNonType, TypeModal } from './types'
 
-// Компонент модалки для выхода
+// Компонент модалки для выхода k
 interface IProps extends TModalNonType {
   onExit: (e?: MouseEvent<HTMLButtonElement>) => void
   onContinue: (e?: MouseEvent<HTMLButtonElement>) => void
