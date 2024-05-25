@@ -3,6 +3,7 @@ import styles from './styles.module.css'
 
 type GameCanvasProps = {
   isPause: boolean
+  restartKey: number
   cardCount: number
   onScore: (score: number) => void
   onPlay: () => void
@@ -41,6 +42,7 @@ const shuffle = (array: string[]): string[] => {
 
 /**
  * @param {boolean} isPause - пауза, по умолчанию true
+ * @param {boolean} restartKey - ключ для сброса компонента
  * @param {number} cardCount - количество карт
  * @param {function} onScore - келбек паредающий очки
  * @param {function} onPlay - келбек снимающий паузу
@@ -58,6 +60,7 @@ const shuffle = (array: string[]): string[] => {
  */
 export const GameCanvas: React.FC<GameCanvasProps> = ({
   isPause,
+  restartKey,
   cardCount,
   onScore,
   onPlay,
@@ -83,7 +86,15 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({
   const [isVictory, setVictory] = useState<boolean>(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
-  // Используем useEffect для перерисовки карт при изменении состояния
+  // Сброс игры
+  useEffect(() => {
+    setCards(shuffle([...CARD_VALUES]))
+    setFlippedCards([])
+    setMatchedCards([])
+    setVictory(false)
+  }, [restartKey])
+
+  // Перерисовка карт при изменении состояния
   useEffect(() => {
     drawCards()
     handleVictory()

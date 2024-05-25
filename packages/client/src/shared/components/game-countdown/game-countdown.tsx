@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
+import { useToggle } from '@/shared/hooks'
 import styles from './styles.module.css'
 
 type GameCountdownProps = {
   isPause: boolean
+  restartKey: number
   initialSeconds: number
   onComplete: () => void
   onSeconds: (seconds: number) => void
@@ -10,11 +12,23 @@ type GameCountdownProps = {
 
 export const GameCountdown: React.FC<GameCountdownProps> = ({
   isPause,
+  restartKey,
   initialSeconds,
   onComplete,
   onSeconds,
 }) => {
   const [seconds, setSeconds] = useState(initialSeconds)
+  const [isComplete, toggleComplete] = useToggle(false)
+
+  useEffect(() => {
+    setSeconds(initialSeconds)
+  }, [restartKey])
+
+  useEffect(() => {
+    if (isComplete) {
+      onComplete()
+    }
+  }, [isComplete])
 
   useEffect(() => {
     if (seconds > 0) {
@@ -29,10 +43,10 @@ export const GameCountdown: React.FC<GameCountdownProps> = ({
       onSeconds(seconds)
 
       return () => clearInterval(timerId)
-    } else {
-      onComplete()
     }
-  }, [isPause, seconds, onComplete])
+
+    toggleComplete()
+  }, [isPause, seconds])
 
   return (
     <div className={styles['game-countdown']}>
