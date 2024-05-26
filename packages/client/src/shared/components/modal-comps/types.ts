@@ -1,7 +1,7 @@
 export enum TypeModal {
-  Lose,
-  Win,
-  Exit,
+  Lose = 'lose',
+  Win = 'win',
+  Exit = 'exit',
 }
 
 export type TModal = {

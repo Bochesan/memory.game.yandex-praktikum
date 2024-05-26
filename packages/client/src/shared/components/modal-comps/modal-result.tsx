@@ -8,7 +8,7 @@ import { TModalNonType, TypeModal } from './types'
 
 interface IProps extends TModalNonType {
   type: TypeModal.Win | TypeModal.Lose
-  onContinue: (e?: MouseEvent<HTMLButtonElement>) => void
+  onContinue(e?: MouseEvent<HTMLButtonElement>): void
 }
 
 export const ModalResult = ({

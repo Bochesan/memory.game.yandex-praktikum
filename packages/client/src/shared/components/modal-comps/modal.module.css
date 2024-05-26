@@ -51,14 +51,14 @@
   z-index: 1;
 }
 
-.content--0 {
+.content--lose {
   background: linear-gradient(180deg, #ba0e0e 0%, #000f26 80%);
 }
 
-.content--1 {
+.content--win {
   background: linear-gradient(180deg, #0eba67 0%, #000f26 90%);
 }
 
-.content--2 {
+.content--exit {
   background: linear-gradient(180deg, #0e59ba 0%, #002250 60%, #000f26 100%);
 }
