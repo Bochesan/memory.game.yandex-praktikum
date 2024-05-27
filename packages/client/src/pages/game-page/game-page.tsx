@@ -2,11 +2,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { GameCanvas, GameCountdown, GameScore } from '@/shared/components'
 import { useToggle } from '@/shared/hooks'
+import { GAME_TIMER } from '@/shared/services/game/constants'
 import styles from './styles.module.css'
-
-// Параметры
-const CARD_COUNT = 10
-const GAME_TIMER = 30
 
 export const GamePage = () => {
   const [isPause, togglePause] = useToggle(true)
@@ -82,7 +79,6 @@ export const GamePage = () => {
       <GameCanvas
         isPause={isPause}
         restartKey={restartKey}
-        cardCount={CARD_COUNT}
         onScore={handleScore}
         onPlay={handlePause}
         onVictory={handleGameWin}

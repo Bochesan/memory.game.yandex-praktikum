@@ -1,1 +1,1 @@
-export * from './game-canvas'
+export { GameCanvas } from './game-canvas'
