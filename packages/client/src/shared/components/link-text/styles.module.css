@@ -1,0 +1,14 @@
+.root {
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 32px;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  text-decoration: none;
+  & svg {
+    position: absolute;
+    left: -24px;
+    z-index: -1;
+  }
+}

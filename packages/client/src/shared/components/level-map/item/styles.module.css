@@ -1,0 +1,38 @@
+.text {
+  text-anchor: middle;
+  & tspan {
+    font-family: 'Alegreya', sans-serif;
+
+    fill: #fff;
+    font-size: 40px;
+  }
+}
+
+.wrapper {
+  transform: rotate(45deg);
+  transform-box: border-box;
+  transform-origin: 65% 5%;
+}
+
+.clipPath {
+  & > rect {
+    transform-origin: center;
+    transform-box: border-box;
+  }
+
+  & > :first-child {
+    transform: translate(-80%, 80%);
+  }
+
+  & > :last-child {
+    transform: translate(80%, -80%);
+  }
+}
+
+.passed {
+  fill: #2f80ed;
+}
+
+.current {
+  fill: #f2994a;
+}
