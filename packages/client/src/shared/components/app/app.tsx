@@ -4,7 +4,7 @@ import { Navigate, Outlet } from 'react-router-dom'
 
 export const App = () => (
   <ErrorBoundary fallback={<Navigate to="/error" />}>
-    <Container maxWidth="lg">
+    <Container disableGutters maxWidth={false}>
       <Outlet />
     </Container>
   </ErrorBoundary>
