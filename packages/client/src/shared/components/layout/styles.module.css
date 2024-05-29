@@ -6,7 +6,7 @@
 
 .layout {
   display: flex;
-  padding: 2.8% 2.7%;
+  padding: 2.9% 2.7%;
   width: 100%;
   z-index: 10;
   background-repeat: no-repeat;
@@ -14,7 +14,7 @@
 }
 
 .container {
-  padding: 0.15% 8% 0.15% 3.6%;
+  padding: 1.8% 8% 0.15% 3.15%;
   position: relative;
   width: 100%;
   z-index: 10;

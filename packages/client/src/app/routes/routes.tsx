@@ -24,20 +24,16 @@ const router = createBrowserRouter([
         Component: MainPage,
       },
       {
-        path: '/sing-up',
+        path: '/sign-up',
         Component: SignUpPage,
       },
       {
-        path: '/sing-in',
+        path: '/sign-in',
         Component: SignInPage,
       },
       {
         path: '/game',
         Component: GamePage,
-      },
-      {
-        path: '/levels',
-        Component: ChooseLevelPage,
       },
       {
         path: '/profile',
