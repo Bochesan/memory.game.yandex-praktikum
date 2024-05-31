@@ -1,0 +1,123 @@
+.leader-board {
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 1);
+  margin: 24px auto;
+  width: calc(100% - 96px);
+  max-width: 976px;
+}
+
+.leader-board-item {
+  width: 100%;
+  height: 90px;
+  background: rgba(14, 17, 36, 1);
+  border-bottom: 1px solid rgba(0, 0, 0, 1);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  padding-left: 5px;
+  position: relative;
+}
+
+.leader-board-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(0.14deg, #353e70 0%, #1d2140 100%);
+}
+
+.leader-board-item:nth-child(1):before {
+  background: linear-gradient(0.14deg, #fcec3f 0%, #e5bb20 100%);
+}
+
+.leader-board-item:nth-child(2):before {
+  background: linear-gradient(0.14deg, #8da4af 0%, #556671 100%);
+}
+
+.leader-board-item:nth-child(3):before {
+  background: linear-gradient(0.14deg, #ab7a43 0%, #6d4724 100%);
+}
+
+.leader-board-item__place {
+  width: 60px;
+  height: 100%;
+  font-family: Roboto;
+  font-size: 32px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 1);
+}
+
+.leader-board-item__avatar {
+  width: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.leader-board-item__avatar-wrap {
+  border: 1px solid rgba(1, 203, 253, 1);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(45deg);
+  overflow: hidden;
+}
+
+.leader-board-item__avatar-wrap img {
+  transform: rotate(-45deg);
+  width: 140%;
+  height: 140%;
+}
+
+.leader-board-item__name {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.leader-board-item__name strong {
+  font-family: Roboto;
+  font-size: 26px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 1);
+}
+
+.leader-board-item__name span {
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 400;
+  color: rgba(176, 242, 255, 1);
+}
+
+.leader-board-item__score {
+  font-family: Roboto;
+  font-size: 24px;
+  font-weight: 700;
+  color: rgba(176, 242, 255, 1);
+  margin-left: auto;
+  padding: 0 24px;
+}
+
+@media (max-width: 767px) {
+  .leader-board-item {
+    flex-wrap: wrap;
+    gap: 16px 0;
+    padding: 16px 0;
+    height: auto;
+  }
+
+  .leader-board-item__score {
+    flex-basis: 100%;
+  }
+}
