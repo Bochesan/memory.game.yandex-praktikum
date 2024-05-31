@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { leaderBoardList } from '@/shared/services/leader-board/LeaderBoardList'
-import { Spinner } from '@/shared/components/spinner/Spinner'
+import { Spinner } from '@/shared/components'
 import { LeaderBoardItem } from './leader-board-item'
 import { LeaderBoardItemType } from '@/shared/services/leader-board/types'
 import styles from './styles.module.css'

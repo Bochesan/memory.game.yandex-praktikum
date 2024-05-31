@@ -1,5 +1,5 @@
 import styles from './styles.module.css'
-import { Layout } from '../../shared/components/layout'
+import { Layout } from '@/shared/components'
 
 export const SignInPage = () => (
   <Layout title={'Авторизация'}>
