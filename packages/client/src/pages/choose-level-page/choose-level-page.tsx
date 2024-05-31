@@ -1,3 +1,5 @@
+import { LevelMap } from '@/shared'
+
 export const ChooseLevelPage = () => {
-  return <>choose-level-page</>
+  return <LevelMap />
 }
