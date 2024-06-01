@@ -1,0 +1,27 @@
+.root {
+  & .bg {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+
+  .menu {
+    position: absolute;
+    top: 10%;
+    right: 5%;
+  }
+
+  .info {
+    position: absolute;
+    bottom: 0;
+
+    & > :first-child {
+      position: absolute;
+      bottom: 40%;
+      left: -15%;
+    }
+  }
+}

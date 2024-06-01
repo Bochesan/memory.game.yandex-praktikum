@@ -1,0 +1,8 @@
+.edit {
+  opacity: 1;
+  transition: opacity 100ms linear;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.5;
+  }
+}
