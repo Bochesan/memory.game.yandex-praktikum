@@ -7,7 +7,10 @@ export const apiSlices = createApi({
     getUser: builder.query({
       query: () => `auth/user`,
     }),
+    logOut: builder.mutation<void, void>({
+      query: () => `auth/logout`,
+    }),
   }),
 })
 
-export const { useGetUserQuery } = apiSlices
+export const { useGetUserQuery, useLogOutMutation } = apiSlices
