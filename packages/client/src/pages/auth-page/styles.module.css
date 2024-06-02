@@ -1,4 +1,13 @@
 .container {
   display: flex;
+  flex-wrap: wrap;
   grid-gap: 16px;
+}
+
+.navigation {
+  flex: none;
+}
+
+.form {
+  flex: 1 1;
 }

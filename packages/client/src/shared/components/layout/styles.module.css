@@ -2,6 +2,7 @@
   display: flex;
   background: #000;
   min-height: 100vh;
+  position: relative;
 }
 
 .layout {
@@ -87,6 +88,6 @@
   align-items: center;
   grid-gap: 88px;
   position: absolute;
-  bottom: 24px;
-  left: 80px;
+  bottom: 1%;
+  left: 4%;
 }

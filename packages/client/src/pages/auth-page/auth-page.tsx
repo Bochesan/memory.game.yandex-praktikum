@@ -41,8 +41,12 @@ export const AuthPage = () => {
   return (
     <Layout title={component?.title}>
       <div className={styles.container}>
-        <Navigate routes={routes} />
-        {component?.type === 'SignIn' ? <SignInForm /> : <SignUpForm />}
+        <div className={styles.navigation}>
+          <Navigate routes={routes} />
+        </div>
+        <div className={styles.form}>
+          {component?.type === 'SignIn' ? <SignInForm /> : <SignUpForm />}
+        </div>
       </div>
     </Layout>
   )
