@@ -11,6 +11,7 @@ import {
   NotFoundPage,
   ErrorPage,
   ChooseLevelPage,
+  AuthPage,
 } from '@/pages'
 import { App } from '@/shared/components'
 
@@ -25,11 +26,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/sign-up',
-        Component: SignUpPage,
+        Component: AuthPage,
       },
       {
         path: '/sign-in',
-        Component: SignInPage,
+        Component: AuthPage,
       },
       {
         path: '/game',
