@@ -12,7 +12,7 @@ export const SignInForm = () => {
       type: 'email',
       error: null,
       value: '',
-      name: 'EMAIL',
+      name: 'email',
     },
     {
       label: 'Пароль',
@@ -20,7 +20,7 @@ export const SignInForm = () => {
       type: 'password',
       error: null,
       value: '',
-      name: 'PASSWORD',
+      name: 'password',
     },
   ]
   return <Form fields={fields} submitText={'Войти'} />
