@@ -1,0 +1,17 @@
+.root {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  grid-gap: 8px;
+}
+
+.icon * {
+  display: flex;
+  align-items: center;
+}
+
+.score {
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  color: #fff;
+}

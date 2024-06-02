@@ -80,3 +80,12 @@
   width: auto;
   margin-left: 16px;
 }
+
+.footer {
+  display: flex;
+  align-items: center;
+  grid-gap: 88px;
+  position: absolute;
+  bottom: 24px;
+  left: 80px;
+}
