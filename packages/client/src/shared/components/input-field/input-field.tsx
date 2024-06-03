@@ -1,7 +1,5 @@
 import styles from './styles.module.css'
 import React from 'react'
-import BadgeWebp from '@/assets/images/layout/user-badge.webp'
-import BadgePng from '@/assets/images/layout/user-badge-min.png'
 
 type Props = {
   label: string
@@ -11,6 +9,7 @@ type Props = {
   value: string
   name: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onBlur: (e: React.FocusEvent<HTMLInputElement>) => void
 }
 
 import IconPlaceWebp from '@/assets/images/form/form-field-icon.webp'
@@ -24,6 +23,7 @@ export const InputField = ({
   value,
   name,
   onChange,
+  onBlur,
 }: Props) => {
   return (
     <div className={styles.root}>
@@ -47,6 +47,7 @@ export const InputField = ({
           value={value}
           name={name}
           onChange={onChange}
+          onBlur={onBlur}
         />
         <div className={styles.info}>
           <div className={styles.label}>{label}</div>

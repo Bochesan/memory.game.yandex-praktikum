@@ -7,12 +7,13 @@ import IconStrength from '@/assets/images/icons/strength.svg'
 export const SignInForm = () => {
   const fields = [
     {
-      label: 'Email',
+      label: 'Логин',
       icon: IconMagic,
-      type: 'email',
+      type: 'text',
       error: null,
       value: '',
-      name: 'email',
+      name: 'login',
+      validation: ['required'],
     },
     {
       label: 'Пароль',
@@ -21,6 +22,7 @@ export const SignInForm = () => {
       error: null,
       value: '',
       name: 'password',
+      validation: ['required'],
     },
   ]
   return <Form fields={fields} submitText={'Войти'} />
