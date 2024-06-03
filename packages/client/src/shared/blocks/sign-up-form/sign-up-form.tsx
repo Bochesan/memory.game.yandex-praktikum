@@ -1,18 +1,13 @@
 import React from 'react'
 import { Form } from '@/shared'
 
-import IconNecklace from '@/assets/images/icons/necklace.svg'
-import IconVitality from '@/assets/images/icons/vitality.svg'
-import IconMagicDefence from '@/assets/images/icons/magicDefense.svg'
-import IconMagic from '@/assets/images/icons/magic.svg'
-import IconSpirit from '@/assets/images/icons/spirit.svg'
-import IconStrength from '@/assets/images/icons/strength.svg'
+import { ICONS } from '@/shared/constants/icons'
 
 export const SignUpForm = () => {
   const fields = [
     {
       label: 'Имя',
-      icon: IconNecklace,
+      icon: ICONS.Necklace,
       type: 'text',
       error: null,
       value: '',
@@ -21,7 +16,7 @@ export const SignUpForm = () => {
     },
     {
       label: 'Фамилия',
-      icon: IconVitality,
+      icon: ICONS.Vitality,
       type: 'text',
       error: null,
       value: '',
@@ -30,7 +25,7 @@ export const SignUpForm = () => {
     },
     {
       label: 'Никнейм',
-      icon: IconMagicDefence,
+      icon: ICONS.MagicDefense,
       type: 'text',
       error: null,
       value: '',
@@ -39,7 +34,7 @@ export const SignUpForm = () => {
     },
     {
       label: 'Email',
-      icon: IconMagic,
+      icon: ICONS.Magic,
       type: 'email',
       error: null,
       value: '',
@@ -48,7 +43,7 @@ export const SignUpForm = () => {
     },
     {
       label: 'Телефон',
-      icon: IconSpirit,
+      icon: ICONS.Spirit,
       type: 'phone',
       error: null,
       value: '',
@@ -57,7 +52,7 @@ export const SignUpForm = () => {
     },
     {
       label: 'Пароль',
-      icon: IconStrength,
+      icon: ICONS.Strength,
       type: 'password',
       error: null,
       value: '',
