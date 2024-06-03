@@ -12,6 +12,7 @@ export const SignUpForm = () => {
       error: null,
       value: '',
       name: 'first_name',
+      validation: ['required', 'name'],
     },
     {
       label: 'Фамилия',
@@ -20,6 +21,7 @@ export const SignUpForm = () => {
       error: null,
       value: '',
       name: 'second_name',
+      validation: ['required', 'name'],
     },
     {
       label: 'Никнейм',
@@ -28,6 +30,7 @@ export const SignUpForm = () => {
       error: null,
       value: '',
       name: 'login',
+      validation: ['required', 'login'],
     },
     {
       label: 'Email',
@@ -36,6 +39,7 @@ export const SignUpForm = () => {
       error: null,
       value: '',
       name: 'email',
+      validation: ['required', 'email'],
     },
     {
       label: 'Телефон',
@@ -44,6 +48,7 @@ export const SignUpForm = () => {
       error: null,
       value: '',
       name: 'phone',
+      validation: ['required', 'phone'],
     },
     {
       label: 'Пароль',
@@ -52,6 +57,7 @@ export const SignUpForm = () => {
       error: null,
       value: '',
       name: 'password',
+      validation: ['required', 'password'],
     },
   ]
   return <Form fields={fields} submitText={'Создать аккаунт'} />

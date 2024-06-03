@@ -6,12 +6,13 @@ import { ICONS } from '@/shared/constants/icons'
 export const SignInForm = () => {
   const fields = [
     {
-      label: 'Email',
+      label: 'Логин',
       icon: ICONS.Magic,
-      type: 'email',
+      type: 'text',
       error: null,
       value: '',
-      name: 'email',
+      name: 'login',
+      validation: ['required'],
     },
     {
       label: 'Пароль',
@@ -20,6 +21,7 @@ export const SignInForm = () => {
       error: null,
       value: '',
       name: 'password',
+      validation: ['required'],
     },
   ]
   return <Form fields={fields} submitText={'Войти'} />
