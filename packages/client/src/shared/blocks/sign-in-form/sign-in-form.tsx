@@ -1,14 +1,13 @@
 import React from 'react'
 import { Form } from '@/shared'
 
-import IconMagic from '@/assets/images/icons/magic.svg'
-import IconStrength from '@/assets/images/icons/strength.svg'
+import { ICONS } from '@/shared/constants/icons'
 
 export const SignInForm = () => {
   const fields = [
     {
       label: 'Email',
-      icon: IconMagic,
+      icon: ICONS.Magic,
       type: 'email',
       error: null,
       value: '',
@@ -16,7 +15,7 @@ export const SignInForm = () => {
     },
     {
       label: 'Пароль',
-      icon: IconStrength,
+      icon: ICONS.Strength,
       type: 'password',
       error: null,
       value: '',

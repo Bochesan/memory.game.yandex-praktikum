@@ -10,22 +10,8 @@
   align-items: center;
 }
 
-.clock {
+.score {
   font-family: 'Roboto', sans-serif;
   font-size: 18px;
   color: #fff;
-}
-
-.separator {
-  animation: blink 2s step-end infinite;
-}
-
-@keyframes blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
 }
