@@ -2,11 +2,12 @@
   display: flex;
   background: #000;
   min-height: 100vh;
+  position: relative;
 }
 
 .layout {
   display: flex;
-  padding: 2.8% 2.7%;
+  padding: 2.9% 2.7%;
   width: 100%;
   z-index: 10;
   background-repeat: no-repeat;
@@ -14,7 +15,7 @@
 }
 
 .container {
-  padding: 0.15% 8% 0.15% 3.6%;
+  padding: 1.8% 8% 0.15% 3.15%;
   position: relative;
   width: 100%;
   z-index: 10;
@@ -80,4 +81,13 @@
   height: 20px;
   width: auto;
   margin-left: 16px;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  grid-gap: 88px;
+  position: absolute;
+  bottom: 1%;
+  left: 4%;
 }

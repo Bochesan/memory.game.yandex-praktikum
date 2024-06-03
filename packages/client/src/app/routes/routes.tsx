@@ -11,6 +11,7 @@ import {
   NotFoundPage,
   ErrorPage,
   ChooseLevelPage,
+  AuthPage,
 } from '@/pages'
 import { App } from '@/shared/components'
 
@@ -24,20 +25,16 @@ const router = createBrowserRouter([
         Component: MainPage,
       },
       {
-        path: '/sing-up',
-        Component: SignUpPage,
+        path: '/sign-up',
+        Component: AuthPage,
       },
       {
-        path: '/sing-in',
-        Component: SignInPage,
+        path: '/sign-in',
+        Component: AuthPage,
       },
       {
         path: '/game',
         Component: GamePage,
-      },
-      {
-        path: '/levels',
-        Component: ChooseLevelPage,
       },
       {
         path: '/profile',

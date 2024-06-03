@@ -1,0 +1,12 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.submit {
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+}

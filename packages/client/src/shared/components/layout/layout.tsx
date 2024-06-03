@@ -17,6 +17,7 @@ import OutlinePng from '@/assets/images/layout/outer-frame-border-min.png'
 import UserBackgroundPng from '@/assets/images/layout/user-background-min.png'
 import BadgeWebp from '@/assets/images/layout/user-badge.webp'
 import BadgePng from '@/assets/images/layout/user-badge-min.png'
+import { Clock, Score } from '@/shared'
 
 export const Layout = ({ children, title }: ILayoutProps) => (
   <div className={styles.root}>
@@ -43,6 +44,10 @@ export const Layout = ({ children, title }: ILayoutProps) => (
           </picture>
         </div>
       </div>
+    </div>
+    <div className={styles.footer}>
+      <Clock />
+      <Score />
     </div>
   </div>
 )
