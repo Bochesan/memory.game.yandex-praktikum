@@ -88,7 +88,7 @@
 .input:-webkit-autofill:focus,
 .input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s; /* выставляется желаемая задержка */
-  color: #aecfe0 !important;
+  color: #aecfe0;
 }
 
 .input:-webkit-autofill,
