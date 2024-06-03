@@ -8,7 +8,7 @@ export const Score = () => {
   return (
     <div className={styles.root}>
       <ReactSVG src={ICONS.Gil} className={styles.icon} />
-      <div className={styles.score}>248</div>
+      <div className={styles.score}>249</div>
     </div>
   )
 }
