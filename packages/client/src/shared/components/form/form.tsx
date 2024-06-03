@@ -2,7 +2,7 @@ import styles from './styles.module.css'
 import React, { useEffect, useMemo, useState } from 'react'
 import { InputField } from '@/shared/components/input-field'
 import { LinkText } from '@/shared'
-import { useValidate } from '@/utils/useValidate'
+import { useValidate } from '@/shared/hooks/useValidate'
 
 type Field = {
   label: string
