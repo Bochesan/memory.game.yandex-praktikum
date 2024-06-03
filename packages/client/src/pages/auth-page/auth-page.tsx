@@ -2,16 +2,15 @@ import styles from './styles.module.css'
 import { Layout } from '@/shared/components/layout'
 import { Navigate, SignInForm, SignUpForm } from '@/shared'
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
 
 type State = {
   type: string
   title: string
+  template: null | React.ReactNode
 }
 
 export const AuthPage = () => {
   const [component, setComponent] = useState<null | State>(null)
-  const location = useLocation()
 
   const routes = [
     {
@@ -32,10 +31,20 @@ export const AuthPage = () => {
   ]
 
   useEffect(() => {
-    if (location.pathname === '/sign-in') {
-      return setComponent({ type: 'SignIn', title: 'Авторизация' })
+    switch (location.pathname) {
+      case '/sign-in':
+        return setComponent({
+          type: 'SignIn',
+          title: 'Авторизация',
+          template: <SignInForm />,
+        })
+      case '/sign-up':
+        return setComponent({
+          type: 'SignUp',
+          title: 'Регистрация',
+          template: <SignUpForm />,
+        })
     }
-    setComponent({ type: 'SignUp', title: 'Регистрация' })
   }, [location.pathname])
 
   return (
@@ -44,9 +53,7 @@ export const AuthPage = () => {
         <div className={styles.navigation}>
           <Navigate routes={routes} />
         </div>
-        <div className={styles.form}>
-          {component?.type === 'SignIn' ? <SignInForm /> : <SignUpForm />}
-        </div>
+        <div className={styles.form}>{component?.template}</div>
       </div>
     </Layout>
   )
