@@ -1,3 +1,15 @@
 .game-canvas {
   width: 100%;
 }
+
+.game-canvas__loading {
+  width: 100%;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-canvas__loading span {
+  font-size: 32px;
+}

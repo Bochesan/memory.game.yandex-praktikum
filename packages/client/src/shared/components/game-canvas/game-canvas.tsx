@@ -26,6 +26,7 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({
 }) => {
   const [isWin, setIsWin] = useState(false)
   const [score, setScore] = useState(0)
+  const [isImagesLoaded, setImagesLoaded] = useState(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const gameControllerRef = useRef<GameController | null>(null)
 
@@ -53,10 +54,15 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({
         },
         handleWin
       )
+
       const view = new GameView(canvasRef.current)
+      view.loadImages(CARD_VALUES, () => {
+        setImagesLoaded(true)
+        gameControllerRef.current?.updateView()
+      })
+
       const controller = new GameController(model, view)
       gameControllerRef.current = controller
-      controller.updateView()
     }
   }, [])
 
@@ -89,7 +95,13 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
         onClick={handleCanvasClick}
+        style={{ display: isImagesLoaded ? 'block' : 'none' }}
       />
+      {!isImagesLoaded && (
+        <div className={styles['game-canvas__loading']}>
+          <span>Loading...</span>
+        </div>
+      )}
     </div>
   )
 }

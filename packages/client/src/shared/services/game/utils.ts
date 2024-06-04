@@ -1,14 +1,20 @@
 export const createCardValues = (count: number): string[] => {
-  const possibleValues = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-  const result: string[] = []
-  const uniqueCount = count / 2
-
   if (count % 2 !== 0) {
-    throw new Error('Число карт cardCount должно быть четным')
+    throw new Error('Число карт CARD_COUNT должно быть четным')
   }
-  for (let i = 0; i < uniqueCount; i++) {
-    const value = possibleValues[i]
-    result.push(value, value)
-  }
-  return result
+
+  const cardImages: string[] = [
+    'card-1.png',
+    'card-1.png',
+    'card-2.png',
+    'card-2.png',
+    'card-3.png',
+    'card-3.png',
+    'card-4.png',
+    'card-4.png',
+    'card-5.png',
+    'card-5.png',
+  ]
+
+  return cardImages.slice(0, 2 * count)
 }

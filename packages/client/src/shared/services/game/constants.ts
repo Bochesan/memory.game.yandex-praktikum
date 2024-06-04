@@ -1,5 +1,11 @@
 import { createCardValues } from './utils'
 
+export const PATH_SPRITE = '/game'
+export const PATH_SPRITE_CARD = '/game/card.png'
+export const PATH_SPRITE_CARD_HOVER = '/game/card-hover.png'
+
+export const FRAME_TIMOUT = 500
+
 export const GAME_TIMER = 30
 export const CARD_COUNT = 10
 export const CARD_COL = 5
