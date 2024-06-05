@@ -1,5 +1,7 @@
 .game-canvas {
+  position: relative;
   width: 100%;
+  z-index: 1;
 }
 
 .game-canvas__loading {

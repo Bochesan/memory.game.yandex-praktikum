@@ -16,5 +16,5 @@ export const createCardValues = (count: number): string[] => {
     'card-5.png',
   ]
 
-  return cardImages.slice(0, 2 * count)
+  return cardImages.slice(0, count)
 }
