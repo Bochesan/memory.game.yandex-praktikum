@@ -1,12 +1,15 @@
+import Mediator from '@/shared/controllers/mediator'
+import { GameLevelType } from '@/shared/services/game/types'
 import { GameModel } from './GameModel'
 import { GameView } from './GameView'
-import {
-  FRAME_TIMOUT,
-  CARD_COL,
-  CARD_WIDTH,
-  CARD_HEIGHT,
-  CARD_MARGIN,
-} from './constants'
+import { FRAME_TIMOUT, CARD_MARGIN } from './constants'
+
+const eventBus = new Mediator()
+let level: GameLevelType | any = {}
+
+eventBus.on('game:level', payload => {
+  level = payload
+})
 
 export class GameController {
   model: GameModel
@@ -56,9 +59,9 @@ export class GameController {
   }
 
   getCardIndex(x: number, y: number): number | null {
-    const col = Math.floor(x / (CARD_WIDTH + CARD_MARGIN))
-    const row = Math.floor(y / (CARD_HEIGHT + CARD_MARGIN))
-    const index = row * CARD_COL + col
+    const col = Math.floor(x / (level.cardWidth + CARD_MARGIN))
+    const row = Math.floor(y / (level.cardHeight + CARD_MARGIN))
+    const index = row * level.cardCol + col
     if (index >= 0 && index < this.model.cards.length) {
       return index
     }

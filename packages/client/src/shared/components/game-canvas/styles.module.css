@@ -1,5 +1,7 @@
 .game-canvas {
   position: relative;
+  display: flex;
+  justify-content: center;
   width: 100%;
   z-index: 1;
 }

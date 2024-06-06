@@ -3,8 +3,6 @@ import {
   GamePage,
   LeaderBoardPage,
   MainPage,
-  SignInPage,
-  SignUpPage,
   UserProfilePage,
   TopicPage,
   ForumPage,

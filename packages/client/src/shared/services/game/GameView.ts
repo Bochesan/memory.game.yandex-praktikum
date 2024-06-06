@@ -1,11 +1,13 @@
-import {
-  CARD_COL,
-  CARD_WIDTH,
-  CARD_HEIGHT,
-  CARD_MARGIN,
-  PATH_SPRITE,
-  PATH_SPRITE_CARD,
-} from './constants'
+import Mediator from '@/shared/controllers/mediator'
+import { GameLevelType } from '@/shared/services/game/types'
+import { CARD_MARGIN, PATH_SPRITE, PATH_SPRITE_CARD } from './constants'
+
+const eventBus = new Mediator()
+let level: GameLevelType | any = {}
+
+eventBus.on('game:level', payload => {
+  level = payload
+})
 
 export class GameView {
   canvas: HTMLCanvasElement
@@ -45,19 +47,25 @@ export class GameView {
     flipped: boolean,
     flipProgress: number
   ): void {
-    this.ctx.clearRect(x, y, CARD_WIDTH, CARD_HEIGHT)
+    this.ctx.clearRect(x, y, level.cardWidth, level.cardHeight)
     this.ctx.save()
-    this.ctx.translate(x + CARD_WIDTH / 2, y + CARD_HEIGHT / 2)
+    this.ctx.translate(x + level.cardWidth / 2, y + level.cardHeight / 2)
     this.ctx.scale(Math.cos(flipProgress * Math.PI), 1)
-    this.ctx.translate(-CARD_WIDTH / 2, -CARD_HEIGHT / 2)
+    this.ctx.translate(-level.cardWidth / 2, -level.cardHeight / 2)
 
     if (flipProgress > 0.5) {
       const img = this.images.find(image => image.src.includes(card))
       if (img) {
-        this.ctx.drawImage(img, 0, 0, CARD_WIDTH, CARD_HEIGHT)
+        this.ctx.drawImage(img, 0, 0, level.cardWidth, level.cardHeight)
       }
     } else {
-      this.ctx.drawImage(this.imageDefault, 0, 0, CARD_WIDTH, CARD_HEIGHT)
+      this.ctx.drawImage(
+        this.imageDefault,
+        0,
+        0,
+        level.cardWidth,
+        level.cardHeight
+      )
     }
 
     this.ctx.restore()
@@ -70,8 +78,9 @@ export class GameView {
     flipProgress: number[]
   ): void {
     cards.forEach((card, index) => {
-      const x = (index % CARD_COL) * (CARD_WIDTH + CARD_MARGIN)
-      const y = Math.floor(index / CARD_COL) * (CARD_HEIGHT + CARD_MARGIN)
+      const x = (index % level.cardCol) * (level.cardWidth + CARD_MARGIN)
+      const y =
+        Math.floor(index / level.cardCol) * (level.cardHeight + CARD_MARGIN)
       const flipped =
         flippedCards.includes(index) || matchedCards.includes(index)
       const progress = flipProgress[index] || 0

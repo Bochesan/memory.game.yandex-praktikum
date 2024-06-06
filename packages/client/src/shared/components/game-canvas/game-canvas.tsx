@@ -2,16 +2,13 @@ import React, { useEffect, useState, useRef } from 'react'
 import { GameModel } from '@/shared/services/game/GameModel'
 import { GameView } from '@/shared/services/game/GameView'
 import { GameController } from '@/shared/services/game/GameController'
-import {
-  CANVAS_WIDTH,
-  CANVAS_HEIGHT,
-  CARD_VALUES,
-} from '@/shared/services/game/constants'
+import { GameLevelType } from '@/shared/services/game/types'
 import styles from './styles.module.css'
 
 type GameCanvasProps = {
   isPause: boolean
   restartKey: number
+  level: GameLevelType
   onScore: (score: number) => void
   onPlay: () => void
   onVictory: () => void
@@ -20,6 +17,7 @@ type GameCanvasProps = {
 export const GameCanvas: React.FC<GameCanvasProps> = ({
   isPause,
   restartKey,
+  level,
   onScore,
   onPlay,
   onVictory,
@@ -47,7 +45,7 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({
   useEffect(() => {
     if (canvasRef.current) {
       const model = new GameModel(
-        CARD_VALUES,
+        level.cardValues,
         () => {
           gameControllerRef.current?.updateView()
           setScore(gameControllerRef.current?.getScore() || 0)
@@ -56,7 +54,7 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({
       )
 
       const view = new GameView(canvasRef.current)
-      view.loadImages(CARD_VALUES, () => {
+      view.loadImages(level.cardValues, () => {
         setImagesLoaded(true)
         gameControllerRef.current?.updateView()
       })
@@ -92,8 +90,8 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({
     <div className={styles['game-canvas']}>
       <canvas
         ref={canvasRef}
-        width={CANVAS_WIDTH}
-        height={CANVAS_HEIGHT}
+        width={level.canvasWidth}
+        height={level.canvasHeight}
         onClick={handleCanvasClick}
         style={{ display: isImagesLoaded ? 'block' : 'none' }}
       />

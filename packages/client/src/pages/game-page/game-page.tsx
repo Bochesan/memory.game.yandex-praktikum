@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { GameCanvas, GameCountdown, GameScore } from '@/shared/components'
-import { useToggle } from '@/shared/hooks'
-import { GAME_TIMER } from '@/shared/services/game/constants'
+import { useLevel, useToggle } from '@/shared/hooks'
 import styles from './styles.module.css'
 
+// Вычисляем размер UI эдементов относительно высоты экрана
 const scalePercent = window.innerHeight < 1040 ? window.innerHeight / 1040 : 1
 const scaleMarginPercent = ((1 - scalePercent) * 100) / 2
 const scaleStyle = {
@@ -13,11 +13,14 @@ const scaleStyle = {
 }
 
 export const GamePage = () => {
+  const navigate = useNavigate()
+  const location = useLocation()
+
   const [isPause, togglePause] = useToggle(true)
+  const [level, setLevel] = useLevel(location.state?.levelId)
   const [restartKey, setRestartKey] = useState(0)
   const [score, setScore] = useState(0)
-  const [seconds, setSeconds] = useState(GAME_TIMER)
-  const navigate = useNavigate()
+  const [seconds, setSeconds] = useState(level.gameTimer)
 
   const onRestart = (): void => {
     setRestartKey(prevKey => prevKey + 1)
@@ -82,18 +85,19 @@ export const GamePage = () => {
           <GameCountdown
             isPause={isPause}
             restartKey={restartKey}
-            initialSeconds={GAME_TIMER}
+            initialSeconds={level.gameTimer}
             onComplete={handleGameOver}
             onSeconds={handleSeconds}
           />
         </div>
         <div className={styles['game-page__info']}>
-          <GameScore score={score} />
+          <GameScore score={score} level={level} />
         </div>
       </div>
       <GameCanvas
         isPause={isPause}
         restartKey={restartKey}
+        level={level}
         onScore={handleScore}
         onPlay={handlePause}
         onVictory={handleGameWin}

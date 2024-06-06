@@ -1,13 +1,15 @@
 import React from 'react'
-import { CARD_COUNT, CARD_SCORE } from '@/shared/services/game/constants'
+import { CARD_SCORE } from '@/shared/services/game/constants'
+import { GameLevelType } from '@/shared/services/game/types'
 import styles from './styles.module.css'
 
 type GameScoreProps = {
   score: number
+  level: GameLevelType
 }
 
-export const GameScore: React.FC<GameScoreProps> = ({ score }) => {
-  const scorePercent = (score / ((CARD_COUNT * CARD_SCORE) / 2)) * 100
+export const GameScore: React.FC<GameScoreProps> = ({ score, level }) => {
+  const scorePercent = (score / ((level.cardCount * CARD_SCORE) / 2)) * 100
 
   return (
     <div className={styles['game-score']}>
