@@ -1,0 +1,35 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-gap: 12px;
+}
+
+.form {
+  display: inline-flex;
+  padding: 56px;
+  border: 1px solid #01cbfd;
+  transform: rotate(-45deg);
+}
+
+.container {
+  position: relative;
+  overflow: hidden;
+}
+
+.input {
+  display: flex;
+  width: 220px;
+  height: 220px;
+  background: #000;
+  cursor: pointer;
+}
+
+.avatar {
+  transform: rotate(45deg);
+  position: absolute;
+  top: -56px;
+  left: -56px;
+  width: calc(100% + 56px + 56px);
+  height: calc(100% + 56px + 56px);
+}
