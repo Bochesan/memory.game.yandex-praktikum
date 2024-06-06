@@ -2,7 +2,8 @@ import styles from './styles.module.css'
 import React, { useEffect, useMemo, useState } from 'react'
 import { InputField } from '@/shared/components/input-field'
 import { LinkText } from '@/shared'
-import { useValidate } from '@/shared/hooks/useValidate'
+import { useValidate } from '@/shared/hooks'
+import { TLogin, TRegister, TUser } from '@/types'
 
 type Field = {
   label: string
@@ -17,9 +18,10 @@ type Field = {
 type Props = {
   fields: Field[]
   submitText: string
+  callback: (credentials: TRegister | TLogin | TUser | object) => void
 }
 
-export const Form = ({ fields, submitText }: Props) => {
+export const Form = ({ fields, submitText, callback }: Props) => {
   // Стейт формы, данные, которые будут отправлять на сервер
   const [formData, setFormData] = useState<Field[]>(fields)
   // Флаги для проверки обязательных полей
@@ -72,7 +74,7 @@ export const Form = ({ fields, submitText }: Props) => {
     setValidFields(validFields)
   }, [])
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     // Сперва проверяем валидацию
     Object.keys(validFields).forEach(name => {
@@ -81,10 +83,25 @@ export const Form = ({ fields, submitText }: Props) => {
         setValidate(name, field.value)
       }
     })
-    const valid = Object.keys(validFields).every(field => validFields[field])
-    // Проверка всех флагов валидации
-    if (valid) {
-      console.log('Form submitted')
+
+    try {
+      const valid = Object.keys(validFields).every(field => validFields[field])
+      if (!valid) {
+        return false
+      }
+
+      const payload = formData.reduce(
+        (acc, field) => ({
+          ...acc,
+          [field.name]: field.value,
+        }),
+        {}
+      )
+
+      await callback(payload)
+    } catch (e) {
+      console.log('Form not submitted')
+      return
     }
   }
 
