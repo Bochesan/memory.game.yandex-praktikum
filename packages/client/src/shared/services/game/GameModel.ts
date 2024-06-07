@@ -28,32 +28,25 @@ export class GameModel {
   }
 
   flipCard(index: number): void {
-    if (
-      this.flippedCards.length === 2 ||
-      this.flippedCards.includes(index) ||
-      this.matchedCards.includes(index)
-    ) {
-      return
-    }
-
-    this.flippedCards.push(index)
-
-    if (this.flippedCards.length === 2) {
-      const [firstIndex, secondIndex] = this.flippedCards
-      if (this.cards[firstIndex] === this.cards[secondIndex]) {
-        this.matchedCards.push(firstIndex, secondIndex)
-        this.score += CARD_SCORE
-      }
-      setTimeout(() => {
-        this.flippedCards = []
+    if (this.flippedCards.length < 2) {
+      this.flippedCards.push(index)
+      this.onUpdate()
+      if (this.flippedCards.length === 2) {
         this.onUpdate()
-        this.checkWin()
-      }, 500)
+      }
     }
+  }
+
+  unflipCards(): void {
+    this.flippedCards = []
     this.onUpdate()
   }
 
   checkWin(): void {
+    this.matchedCards.push(...this.flippedCards)
+    this.flippedCards = []
+    this.score += CARD_SCORE
+    this.onUpdate()
     if (this.matchedCards.length === this.cards.length) {
       this.onWin()
     }

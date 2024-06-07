@@ -19,7 +19,7 @@ export const LevelMap = () => {
     )
   }
 
-  const handleStartGame = () => navigate('/game', { state: { level: 1 } })
+  const handleStartGame = () => navigate('/game', { state: { levelId: 1 } })
 
   return (
     <div>
