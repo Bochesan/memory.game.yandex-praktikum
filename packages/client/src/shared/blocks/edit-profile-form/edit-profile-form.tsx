@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, useUserEditMutation } from '@/shared'
+import { Form, useEditProfileMutation } from '@/shared'
 
 import { ICONS } from '@/shared/constants/icons'
 import { useAuth } from '@/shared/hooks'
@@ -70,16 +70,9 @@ export const EditProfileForm = () => {
       name: 'phone',
       validation: ['required', 'phone'],
     },
-    {
-      label: 'Пароль',
-      icon: ICONS.Strength,
-      type: 'password',
-      error: null,
-      value: '',
-      name: 'password',
-      validation: ['required', 'password'],
-    },
   ]
-  const [editUser] = useUserEditMutation()
-  return <Form fields={fields} submitText={'Сохранить'} callback={editUser} />
+  const [editProfile] = useEditProfileMutation()
+  return (
+    <Form fields={fields} submitText={'Сохранить'} callback={editProfile} />
+  )
 }

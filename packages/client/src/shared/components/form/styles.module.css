@@ -9,4 +9,9 @@
   background: none;
   border: none;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.submit:hover {
+  opacity: 0.6;
 }

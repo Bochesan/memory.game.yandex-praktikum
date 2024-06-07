@@ -18,7 +18,7 @@ type Field = {
 type Props = {
   fields: Field[]
   submitText: string
-  callback: (credentials: TRegister | TLogin | TUser | object) => void
+  callback: (credentials: any) => void
 }
 
 export const Form = ({ fields, submitText, callback }: Props) => {

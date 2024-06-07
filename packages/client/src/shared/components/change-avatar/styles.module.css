@@ -12,17 +12,22 @@
   transform: rotate(-45deg);
 }
 
+.rootError {
+  border: 1px solid #ff0000;
+}
+
 .container {
   position: relative;
   overflow: hidden;
-}
-
-.input {
   display: flex;
   width: 220px;
   height: 220px;
   background: #000;
   cursor: pointer;
+}
+
+.input {
+  display: none;
 }
 
 .avatar {
@@ -32,4 +37,13 @@
   left: -56px;
   width: calc(100% + 56px + 56px);
   height: calc(100% + 56px + 56px);
+  object-fit: cover;
+  object-position: center center;
+}
+
+.error {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  color: #ff0000;
 }

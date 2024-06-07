@@ -24,3 +24,7 @@ export const enum CODE_STATUS {
   NotFound = 404,
   InternalServerError = 500,
 }
+
+export enum RESOURCES {
+  Images = 'https://ya-praktikum.tech/api/v2/resources',
+}

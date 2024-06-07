@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { TLogin, TRegister, TUser } from '@/types'
+import { TLogin, TPassword, TRegister, TUser } from '@/types'
 import { API, METHODS } from '@/utils'
 
 export const apiSlices = createApi({
@@ -45,7 +45,7 @@ export const apiSlices = createApi({
       invalidatesTags: [{ type: 'User', id: 'DATA' }],
     }),
 
-    userEdit: builder.mutation({
+    editProfile: builder.mutation({
       query: (credentials: TUser) => ({
         method: METHODS.Put,
         url: 'user/profile',
@@ -54,8 +54,16 @@ export const apiSlices = createApi({
       invalidatesTags: [{ type: 'User', id: 'DATA' }],
     }),
 
+    editPassword: builder.mutation({
+      query: (credentials: TPassword) => ({
+        method: METHODS.Put,
+        url: 'user/password',
+        body: credentials,
+      }),
+    }),
+
     uploadAvatar: builder.mutation({
-      query: (credentials: File) => ({
+      query: (credentials: FormData) => ({
         headers: {},
         method: METHODS.Put,
         url: 'user/profile/avatar',
@@ -71,6 +79,7 @@ export const {
   useLogOutMutation,
   useSignInMutation,
   useSignUpMutation,
-  useUserEditMutation,
+  useEditProfileMutation,
+  useEditPasswordMutation,
   useUploadAvatarMutation,
 } = apiSlices

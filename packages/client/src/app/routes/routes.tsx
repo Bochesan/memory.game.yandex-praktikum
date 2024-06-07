@@ -39,6 +39,10 @@ const router = createBrowserRouter([
         Component: UserProfilePage,
       },
       {
+        path: '/edit-password',
+        Component: UserProfilePage,
+      },
+      {
         path: '/leader-board',
         Component: LeaderBoardPage,
       },
