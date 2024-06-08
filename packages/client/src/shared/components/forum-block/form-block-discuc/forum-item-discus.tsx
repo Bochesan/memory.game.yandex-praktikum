@@ -6,6 +6,7 @@ import FormBlockActions from '../form-block-actions/form-block-actions'
 import FormBlockWrapper from '../forum-block-wrapper/form-block-wrapper'
 import FormBlockMain from '../form-block-main/form-block-main'
 import FormBlockIcon from '../form-block-icon/form-block-icon'
+import FormBlockBody from '../form-block-body/form-block-body'
 
 const ForumItemDiscus = () => {
   const [btnClicked, setBtnClicked] = useState(false)
@@ -20,9 +21,8 @@ const ForumItemDiscus = () => {
           <div className={styles.date}>27.07.2022</div>
         </div>
       </div>
-      <div className={styles.body}>
+      <FormBlockBody>
         <p>
-          {' '}
           Инсайдер Dusk Golem раскрыл ещё немного подробностей о закулисье
           франшизы Resident Evil. В частности, он поведал, какие ремейки
           «Обители зла» добрались до производства, а какие — нет.
@@ -35,7 +35,7 @@ const ForumItemDiscus = () => {
             </div>
           </div>
         )}
-      </div>
+      </FormBlockBody>
 
       <FormBlockActions
         onClick={
