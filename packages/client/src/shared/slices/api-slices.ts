@@ -12,11 +12,7 @@ export const apiSlices = createApi({
   endpoints: builder => ({
     getUser: builder.query({
       query: () => `auth/user`,
-      providesTags: result => {
-        return result
-          ? [result, { type: 'User', id: 'DATA' }]
-          : [{ type: 'User', id: 'DATA' }]
-      },
+      providesTags: ['User'],
     }),
 
     signIn: builder.mutation({
@@ -25,7 +21,7 @@ export const apiSlices = createApi({
         url: 'auth/signin',
         body: credentials,
       }),
-      invalidatesTags: [{ type: 'User', id: 'DATA' }],
+      invalidatesTags: ['User'],
     }),
 
     signUp: builder.mutation({
@@ -34,7 +30,7 @@ export const apiSlices = createApi({
         url: 'auth/signup',
         body: credentials,
       }),
-      invalidatesTags: [{ type: 'User', id: 'DATA' }],
+      invalidatesTags: ['User'],
     }),
 
     logOut: builder.mutation({
@@ -42,7 +38,7 @@ export const apiSlices = createApi({
         method: METHODS.Post,
         url: `auth/logout`,
       }),
-      invalidatesTags: [{ type: 'User', id: 'DATA' }],
+      invalidatesTags: ['User'],
     }),
 
     editProfile: builder.mutation({
@@ -51,7 +47,7 @@ export const apiSlices = createApi({
         url: 'user/profile',
         body: credentials,
       }),
-      invalidatesTags: [{ type: 'User', id: 'DATA' }],
+      invalidatesTags: ['User'],
     }),
 
     editPassword: builder.mutation({
@@ -69,7 +65,7 @@ export const apiSlices = createApi({
         url: 'user/profile/avatar',
         body: credentials,
       }),
-      invalidatesTags: [{ type: 'User', id: 'DATA' }],
+      invalidatesTags: ['User'],
     }),
   }),
 })
