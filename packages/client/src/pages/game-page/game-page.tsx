@@ -1,16 +1,26 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { GameCanvas, GameCountdown, GameScore } from '@/shared/components'
-import { useToggle } from '@/shared/hooks'
-import { GAME_TIMER } from '@/shared/services/game/constants'
+import { useLevel, useToggle } from '@/shared/hooks'
 import styles from './styles.module.css'
 
+// Вычисляем размер UI эдементов относительно высоты экрана
+const scalePercent = window.innerHeight < 1040 ? window.innerHeight / 1040 : 1
+const scaleMarginPercent = ((1 - scalePercent) * 100) / 2
+const scaleStyle = {
+  transform: `scale(${scalePercent})`,
+  marginTop: `-${scaleMarginPercent}%`,
+}
+
 export const GamePage = () => {
+  const navigate = useNavigate()
+  const location = useLocation()
+
   const [isPause, togglePause] = useToggle(true)
+  const [level, setLevel] = useLevel(location.state?.levelId)
   const [restartKey, setRestartKey] = useState(0)
   const [score, setScore] = useState(0)
-  const [seconds, setSeconds] = useState(GAME_TIMER)
-  const navigate = useNavigate()
+  const [seconds, setSeconds] = useState(level.gameTimer)
 
   const onRestart = (): void => {
     setRestartKey(prevKey => prevKey + 1)
@@ -51,8 +61,8 @@ export const GamePage = () => {
     }
   }
 
-  const handleScore = (addScore: number): void => {
-    setScore(score + addScore)
+  const handleScore = (newScore: number): void => {
+    setScore(newScore)
   }
 
   const handleSeconds = (reSeconds: number): void => {
@@ -61,24 +71,33 @@ export const GamePage = () => {
 
   return (
     <main className={styles['game-page']}>
-      <div className={styles['game-page__control']}>
-        <button onClick={handleMenu}>Меню</button>
-        <button onClick={handlePause}>{isPause ? 'Play' : 'Pause'}</button>
-        <button onClick={onRestart}>Restart</button>
-      </div>
-      <div className={styles['game-page__info']}>
-        <GameCountdown
-          isPause={isPause}
-          restartKey={restartKey}
-          initialSeconds={GAME_TIMER}
-          onComplete={handleGameOver}
-          onSeconds={handleSeconds}
-        />
-        <GameScore score={score} />
+      <div className={styles['game-page__bar']} style={scaleStyle}>
+        <div className={styles['game-page__control']}>
+          <button
+            onClick={handleMenu}
+            className={styles['game-page__menu']}></button>
+          <button onClick={handlePause} className={styles['game-page__pause']}>
+            {isPause ? '▷' : '||'}
+          </button>
+          <button onClick={onRestart} className={styles['game-page__restart']}>
+            Заного
+          </button>
+          <GameCountdown
+            isPause={isPause}
+            restartKey={restartKey}
+            initialSeconds={level.gameTimer}
+            onComplete={handleGameOver}
+            onSeconds={handleSeconds}
+          />
+        </div>
+        <div className={styles['game-page__info']}>
+          <GameScore score={score} level={level} />
+        </div>
       </div>
       <GameCanvas
         isPause={isPause}
         restartKey={restartKey}
+        level={level}
         onScore={handleScore}
         onPlay={handlePause}
         onVictory={handleGameWin}

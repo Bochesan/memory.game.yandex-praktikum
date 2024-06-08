@@ -50,7 +50,13 @@ export const GameCountdown: React.FC<GameCountdownProps> = ({
 
   return (
     <div className={styles['game-countdown']}>
-      {seconds > 0 ? <p>Осталось секунд: {seconds}</p> : <p>Время вышло!</p>}
+      {seconds > 0 ? (
+        <p>
+          Время: <b>{seconds}</b>
+        </p>
+      ) : (
+        <p>Время вышло!</p>
+      )}
     </div>
   )
 }
