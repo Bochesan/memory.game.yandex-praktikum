@@ -14,7 +14,7 @@ interface IForumBlockItemProps {
 const ForumBlockItem = (props: IForumBlockItemProps) => {
   const {
     author = 'Автор',
-    count = 0,
+    count = 2,
     title = 'Заголовок',
     date = new Date(),
   } = props

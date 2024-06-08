@@ -12,8 +12,8 @@ import {
   AuthPage,
 } from '@/pages'
 import { App } from '@/shared/components'
-import ForumNewItem from '@/shared/components/forum-block/form-block-new-item/forum-new-item'
-import forumMainPage from '@/pages/forum-main-page'
+import ForumMainPage from '@/pages/forum-main-page'
+import ForumCreatePage from '@/pages/forum-create-page/forum-create-page'
 
 const router = createBrowserRouter([
   {
@@ -50,11 +50,11 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            Component: forumMainPage,
+            Component: ForumMainPage,
           },
           {
             path: 'create',
-            Component: ForumNewItem,
+            Component: ForumCreatePage,
           },
           {
             path: ':topicId',

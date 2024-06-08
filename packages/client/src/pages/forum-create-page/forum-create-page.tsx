@@ -1,12 +1,9 @@
-import ForumBlockItem from '@/shared/components/forum-block/form-block-item/forum-block-item'
+import ForumNewItem from '@/shared/components/forum-block/form-block-new-item/forum-new-item'
 
 const ForumCreatePage = () => {
   return (
     <div>
-      <ForumBlockItem />
-      <ForumBlockItem />
-      <ForumBlockItem />
-      <ForumBlockItem />
+      <ForumNewItem />
     </div>
   )
 }
