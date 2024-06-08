@@ -15,3 +15,8 @@
 .submit:hover {
   opacity: 0.6;
 }
+
+.error {
+  padding-left: 88px;
+  color: #ff0000;
+}

@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { InputField } from '@/shared/components/input-field'
 import { LinkText } from '@/shared'
 import { useValidate } from '@/shared/hooks'
-import { TLogin, TRegister, TUser } from '@/types'
+import { CODE_STATUS } from '@/utils'
 
 type Field = {
   label: string
@@ -24,6 +24,7 @@ type Props = {
 export const Form = ({ fields, submitText, callback }: Props) => {
   // Стейт формы, данные, которые будут отправлять на сервер
   const [formData, setFormData] = useState<Field[]>(fields)
+  const [error, setError] = useState<string>('')
   // Флаги для проверки обязательных полей
   const [validFields, setValidFields] = useState<Record<string, boolean>>({})
 
@@ -98,7 +99,17 @@ export const Form = ({ fields, submitText, callback }: Props) => {
         {}
       )
 
-      await callback(payload)
+      // TODO Переделать когда будет свой бек
+      const res: any = await callback(payload)
+      if (
+        res.error.status === CODE_STATUS.BadRequest ||
+        CODE_STATUS.Unauthorized
+      ) {
+        setError(res.error.data.reason)
+      } else {
+        setFormData(fields)
+        setError('')
+      }
     } catch (e) {
       console.log('Form not submitted')
       return
@@ -128,6 +139,7 @@ export const Form = ({ fields, submitText, callback }: Props) => {
   return (
     <form onSubmit={handleSubmit} className={styles.root}>
       {MemoizedInputField}
+      {error && <div className={styles.error}>{error}</div>}
       <button type="submit" className={styles.submit}>
         <LinkText>{submitText}</LinkText>
       </button>
