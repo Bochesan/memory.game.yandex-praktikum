@@ -6,6 +6,9 @@ import Necklace from '@/assets/images/icons/necklace.svg'
 import Spirit from '@/assets/images/icons/spirit.svg'
 import Strength from '@/assets/images/icons/strength.svg'
 import Vitality from '@/assets/images/icons/vitality.svg'
+import Plus from '@/assets/images/icons/plus.svg'
+import Emblem from '@/assets/images/icons/emblem.svg'
+import Comment from '@/assets/images/icons/comment.svg'
 
 export const ICONS = {
   Clock,
@@ -16,4 +19,7 @@ export const ICONS = {
   Spirit,
   Strength,
   Vitality,
+  Plus,
+  Emblem,
+  Comment,
 }

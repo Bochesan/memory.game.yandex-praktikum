@@ -1,0 +1,55 @@
+.wrapper {
+  padding: 4px;
+  display: flex;
+  gap: 25px;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  gap: 25px;
+  flex-grow: 1;
+}
+
+.iconRight {
+  margin-left: 20px;
+}
+
+.about {
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.count,
+.date {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.count {
+  letter-spacing: -2%;
+  font-size: 18px;
+}
+
+.count {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.date {
+  color: rgba(60, 211, 252, 0.75);
+  text-align: right;
+}
+
+.action {
+  background: linear-gradient(
+    180deg,
+    rgba(16, 77, 152) 0%,
+    rgba(15, 91, 185) 100%
+  );
+  border: none;
+  border-radius: 6px;
+  height: 100%;
+  display: block;
+  cursor: pointer;
+}

@@ -1,0 +1,67 @@
+.top {
+  display: flex;
+  margin-bottom: 40px;
+}
+
+.left {
+  margin-left: 20px;
+}
+
+.date {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  margin-left: auto;
+  color: rgba(60, 211, 252, 0.75);
+}
+
+.box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  z-index: 2;
+  height: 150px;
+}
+
+.box img {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  max-width: 100%;
+}
+
+.box input,
+.box textarea {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  font-family: inherit;
+  color: #b0f2ff;
+  font-size: 18px;
+  position: absolute;
+  margin-left: 78px;
+  top: 38px;
+  width: calc(100% - 78px);
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.65);
+  resize: none;
+}
+
+.box input {
+  top: 38px;
+  height: 26px;
+}
+
+.box textarea {
+  top: -10px;
+  height: 78px;
+}
+
+.box input::placeholder,
+.box textarea::placeholder {
+  color: white;
+}

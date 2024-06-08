@@ -1,0 +1,16 @@
+.root {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.42) 0%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  padding: 4px;
+  border-radius: 10px;
+}
+
+.rootInner {
+  padding: 15px 20px;
+  border-radius: 10px;
+  border: 1px solid #2374dd;
+  color: #fff;
+}
