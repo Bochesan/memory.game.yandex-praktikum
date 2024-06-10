@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { TLogin, TRegister, TUser } from '@/types'
+import { TLogin, TPassword, TRegister, TUser } from '@/types'
 import { API, METHODS } from '@/utils'
 
 export const apiSlices = createApi({
@@ -12,11 +12,7 @@ export const apiSlices = createApi({
   endpoints: builder => ({
     getUser: builder.query({
       query: () => `auth/user`,
-      providesTags: result => {
-        return result
-          ? [result, { type: 'User', id: 'DATA' }]
-          : [{ type: 'User', id: 'DATA' }]
-      },
+      providesTags: ['User'],
     }),
 
     signIn: builder.mutation({
@@ -25,7 +21,7 @@ export const apiSlices = createApi({
         url: 'auth/signin',
         body: credentials,
       }),
-      invalidatesTags: [{ type: 'User', id: 'DATA' }],
+      invalidatesTags: ['User'],
     }),
 
     signUp: builder.mutation({
@@ -34,7 +30,7 @@ export const apiSlices = createApi({
         url: 'auth/signup',
         body: credentials,
       }),
-      invalidatesTags: [{ type: 'User', id: 'DATA' }],
+      invalidatesTags: ['User'],
     }),
 
     logOut: builder.mutation({
@@ -42,26 +38,34 @@ export const apiSlices = createApi({
         method: METHODS.Post,
         url: `auth/logout`,
       }),
-      invalidatesTags: [{ type: 'User', id: 'DATA' }],
+      invalidatesTags: ['User'],
     }),
 
-    userEdit: builder.mutation({
+    editProfile: builder.mutation({
       query: (credentials: TUser) => ({
         method: METHODS.Put,
         url: 'user/profile',
         body: credentials,
       }),
-      invalidatesTags: [{ type: 'User', id: 'DATA' }],
+      invalidatesTags: ['User'],
+    }),
+
+    editPassword: builder.mutation({
+      query: (credentials: TPassword) => ({
+        method: METHODS.Put,
+        url: 'user/password',
+        body: credentials,
+      }),
     }),
 
     uploadAvatar: builder.mutation({
-      query: (credentials: File) => ({
+      query: (credentials: FormData) => ({
         headers: {},
         method: METHODS.Put,
         url: 'user/profile/avatar',
         body: credentials,
       }),
-      invalidatesTags: [{ type: 'User', id: 'DATA' }],
+      invalidatesTags: ['User'],
     }),
   }),
 })
@@ -71,6 +75,7 @@ export const {
   useLogOutMutation,
   useSignInMutation,
   useSignUpMutation,
-  useUserEditMutation,
+  useEditProfileMutation,
+  useEditPasswordMutation,
   useUploadAvatarMutation,
 } = apiSlices
