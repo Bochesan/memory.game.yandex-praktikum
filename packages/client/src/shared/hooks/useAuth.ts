@@ -3,8 +3,7 @@ import { RESOURCES } from '@/utils'
 
 export function useAuth() {
   const { data, error } = useGetUserQuery('')
-
-  if (error) {
+  if (error || !data) {
     return {
       isAuth: false,
       id: null,
@@ -19,14 +18,14 @@ export function useAuth() {
   } else {
     return {
       isAuth: true,
-      id: data?.id,
-      first_name: data?.first_name,
-      second_name: data?.second_name,
-      display_name: data?.display_name || `user#${data?.id}`,
-      login: data?.login,
-      avatar: data ? `${RESOURCES.Images}${data.avatar}` : null,
-      email: data?.email,
-      phone: data?.phone,
+      id: data.id,
+      first_name: data.first_name,
+      second_name: data.second_name,
+      display_name: data.display_name || `user#${data.id}`,
+      login: data.login,
+      avatar: data.avatar ? `${RESOURCES.Images}${data.avatar}` : null,
+      email: data.email,
+      phone: data.phone,
     }
   }
 }
