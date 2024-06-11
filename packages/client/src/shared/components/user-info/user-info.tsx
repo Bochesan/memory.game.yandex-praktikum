@@ -1,10 +1,9 @@
 import styles from './styles.module.css'
 import { useNavigate } from 'react-router-dom'
 import { Defs } from './defs'
-import { apiSlices, useGetUserQuery, useLogOutMutation } from '@/shared/slices'
+import { useGetUserQuery, useLogOutMutation } from '@/shared/slices'
 import { TUser } from '@/types'
 import { MouseEventHandler } from 'react'
-import { store } from '@/app/store'
 
 const Fullname = (currentData: TUser) => {
   return (
