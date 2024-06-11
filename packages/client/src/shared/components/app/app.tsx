@@ -4,7 +4,6 @@ import { Navigate, Outlet } from 'react-router-dom'
 import { AuthGuard } from '@/app/guards'
 
 export const App = () => {
-  console.log('App')
   return (
     <ErrorBoundary fallback={<Navigate to="/error" />}>
       <Container disableGutters maxWidth={false}>
