@@ -38,6 +38,7 @@ export const apiSlices = createApi({
         method: METHODS.Post,
         url: `auth/logout`,
       }),
+      invalidatesTags: [{ type: 'User', id: 'DATA' }],
     }),
 
     editProfile: builder.mutation({
