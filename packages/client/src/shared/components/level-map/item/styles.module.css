@@ -1,5 +1,7 @@
 .text {
   text-anchor: middle;
+  cursor: pointer;
+
   & tspan {
     font-family: 'Alegreya', sans-serif;
 
@@ -12,6 +14,7 @@
   transform: rotate(45deg);
   transform-box: border-box;
   transform-origin: 65% 5%;
+  cursor: pointer;
 }
 
 .clipPath {

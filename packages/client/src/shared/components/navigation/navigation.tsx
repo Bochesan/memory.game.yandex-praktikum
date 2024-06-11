@@ -23,8 +23,8 @@ const Item = ({
 
 export const Navigation = () => (
   <ul className={styles.root}>
-    <Item to="/game" title="Новая игра" />
-    <Item to="/game" title="Продолжить" />
+    <Item to="/levels" title="Новая игра" />
+    <Item to="/levels" title="Продолжить" />
     <Item to="/leader-board" title="Лидеры" />
     <Item to="/forum" title="Форум" />
   </ul>
