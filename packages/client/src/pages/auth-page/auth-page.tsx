@@ -2,8 +2,6 @@ import styles from './styles.module.css'
 import { Layout } from '@/shared/components/layout'
 import { Navigate, SignInForm, SignUpForm } from '@/shared'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useAuth } from '@/shared/hooks'
 
 type State = {
   type: string
@@ -12,15 +10,7 @@ type State = {
 }
 
 export const AuthPage = () => {
-  const navigate = useNavigate()
   const [component, setComponent] = useState<null | State>(null)
-  const { isAuth } = useAuth()
-
-  useEffect(() => {
-    if (isAuth) {
-      return navigate('/')
-    }
-  }, [isAuth])
 
   const routes = [
     {

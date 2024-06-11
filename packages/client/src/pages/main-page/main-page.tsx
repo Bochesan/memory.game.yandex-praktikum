@@ -1,11 +1,27 @@
-import { Navigation, UserInfo, Experience } from '@/shared'
+import { Navigation, UserInfo, Experience, useGetUserQuery } from '@/shared'
 import bgUrl from '@/assets/bg.png'
 
 import styles from './styles.module.css'
-import { useAuth } from '@/shared/hooks'
+
+const ControlPanel = () => {
+  return (
+    <>
+      <UserInfo />
+    </>
+  )
+}
+const AuthControlPanel = () => {
+  return (
+    <>
+      <Experience level={0} />
+      <UserInfo />
+    </>
+  )
+}
 
 export const MainPage = () => {
-  const { isAuth } = useAuth()
+  const { currentData } = useGetUserQuery()
+
   return (
     <div className={styles.root}>
       <img src={bgUrl} className={styles.bg} alt="Background main page" />
@@ -13,8 +29,7 @@ export const MainPage = () => {
         <Navigation />
       </div>
       <div className={styles.info}>
-        {isAuth && <Experience level={0} />}
-        <UserInfo />
+        {currentData === undefined ? <ControlPanel /> : <AuthControlPanel />}
       </div>
     </div>
   )

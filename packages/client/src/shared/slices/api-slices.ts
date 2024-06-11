@@ -10,7 +10,7 @@ export const apiSlices = createApi({
     credentials: 'include',
   }),
   endpoints: builder => ({
-    getUser: builder.query({
+    getUser: builder.query<void, void>({
       query: () => `auth/user`,
       providesTags: ['User'],
     }),
@@ -38,7 +38,6 @@ export const apiSlices = createApi({
         method: METHODS.Post,
         url: `auth/logout`,
       }),
-      invalidatesTags: ['User'],
     }),
 
     editProfile: builder.mutation({

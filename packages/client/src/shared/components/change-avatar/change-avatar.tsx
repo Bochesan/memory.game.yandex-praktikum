@@ -1,13 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
-import { useAuth } from '@/shared/hooks'
-import { useUploadAvatarMutation } from '@/shared'
+import { useGetUserQuery, useUploadAvatarMutation } from '@/shared'
+import { TUser } from '@/types'
+import { RESOURCES } from '@/utils'
 
 export const ChangeAvatar = () => {
-  const { avatar } = useAuth()
+  const { currentData } = useGetUserQuery()
+  if (!currentData) return null
+
+  const { avatar } = currentData as TUser
   const [uploadAvatar] = useUploadAvatarMutation()
   const [errorMessage, setErrorMessage] = useState<null | string>(null)
-  const handleSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const [avatarUrl, setAvatarUrl] = useState<null | string>(null)
+  const handleSubmit = async (event: React.ChangeEvent<HTMLInputElement>) => {
     setErrorMessage(null)
 
     const file: File | null = event.currentTarget.files
@@ -25,14 +30,18 @@ export const ChangeAvatar = () => {
     }
   }
 
+  useEffect(() => {
+    setAvatarUrl(`${RESOURCES.Images}${avatar}`)
+  }, [currentData])
+
   return (
     <div className={styles.root}>
       <form
         className={styles.form + ' ' + (errorMessage ? styles.rootError : '')}>
         <label className={styles.container}>
           <input className={styles.input} onChange={handleSubmit} type="file" />
-          {avatar && (
-            <img src={avatar} className={styles.avatar} alt="Avatar" />
+          {avatarUrl && (
+            <img src={avatarUrl} className={styles.avatar} alt="Avatar" />
           )}
         </label>
         {errorMessage && <div className={styles.error}>{errorMessage}</div>}
