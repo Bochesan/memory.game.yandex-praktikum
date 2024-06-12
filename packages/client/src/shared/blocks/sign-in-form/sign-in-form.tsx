@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form } from '@/shared'
+import { Form, useSignInMutation } from '@/shared'
 
 import { ICONS } from '@/shared/constants/icons'
 
@@ -24,5 +24,7 @@ export const SignInForm = () => {
       validation: ['required'],
     },
   ]
-  return <Form fields={fields} submitText={'Войти'} />
+
+  const [signIn] = useSignInMutation()
+  return <Form fields={fields} submitText={'Войти'} callback={signIn} />
 }

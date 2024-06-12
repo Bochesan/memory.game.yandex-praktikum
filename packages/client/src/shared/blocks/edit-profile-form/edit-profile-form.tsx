@@ -1,16 +1,27 @@
 import React from 'react'
-import { Form, useSignUpMutation } from '@/shared'
+import { Form, useEditProfileMutation } from '@/shared'
 
 import { ICONS } from '@/shared/constants/icons'
+import { useAuth } from '@/shared/hooks'
 
-export const SignUpForm = () => {
+export const EditProfileForm = () => {
+  const {
+    first_name,
+    second_name,
+    display_name,
+    isAuth,
+    email,
+    avatar,
+    phone,
+    login,
+  } = useAuth()
   const fields = [
     {
       label: 'Имя',
       icon: ICONS.Necklace,
       type: 'text',
       error: null,
-      value: '',
+      value: first_name,
       name: 'first_name',
       validation: ['required', 'name'],
     },
@@ -19,7 +30,7 @@ export const SignUpForm = () => {
       icon: ICONS.Vitality,
       type: 'text',
       error: null,
-      value: '',
+      value: second_name,
       name: 'second_name',
       validation: ['required', 'name'],
     },
@@ -28,7 +39,16 @@ export const SignUpForm = () => {
       icon: ICONS.MagicDefense,
       type: 'text',
       error: null,
-      value: '',
+      value: display_name,
+      name: 'display_name',
+      validation: ['login'],
+    },
+    {
+      label: 'Логин',
+      icon: ICONS.MagicDefense,
+      type: 'text',
+      error: null,
+      value: login,
       name: 'login',
       validation: ['required', 'login'],
     },
@@ -37,7 +57,7 @@ export const SignUpForm = () => {
       icon: ICONS.Magic,
       type: 'email',
       error: null,
-      value: '',
+      value: email,
       name: 'email',
       validation: ['required', 'email'],
     },
@@ -46,22 +66,13 @@ export const SignUpForm = () => {
       icon: ICONS.Spirit,
       type: 'phone',
       error: null,
-      value: '',
+      value: phone,
       name: 'phone',
       validation: ['required', 'phone'],
     },
-    {
-      label: 'Пароль',
-      icon: ICONS.Strength,
-      type: 'password',
-      error: null,
-      value: '',
-      name: 'password',
-      validation: ['required', 'password'],
-    },
   ]
-  const [signUp] = useSignUpMutation()
+  const [editProfile] = useEditProfileMutation()
   return (
-    <Form fields={fields} submitText={'Создать аккаунт'} callback={signUp} />
+    <Form fields={fields} submitText={'Сохранить'} callback={editProfile} />
   )
 }
