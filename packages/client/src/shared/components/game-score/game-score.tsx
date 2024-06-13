@@ -1,6 +1,7 @@
 import React from 'react'
 import { CARD_SCORE } from '@/shared/services/game/constants'
 import { GameLevelType } from '@/shared/services/game/types'
+import { useProgress } from '@/shared/hooks'
 import styles from './styles.module.css'
 
 type GameScoreProps = {
@@ -9,17 +10,19 @@ type GameScoreProps = {
 }
 
 export const GameScore: React.FC<GameScoreProps> = ({ score, level }) => {
-  const scorePercent = (score / ((level.cardCount * CARD_SCORE) / 2)) * 100
+  const { selectedLevel } = useProgress()
+  const scoreLevel = (level.cardCount * CARD_SCORE) / 2
+  const scorePercent = (score / scoreLevel) * 100
 
   return (
     <div className={styles['game-score']}>
       <div className={styles['game-score__level']}>
         <div className={styles['game-score__level-wrap']}>
           <b>Ур.</b>
-          <strong>13</strong>
+          <strong>{selectedLevel}</strong>
           <i>
             {score}
-            <span>/1199</span>
+            <span>/{scoreLevel}</span>
           </i>
         </div>
       </div>

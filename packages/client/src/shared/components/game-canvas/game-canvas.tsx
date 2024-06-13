@@ -62,7 +62,7 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({
       const controller = new GameController(model, view)
       gameControllerRef.current = controller
     }
-  }, [])
+  }, [level])
 
   const handleCanvasClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (isPause) {

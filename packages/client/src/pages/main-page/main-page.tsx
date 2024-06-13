@@ -1,11 +1,13 @@
 import { Navigation, UserInfo, Experience } from '@/shared'
+import { useAuth, useProgress } from '@/shared/hooks'
 import bgUrl from '@/assets/bg.png'
-
 import styles from './styles.module.css'
-import { useAuth } from '@/shared/hooks'
 
 export const MainPage = () => {
   const { isAuth } = useAuth()
+  const { userScore } = useProgress()
+  const userScorePercent = (userScore / 550) * 100
+
   return (
     <div className={styles.root}>
       <img src={bgUrl} className={styles.bg} alt="Background main page" />
@@ -13,7 +15,7 @@ export const MainPage = () => {
         <Navigation />
       </div>
       <div className={styles.info}>
-        {isAuth && <Experience level={0} />}
+        {isAuth && <Experience value={userScorePercent} />}
         <UserInfo />
       </div>
     </div>

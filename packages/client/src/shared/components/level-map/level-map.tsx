@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { ReactSVG } from 'react-svg'
 import { Box, Typography } from '@mui/material'
 import { mergeObjects, Button, LinkText, LEVELS, LEVELS_INFO } from '@/shared'
+import { useProgress } from '@/shared/hooks'
 import { Item } from './item'
 import svgUrl from '@/assets/maps.svg'
 import styles from './styles.module.css'
@@ -12,6 +13,20 @@ export const LevelMap = () => {
   const navigate = useNavigate()
   const [levels, setLevels] = useState(mergeObjects(LEVELS, LEVELS_INFO))
   const [level, setLevel] = useState(levels[0])
+  const { completedLevels, selectLevel } = useProgress()
+
+  useEffect(() => {
+    levels.forEach(level => {
+      if (completedLevels.includes(level.id)) {
+        level.isPassed = true
+      }
+      level.isCurrent = false
+      if (level.id === completedLevels[completedLevels.length - 1]) {
+        level.isCurrent = true
+        setLevel(level)
+      }
+    })
+  }, [completedLevels])
 
   const handleClickLevel = (levelId: number) => {
     levels.forEach(level => {
@@ -24,8 +39,12 @@ export const LevelMap = () => {
     setLevels(levels)
   }
 
-  const handleStartGame = () =>
-    navigate('/game', { state: { levelId: level.id } })
+  const handleStartGame = () => {
+    selectLevel(level.id)
+    navigate('/game', {})
+  }
+
+  const handleMainPage = () => navigate('/', {})
 
   const handleAfterInjection = (svg: SVGSVGElement) => {
     const container = createRoot(svg.getElementById('items'))
@@ -54,7 +73,7 @@ export const LevelMap = () => {
     )
   }
 
-  const selectLevel = level as {
+  const selectedLevel = level as {
     id: number
     title: string
     description: string
@@ -73,10 +92,10 @@ export const LevelMap = () => {
         height="100%">
         <Box mb={6}>
           <Typography color="orange" variant="h4">
-            Уровень {selectLevel.id}
+            Уровень {selectedLevel.id}
           </Typography>
           <Typography color="#B0F2FF" variant="h5">
-            {selectLevel.title}
+            {selectedLevel.title}
           </Typography>
         </Box>
         <Box
@@ -91,13 +110,13 @@ export const LevelMap = () => {
             fontFamily="Roboto"
             fontSize={18}
             variant="body1">
-            {selectLevel.description}
+            {selectedLevel.description}
           </Typography>
-          {selectLevel.isPassed && (
+          {selectedLevel.isPassed && (
             <Button onClick={handleStartGame}>Играть</Button>
           )}
         </Box>
-        <LinkText href="/">Назад в меню</LinkText>
+        <LinkText onClick={handleMainPage}>Назад в меню</LinkText>
       </Box>
       <ReactSVG
         src={svgUrl}
