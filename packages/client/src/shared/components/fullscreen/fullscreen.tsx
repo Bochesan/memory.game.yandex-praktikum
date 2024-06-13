@@ -10,6 +10,18 @@ export const Fullscreen: React.FC = () => {
     setIsFullscreen(prevIsFullscreen => !prevIsFullscreen)
   }, [])
 
+  const handleFullscreenChange = useCallback(() => {
+    setIsFullscreen(!!document.fullscreenElement)
+  }, [])
+
+  useEffect(() => {
+    document.addEventListener('fullscreenchange', handleFullscreenChange)
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange)
+    }
+  }, [handleFullscreenChange])
+
   useEffect(() => {
     if (isFullscreen) {
       documentElement.current.requestFullscreen()
