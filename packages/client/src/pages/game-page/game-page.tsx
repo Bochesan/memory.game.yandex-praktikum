@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { GameCanvas, GameCountdown, GameScore } from '@/shared/components'
-import { useLevel, useToggle } from '@/shared/hooks'
+import { useLevel, useToggle, useProgress } from '@/shared/hooks'
 import styles from './styles.module.css'
 
 // Вычисляем размер UI эдементов относительно высоты экрана
@@ -14,10 +14,16 @@ const scaleStyle = {
 
 export const GamePage = () => {
   const navigate = useNavigate()
-  const location = useLocation()
-
   const [isPause, togglePause] = useToggle(true)
-  const [level, setLevel] = useLevel(location.state?.levelId)
+  const {
+    completeLevel,
+    selectedLevel,
+    selectLevel,
+    userLevel,
+    levelUp,
+    scoreUp,
+  } = useProgress()
+  const [level, setLevel] = useLevel(selectedLevel)
   const [restartKey, setRestartKey] = useState(0)
   const [score, setScore] = useState(0)
   const [seconds, setSeconds] = useState(level.gameTimer)
@@ -40,12 +46,23 @@ export const GamePage = () => {
   }
 
   const handleGameWin = (): void => {
-    handlePause()
     const scoreTotal = score + seconds
+    const nextLevel = level.id + 1
+
+    handlePause()
+
+    completeLevel(nextLevel)
+    setLevel(nextLevel)
+    selectLevel(nextLevel)
+
+    const isFinal = level.id >= 11
+    if (!isFinal) levelUp(nextLevel)
+    if (userLevel === level.id) scoreUp(scoreTotal)
+
     const isContinue = confirm(
       `Вы выиграли! Получено очков: ${scoreTotal} Продолжить?`
     )
-    if (isContinue) {
+    if (isContinue && !isFinal) {
       onRestart()
     } else {
       navigate('/levels')

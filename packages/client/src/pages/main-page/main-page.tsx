@@ -1,6 +1,6 @@
 import { Navigation, UserInfo, Experience, useGetUserQuery } from '@/shared'
+import { useProgress } from '@/shared/hooks'
 import bgUrl from '@/assets/bg.png'
-
 import styles from './styles.module.css'
 
 const ControlPanel = () => {
@@ -11,9 +11,12 @@ const ControlPanel = () => {
   )
 }
 const AuthControlPanel = () => {
+  const { userScore } = useProgress()
+  const userScorePercent = (userScore / 550) * 100
+
   return (
     <>
-      <Experience level={0} />
+      <Experience value={userScorePercent} />
       <UserInfo />
     </>
   )

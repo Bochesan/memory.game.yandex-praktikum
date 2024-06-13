@@ -1,24 +1,25 @@
 import { Filter } from './filter'
 import classNames from 'classnames'
-
 import styles from './styles.module.css'
 
 type Props = {
-  level?: number
-  isPassed?: boolean
-  isCurrent?: boolean
-  x?: number
-  y?: number
+  id: number
+  isPassed: boolean
+  isCurrent: boolean
+  x: number
+  y: number
+  onClick: (level: number) => void
 }
 
-export const Item = ({ x, y, level, isCurrent, isPassed }: Props) => (
+export const Item = ({ id, x, y, isCurrent, isPassed, onClick }: Props) => (
   <svg
     width={200}
     height={200}
     viewBox="0 0 200 200"
     className={styles.root}
     x={x}
-    y={y}>
+    y={y}
+    onClick={() => onClick(id)}>
     <g className={styles.wrapper}>
       <clipPath id="cut-off" className={styles.clipPath}>
         <rect x="110" y="110" width="95" height="95" />
@@ -48,7 +49,7 @@ export const Item = ({ x, y, level, isCurrent, isPassed }: Props) => (
     </g>
     <Filter />
     <text className={styles.text} x="66%" y="73%">
-      <tspan>{level}</tspan>
+      <tspan>{id}</tspan>
     </text>
   </svg>
 )
