@@ -1,12 +1,29 @@
-import { Navigation, UserInfo, Experience } from '@/shared'
-import { useAuth, useProgress } from '@/shared/hooks'
+import { Navigation, UserInfo, Experience, useGetUserQuery } from '@/shared'
+import { useProgress } from '@/shared/hooks'
 import bgUrl from '@/assets/bg.png'
 import styles from './styles.module.css'
 
-export const MainPage = () => {
-  const { isAuth } = useAuth()
+const ControlPanel = () => {
+  return (
+    <>
+      <UserInfo />
+    </>
+  )
+}
+const AuthControlPanel = () => {
   const { userScore } = useProgress()
   const userScorePercent = (userScore / 550) * 100
+
+  return (
+    <>
+      <Experience value={userScorePercent} />
+      <UserInfo />
+    </>
+  )
+}
+
+export const MainPage = () => {
+  const { currentData } = useGetUserQuery()
 
   return (
     <div className={styles.root}>
@@ -15,8 +32,8 @@ export const MainPage = () => {
         <Navigation />
       </div>
       <div className={styles.info}>
-        {isAuth && <Experience value={userScorePercent} />}
         <UserInfo />
+        {currentData === undefined ? <ControlPanel /> : <AuthControlPanel />}
       </div>
     </div>
   )

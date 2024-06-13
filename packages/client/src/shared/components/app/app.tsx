@@ -1,14 +1,16 @@
 import { Container } from '@mui/material'
-import { ErrorBoundary } from '../error-boundary'
+import { ErrorBoundary } from '@/shared'
 import { Navigate, Outlet } from 'react-router-dom'
 import { AuthGuard } from '@/app/guards'
 
-export const App = () => (
-  <ErrorBoundary fallback={<Navigate to="/error" />}>
-    <AuthGuard>
+export const App = () => {
+  return (
+    <ErrorBoundary fallback={<Navigate to="/error" />}>
       <Container disableGutters maxWidth={false}>
-        <Outlet />
+        <AuthGuard>
+          <Outlet />
+        </AuthGuard>
       </Container>
-    </AuthGuard>
-  </ErrorBoundary>
-)
+    </ErrorBoundary>
+  )
+}

@@ -23,14 +23,6 @@ const router = createBrowserRouter([
         Component: MainPage,
       },
       {
-        path: '/sign-up',
-        Component: AuthPage,
-      },
-      {
-        path: '/sign-in',
-        Component: AuthPage,
-      },
-      {
         path: '/game',
         Component: GamePage,
       },
@@ -61,6 +53,14 @@ const router = createBrowserRouter([
       {
         path: '/error',
         Component: ErrorPage,
+      },
+      {
+        path: '/sign-up',
+        Component: AuthPage,
+      },
+      {
+        path: '/sign-in',
+        Component: AuthPage,
       },
       {
         path: '*',

@@ -1,20 +1,17 @@
 import React from 'react'
-import { Form, useEditProfileMutation } from '@/shared'
+import { Form, useEditProfileMutation, useGetUserQuery } from '@/shared'
 
 import { ICONS } from '@/shared/constants/icons'
-import { useAuth } from '@/shared/hooks'
 
 export const EditProfileForm = () => {
-  const {
-    first_name,
-    second_name,
-    display_name,
-    isAuth,
-    email,
-    avatar,
-    phone,
-    login,
-  } = useAuth()
+  const { currentData } = useGetUserQuery()
+  if (!currentData) return null
+
+  const { first_name, second_name, display_name, email, phone, login } =
+    currentData
+
+  const [editProfile] = useEditProfileMutation()
+
   const fields = [
     {
       label: 'Имя',
@@ -71,8 +68,10 @@ export const EditProfileForm = () => {
       validation: ['required', 'phone'],
     },
   ]
-  const [editProfile] = useEditProfileMutation()
+
   return (
-    <Form fields={fields} submitText={'Сохранить'} callback={editProfile} />
+    <>
+      <Form fields={fields} submitText={'Сохранить'} callback={editProfile} />
+    </>
   )
 }

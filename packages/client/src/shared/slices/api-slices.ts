@@ -10,7 +10,7 @@ export const apiSlices = createApi({
     credentials: 'include',
   }),
   endpoints: builder => ({
-    getUser: builder.query({
+    getUser: builder.query<void, void>({
       query: () => `auth/user`,
       providesTags: ['User'],
     }),
