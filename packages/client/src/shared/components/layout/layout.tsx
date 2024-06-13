@@ -5,16 +5,25 @@ import OutlinePng from '@/assets/images/layout/outer-frame-border-min.png'
 import UserBackgroundPng from '@/assets/images/layout/user-background-min.png'
 import BadgeWebp from '@/assets/images/layout/user-badge.webp'
 import BadgePng from '@/assets/images/layout/user-badge-min.png'
-import { Clock, Score } from '@/shared'
-import { useAuth } from '@/shared/hooks'
+import { Clock, Score, useGetUserQuery } from '@/shared'
+import { TUser } from '@/types'
 
 interface ILayoutProps {
   children: React.ReactNode
   title?: string
 }
 
+const Fullname = (currentData: TUser) => {
+  return (
+    <>
+      <div className={styles.userName}>{currentData.first_name}</div>
+      <div className={styles.userNickname}>{currentData.second_name}</div>
+    </>
+  )
+}
+
 export const Layout = ({ children, title }: ILayoutProps) => {
-  const { isAuth, first_name, second_name } = useAuth()
+  const { currentData } = useGetUserQuery()
 
   return (
     <div className={styles.root}>
@@ -32,8 +41,7 @@ export const Layout = ({ children, title }: ILayoutProps) => {
             <div
               className={styles.user}
               style={{ backgroundImage: `url(${UserBackgroundPng})` }}>
-              <div className={styles.userName}>{isAuth && first_name}</div>
-              <div className={styles.userNickname}>{isAuth && second_name}</div>
+              {currentData !== undefined ? Fullname(currentData) : null}
             </div>
             <picture>
               <source src={BadgeWebp} type="image/webp" />

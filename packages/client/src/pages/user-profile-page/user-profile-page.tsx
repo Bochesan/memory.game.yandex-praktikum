@@ -8,8 +8,6 @@ import {
   Navigate,
 } from '@/shared'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useAuth } from '@/shared/hooks'
 
 type State = {
   experience: null | boolean
@@ -17,15 +15,7 @@ type State = {
 }
 
 export const UserProfilePage = () => {
-  const navigate = useNavigate()
   const [component, setComponent] = useState<null | State>(null)
-  const { isAuth } = useAuth()
-
-  useEffect(() => {
-    if (!isAuth) {
-      return navigate('/')
-    }
-  }, [isAuth])
 
   const routes = [
     {
