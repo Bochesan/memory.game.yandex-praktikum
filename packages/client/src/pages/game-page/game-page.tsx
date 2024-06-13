@@ -15,8 +15,14 @@ const scaleStyle = {
 export const GamePage = () => {
   const navigate = useNavigate()
   const [isPause, togglePause] = useToggle(true)
-  const { scoreUp, completeLevel, levelUp, selectedLevel, selectLevel } =
-    useProgress()
+  const {
+    completeLevel,
+    selectedLevel,
+    selectLevel,
+    userLevel,
+    levelUp,
+    scoreUp,
+  } = useProgress()
   const [level, setLevel] = useLevel(selectedLevel)
   const [restartKey, setRestartKey] = useState(0)
   const [score, setScore] = useState(0)
@@ -48,10 +54,10 @@ export const GamePage = () => {
     completeLevel(nextLevel)
     setLevel(nextLevel)
     selectLevel(nextLevel)
-    scoreUp(scoreTotal)
 
     const isFinal = level.id >= 11
     if (!isFinal) levelUp(nextLevel)
+    if (userLevel === level.id) scoreUp(scoreTotal)
 
     const isContinue = confirm(
       `Вы выиграли! Получено очков: ${scoreTotal} Продолжить?`
