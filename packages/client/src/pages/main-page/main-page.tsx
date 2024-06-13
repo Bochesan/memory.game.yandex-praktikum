@@ -32,7 +32,6 @@ export const MainPage = () => {
         <Navigation />
       </div>
       <div className={styles.info}>
-        <UserInfo />
         {currentData === undefined ? <ControlPanel /> : <AuthControlPanel />}
       </div>
     </div>
