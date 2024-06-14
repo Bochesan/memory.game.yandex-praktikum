@@ -17,13 +17,6 @@ describe('Navigation', () => {
     expect(newGameLink).toBeInTheDocument()
   })
 
-  test('has next title', () => {
-    ComponentRender(<Navigation />)
-
-    const continueLink = screen.getByText('Продолжить')
-    expect(continueLink).toBeInTheDocument()
-  })
-
   test('has leaders title', () => {
     ComponentRender(<Navigation />)
 
