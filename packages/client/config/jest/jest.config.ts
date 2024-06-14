@@ -19,6 +19,7 @@ export default {
   moduleDirectories: ['node_modules'],
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json', 'node'],
   testMatch: ['<rootDir>src/**/*(*.)@(spec|test).[tj]s?(x)'],
+  setupFiles: ['jest-canvas-mock'],
   setupFilesAfterEnv: ['<rootDir>config/jest/setup.tests.ts'],
   coveragePathIgnorePatterns: ['\\\\node_modules\\\\'],
   globals: {

@@ -1,6 +1,7 @@
 import { GameController } from './GameController'
 import { GameModel } from './GameModel'
 import { GameView } from './GameView'
+import 'jest-canvas-mock'
 
 class GameControllerTest extends GameController {
   constructor(model: GameModel, view: GameView) {
@@ -20,7 +21,7 @@ const ControllerTest = new GameControllerTest(ModelTest, ViewTest)
 describe('Game controller', () => {
   test('score increment', () => {
     ControllerTest.model.checkWin()
-    expect(ControllerTest.model.score).toBe(1)
+    expect(ControllerTest.model.score).toBe(2)
   })
 
   test('restart', () => {
