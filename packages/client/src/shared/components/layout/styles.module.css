@@ -89,6 +89,8 @@
   grid-gap: 88px;
   position: absolute;
   bottom: 1%;
-  left: 4%;
+  left: 0;
   z-index: 10;
+  padding: 0 4%;
+  width: 100%;
 }

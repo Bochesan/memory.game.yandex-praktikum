@@ -1,7 +1,8 @@
 import { Container } from '@mui/material'
-import { ErrorBoundary } from '@/shared'
+import { ErrorBoundary, Fullscreen } from '@/shared'
 import { Navigate, Outlet } from 'react-router-dom'
 import { AuthGuard } from '@/app/guards'
+import React from 'react'
 
 export const App = () => {
   return (
@@ -10,6 +11,7 @@ export const App = () => {
         <AuthGuard>
           <Outlet />
         </AuthGuard>
+        <Fullscreen />
       </Container>
     </ErrorBoundary>
   )
