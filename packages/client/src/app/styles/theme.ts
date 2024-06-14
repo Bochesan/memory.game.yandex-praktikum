@@ -7,4 +7,9 @@ export const theme = createTheme({
   typography: {
     fontFamily: ['Alegreya', 'Roboto', 'sans-serif'].join(','),
   },
+  palette: {
+    background: {
+      default: '#004264',
+    },
+  },
 })

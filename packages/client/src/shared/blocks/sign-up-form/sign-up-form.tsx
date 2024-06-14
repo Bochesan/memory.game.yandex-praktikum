@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form } from '@/shared'
+import { Form, useSignUpMutation } from '@/shared'
 
 import { ICONS } from '@/shared/constants/icons'
 
@@ -60,5 +60,8 @@ export const SignUpForm = () => {
       validation: ['required', 'password'],
     },
   ]
-  return <Form fields={fields} submitText={'Создать аккаунт'} />
+  const [signUp] = useSignUpMutation()
+  return (
+    <Form fields={fields} submitText={'Создать аккаунт'} callback={signUp} />
+  )
 }

@@ -23,19 +23,15 @@ export const routesConfig = [
         Component: MainPage,
       },
       {
-        path: '/sign-up',
-        Component: AuthPage,
-      },
-      {
-        path: '/sign-in',
-        Component: AuthPage,
-      },
-      {
         path: '/game',
         Component: GamePage,
       },
       {
         path: '/profile',
+        Component: UserProfilePage,
+      },
+      {
+        path: '/edit-password',
         Component: UserProfilePage,
       },
       {
@@ -57,6 +53,14 @@ export const routesConfig = [
       {
         path: '/error',
         Component: ErrorPage,
+      },
+      {
+        path: '/sign-up',
+        Component: AuthPage,
+      },
+      {
+        path: '/sign-in',
+        Component: AuthPage,
       },
       {
         path: '*',
