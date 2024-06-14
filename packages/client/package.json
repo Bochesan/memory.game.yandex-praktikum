@@ -9,7 +9,6 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "jest -c ./config/jest/jest.config.ts",
-    "test2": "jest -c ./config/jest/jest.config.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
