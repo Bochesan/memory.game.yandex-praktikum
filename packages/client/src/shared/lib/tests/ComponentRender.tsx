@@ -16,7 +16,7 @@ export const ComponentRender = (
 
   const info = render(
     <StoreProvider initState={initState}>
-      {/* TODO: обернуть все в прод роутер с помощью createMemoryRouter (юзается createBrowserRouter в prod) */}
+      {/* TODO: обернуть все в createMemoryRouter (юзается createBrowserRouter в prod) когда появятся все страницы */}
       (<MemoryRouter initialEntries={[route]}>{component}</MemoryRouter>)
     </StoreProvider>
   )

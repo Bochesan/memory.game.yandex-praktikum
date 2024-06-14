@@ -94,6 +94,7 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({
         height={level.canvasHeight}
         onClick={handleCanvasClick}
         style={{ display: isImagesLoaded ? 'block' : 'none' }}
+        data-testid="game-canvas"
       />
       {!isImagesLoaded && (
         <div className={styles['game-canvas__loading']}>
