@@ -22,7 +22,7 @@ const Item = ({
 }
 
 export const Navigation = () => (
-  <ul className={styles.root}>
+  <ul className={styles.root} data-testid="navigation-main">
     <Item to="/game" title="Новая игра" />
     <Item to="/game" title="Продолжить" />
     <Item to="/leader-board" title="Лидеры" />
