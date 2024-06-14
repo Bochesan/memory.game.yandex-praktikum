@@ -1,3 +1,23 @@
 .leader-board-page {
   width: 100%;
 }
+
+.container {
+  display: flex;
+  gap: 16px;
+}
+
+.navigation {
+  width: 100%;
+  max-width: 280px;
+}
+
+@media (max-width: 1023px) {
+  .container {
+    flex-direction: column;
+  }
+  .navigation {
+    max-width: 100%;
+    padding: 0 36px;
+  }
+}

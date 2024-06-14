@@ -1,28 +1,87 @@
-import { ReactSVG } from 'react-svg'
-import svgUrl from '@/assets/maps.svg'
-
-import styles from './styles.module.css'
-import { Item } from './item'
+import { useState, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Navigate, useNavigate } from 'react-router-dom'
+import { ReactSVG } from 'react-svg'
 import { Box, Typography } from '@mui/material'
-import { Button, LinkText, LEVELS } from '@/shared'
+import { mergeObjects, Button, LinkText, LEVELS, LEVELS_INFO } from '@/shared'
+import { useProgress } from '@/shared/hooks'
+import { Item } from './item'
+import svgUrl from '@/assets/maps.svg'
+import styles from './styles.module.css'
 
 export const LevelMap = () => {
   const navigate = useNavigate()
+  const [levels, setLevels] = useState(mergeObjects(LEVELS, LEVELS_INFO))
+  const [level, setLevel] = useState(levels[0])
+  const { completedLevels, selectLevel } = useProgress()
+
+  useEffect(() => {
+    levels.forEach(level => {
+      if (completedLevels.includes(level.id)) {
+        level.isPassed = true
+      }
+      level.isCurrent = false
+      if (level.id === completedLevels[completedLevels.length - 1]) {
+        level.isCurrent = true
+        setLevel(level)
+      }
+    })
+  }, [completedLevels])
+
+  const handleClickLevel = (levelId: number) => {
+    levels.forEach(level => {
+      level.isCurrent = false
+      if (level.id === levelId) {
+        level.isCurrent = true
+        setLevel(level)
+      }
+    })
+    setLevels(levels)
+  }
+
+  const handleStartGame = () => {
+    selectLevel(level.id)
+    navigate('/game', {})
+  }
+
+  const handleMainPage = () => navigate('/', {})
 
   const handleAfterInjection = (svg: SVGSVGElement) => {
     const container = createRoot(svg.getElementById('items'))
 
     container.render(
-      LEVELS.map((level, index) => <Item level={index + 1} {...level} />)
+      levels.map(level => {
+        const currentLevel = level as {
+          id: number
+          x: number
+          y: number
+          isCurrent: boolean
+          isPassed: boolean
+        }
+        return (
+          <Item
+            key={currentLevel.id}
+            id={currentLevel.id}
+            x={currentLevel.x}
+            y={currentLevel.y}
+            isCurrent={currentLevel.isCurrent}
+            isPassed={currentLevel.isPassed}
+            onClick={(id: number) => handleClickLevel(id)}
+          />
+        )
+      })
     )
   }
 
-  const handleStartGame = () => navigate('/game', { state: { levelId: 1 } })
+  const selectedLevel = level as {
+    id: number
+    title: string
+    description: string
+    isPassed: boolean
+  }
 
   return (
-    <div>
+    <div className="level-map">
       <Box
         position="fixed"
         zIndex={100}
@@ -33,10 +92,10 @@ export const LevelMap = () => {
         height="100%">
         <Box mb={6}>
           <Typography color="orange" variant="h4">
-            Уровень 3
+            Уровень {selectedLevel.id}
           </Typography>
           <Typography color="#B0F2FF" variant="h5">
-            Перевал дракона
+            {selectedLevel.title}
           </Typography>
         </Box>
         <Box
@@ -51,14 +110,13 @@ export const LevelMap = () => {
             fontFamily="Roboto"
             fontSize={18}
             variant="body1">
-            Самый главный враг: это некая расса питающая душами живых существ. И
-            уничтожает целые планеты. Обнаруживая жизнь неким сканером, который
-            ее видит если она присутствует на поверхности планеты. И гиганты как
-            раз и не дают засветить жизнь на этом сканере.
+            {selectedLevel.description}
           </Typography>
-          <Button onClick={handleStartGame}>Играть</Button>
+          {selectedLevel.isPassed && (
+            <Button onClick={handleStartGame}>Играть</Button>
+          )}
         </Box>
-        <LinkText href="/">Назад в меню</LinkText>
+        <LinkText onClick={handleMainPage}>Назад в меню</LinkText>
       </Box>
       <ReactSVG
         src={svgUrl}

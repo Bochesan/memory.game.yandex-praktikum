@@ -42,13 +42,13 @@ export const LevelInfo = ({
       fill="#fff"
       fontSize={18}
       fontFamily="Alegreya">
-      <tspan x="0" dx="0" text-anchor="middle">
+      <tspan x="0" dx="0" textAnchor="middle">
         {currentScore}
       </tspan>
-      <tspan x="0" dx="10" text-anchor="middle">
+      <tspan x="0" dx="10" textAnchor="middle">
         /
       </tspan>
-      <tspan x="0" dx="30" text-anchor="middle" fill="#949492">
+      <tspan x="0" dx="30" textAnchor="middle" fill="#949492">
         {maxLevel}
       </tspan>
     </text>

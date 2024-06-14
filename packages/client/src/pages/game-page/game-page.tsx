@@ -1,7 +1,14 @@
 import { useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
-import { GameCanvas, GameCountdown, GameScore } from '@/shared/components'
-import { useLevel, useToggle } from '@/shared/hooks'
+import { useNavigate } from 'react-router-dom'
+import {
+  GameCanvas,
+  GameCountdown,
+  GameScore,
+  ModalResult,
+  ModalExit,
+} from '@/shared/components'
+import { useLevel, useToggle, useProgress } from '@/shared/hooks'
+import { TypeModal } from '@/shared/components/modal-comps/types'
 import styles from './styles.module.css'
 
 // Вычисляем размер UI эдементов относительно высоты экрана
@@ -14,13 +21,23 @@ const scaleStyle = {
 
 export const GamePage = () => {
   const navigate = useNavigate()
-  const location = useLocation()
-
+  const [isOpenModalWin, setOpenModalWin] = useState(false)
+  const [isOpenModalLose, setOpenModalLose] = useState(false)
+  const [isOpenModalExit, setOpenModalExit] = useState(false)
   const [isPause, togglePause] = useToggle(true)
-  const [level, setLevel] = useLevel(location.state?.levelId)
+  const {
+    completeLevel,
+    selectedLevel,
+    selectLevel,
+    userLevel,
+    levelUp,
+    scoreUp,
+  } = useProgress()
+  const [level, setLevel] = useLevel(selectedLevel)
   const [restartKey, setRestartKey] = useState(0)
   const [score, setScore] = useState(0)
   const [seconds, setSeconds] = useState(level.gameTimer)
+  const [resultText, setResultText] = useState('')
 
   const onRestart = (): void => {
     setRestartKey(prevKey => prevKey + 1)
@@ -28,11 +45,39 @@ export const GamePage = () => {
     togglePause(true)
   }
 
-  const handleMenu = (): void => {
-    const isExit = confirm('Выйти из игры?')
-    if (isExit) {
+  const onContinue = (): void => {
+    const scoreTotal = score + seconds
+    const nextLevel = level.id + 1
+    const isFinal = level.id >= 11
+
+    completeLevel(nextLevel)
+    setLevel(nextLevel)
+    selectLevel(nextLevel)
+
+    if (!isFinal) levelUp(nextLevel)
+    if (userLevel === level.id) scoreUp(scoreTotal)
+
+    if (!isFinal) {
+      onRestart()
+    } else {
       navigate('/levels')
     }
+
+    setOpenModalWin(false)
+  }
+
+  const onGameOver = (): void => {
+    onRestart()
+    setOpenModalLose(false)
+  }
+
+  const onExit = (): void => {
+    navigate('/levels')
+  }
+
+  const handleMenu = (): void => {
+    togglePause(true)
+    setOpenModalExit(true)
   }
 
   const handlePause = (): void => {
@@ -41,24 +86,19 @@ export const GamePage = () => {
 
   const handleGameWin = (): void => {
     handlePause()
-    const scoreTotal = score + seconds
-    const isContinue = confirm(
-      `Вы выиграли! Получено очков: ${scoreTotal} Продолжить?`
+    setResultText(
+      `Поздравляем! Вы прошли уровень «${level.title}» и получили опыт: ${
+        score + seconds
+      } exp`
     )
-    if (isContinue) {
-      onRestart()
-    } else {
-      navigate('/levels')
-    }
+    setOpenModalWin(true)
   }
 
   const handleGameOver = (): void => {
-    const isRepeat = confirm('Вы проиграли! Заново?')
-    if (isRepeat) {
-      onRestart()
-    } else {
-      navigate('/levels')
-    }
+    setResultText(
+      `Не унывай! Попробуй еще раз пройти уровень. У тебя получится )`
+    )
+    setOpenModalLose(true)
   }
 
   const handleScore = (newScore: number): void => {
@@ -101,6 +141,25 @@ export const GamePage = () => {
         onScore={handleScore}
         onPlay={handlePause}
         onVictory={handleGameWin}
+      />
+      <ModalResult
+        onContinue={onContinue}
+        lvlName={resultText}
+        isOpened={isOpenModalWin}
+        type={TypeModal.Win}
+      />
+      <ModalResult
+        onContinue={onGameOver}
+        lvlName={resultText}
+        isOpened={isOpenModalLose}
+        type={TypeModal.Lose}
+      />
+      <ModalExit
+        onContinue={onExit}
+        onExit={() => setOpenModalExit(false)}
+        lvlName=""
+        lvlNumber={level.id}
+        isOpened={isOpenModalExit}
       />
     </main>
   )

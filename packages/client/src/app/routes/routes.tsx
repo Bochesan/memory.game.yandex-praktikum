@@ -25,19 +25,15 @@ const router = createBrowserRouter([
         Component: MainPage,
       },
       {
-        path: '/sign-up',
-        Component: AuthPage,
-      },
-      {
-        path: '/sign-in',
-        Component: AuthPage,
-      },
-      {
         path: '/game',
         Component: GamePage,
       },
       {
         path: '/profile',
+        Component: UserProfilePage,
+      },
+      {
+        path: '/edit-password',
         Component: UserProfilePage,
       },
       {
@@ -73,6 +69,14 @@ const router = createBrowserRouter([
       {
         path: '/error',
         Component: ErrorPage,
+      },
+      {
+        path: '/sign-up',
+        Component: AuthPage,
+      },
+      {
+        path: '/sign-in',
+        Component: AuthPage,
       },
       {
         path: '*',

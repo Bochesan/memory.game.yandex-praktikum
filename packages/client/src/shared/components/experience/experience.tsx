@@ -1,11 +1,14 @@
+import { useProgress } from '@/shared/hooks'
 import { Defs } from './defs'
 import { LevelInfo } from './level-info'
 
 type Props = {
-  level?: number
+  value?: number
 }
 
-export const Experience = ({ level = 100 }: Props) => {
+export const Experience = ({ value = 100 }: Props) => {
+  const { userLevel, userScore } = useProgress()
+
   return (
     <svg
       width="357"
@@ -47,7 +50,7 @@ export const Experience = ({ level = 100 }: Props) => {
           <rect
             width="70%"
             height="100%"
-            transform={`rotate(-45) scale(${level / 100})`}
+            transform={`rotate(-45) scale(${value / 550})`}
             style={{
               transformOrigin: 'left center',
               transformBox: 'view-box',
@@ -56,7 +59,12 @@ export const Experience = ({ level = 100 }: Props) => {
           />
         </clipPath>
       </g>
-      <LevelInfo value={1} />
+      <LevelInfo
+        value={value}
+        currentScore={userScore}
+        level={userLevel}
+        maxLevel={550}
+      />
       <Defs />
     </svg>
   )

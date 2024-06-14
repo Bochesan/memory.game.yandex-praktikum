@@ -15,7 +15,7 @@
 }
 
 .container {
-  padding: 1.8% 8% 0.15% 3.15%;
+  padding: 1.8% 8% 3.15% 3.15%;
   position: relative;
   width: 100%;
   z-index: 10;
@@ -89,5 +89,8 @@
   grid-gap: 88px;
   position: absolute;
   bottom: 1%;
-  left: 4%;
+  left: 0;
+  z-index: 10;
+  padding: 0 4%;
+  width: 100%;
 }

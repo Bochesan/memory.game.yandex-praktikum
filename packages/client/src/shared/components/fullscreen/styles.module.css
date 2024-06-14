@@ -1,0 +1,33 @@
+.fullscreen {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  display: flex;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.fullscreen__icon {
+  flex: none;
+  display: block;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.3s;
+}
+
+.fullscreen:hover .fullscreen__icon {
+  opacity: 0.6;
+}
+
+.fullscreen__icon_active {
+  opacity: 0.3;
+}
+
+.fullscreen:hover .fullscreen__icon_active {
+  opacity: 1;
+}

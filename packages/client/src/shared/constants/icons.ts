@@ -9,6 +9,8 @@ import Vitality from '@/assets/images/icons/vitality.svg'
 import Plus from '@/assets/images/icons/plus.svg'
 import Emblem from '@/assets/images/icons/emblem.svg'
 import Comment from '@/assets/images/icons/comment.svg'
+import FullscreenIn from '@/assets/images/icons/fullscreen-in.svg'
+import FullscreenOut from '@/assets/images/icons/fullscreen-out.svg'
 
 export const ICONS = {
   Clock,
@@ -22,4 +24,6 @@ export const ICONS = {
   Plus,
   Emblem,
   Comment,
+  FullscreenIn,
+  FullscreenOut,
 }
