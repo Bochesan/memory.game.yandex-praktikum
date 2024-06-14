@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react'
+import { ComponentRender } from '@/shared/lib/tests/ComponentRender'
 import { ErrorBoundary } from './error-boundary'
-import '@testing-library/jest-dom'
+import { screen } from '@testing-library/react'
 
 describe('Error Boundary', () => {
   const ThrowError = () => {
@@ -8,12 +8,23 @@ describe('Error Boundary', () => {
   }
 
   test('Error Boundary', () => {
-    render(
+    ComponentRender(
       <ErrorBoundary fallback={<h2>Произошла ошибка</h2>}>
         <ThrowError />
       </ErrorBoundary>
     )
     const element = screen.getByText('Произошла ошибка')
+
+    expect(element).toBeVisible()
+  })
+
+  test('Error Boundary without error', () => {
+    ComponentRender(
+      <ErrorBoundary fallback={<h2>Произошла ошибка</h2>}>
+        <div>Нет ошибки</div>
+      </ErrorBoundary>
+    )
+    const element = screen.getByText('Нет ошибки')
 
     expect(element).toBeVisible()
   })

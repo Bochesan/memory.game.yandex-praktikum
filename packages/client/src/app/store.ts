@@ -7,13 +7,21 @@ const rootReducer = combineReducers({
   [progressSlice.reducerPath]: progressSlice.reducer,
 })
 
-export const store = configureStore({
-  reducer: rootReducer,
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(apiSlices.middleware),
-})
+// TODO: в будущем сделать норм тип
+export function createReduxStore(initState?: object) {
+  const store = configureStore({
+    reducer: rootReducer,
+    preloadedState: initState,
+    middleware: getDefaultMiddleware =>
+      getDefaultMiddleware().concat(apiSlices.middleware),
+  })
 
-setupListeners(store.dispatch)
+  setupListeners(store.dispatch)
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+  return store
+}
+
+export type RootState = ReturnType<
+  ReturnType<typeof createReduxStore>['getState']
+>
+export type AppDispatch = ReturnType<typeof createReduxStore>['dispatch']
