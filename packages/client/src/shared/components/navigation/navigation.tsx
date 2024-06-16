@@ -27,7 +27,7 @@ export const Navigation = () => {
   const isNewGame = userLevel <= 1
 
   return (
-    <ul className={styles.root}>
+    <ul className={styles.root} data-testid="navigation-main">
       <Item to="/levels" title={isNewGame ? 'Новая игра' : 'Продолжить'} />
       <Item to="/leader-board" title="Лидеры" />
       <Item to="/forum" title="Форум" />
