@@ -1,0 +1,12 @@
+.body {
+  padding-left: 50px;
+}
+
+.body p {
+  line-height: 1.6;
+  letter-spacing: -2%;
+  color: #eee;
+  font-style: italic;
+  margin: 0;
+  margin-bottom: 30px;
+}

@@ -1,0 +1,46 @@
+.top {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 20px;
+}
+
+.date {
+  margin-left: auto;
+}
+
+.about {
+  margin-left: auto;
+}
+
+.date {
+  font-style: italic;
+}
+
+.date {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.date {
+  color: rgba(60, 211, 252, 0.75);
+  text-align: right;
+}
+
+.count,
+.date {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.count {
+  letter-spacing: -2%;
+  font-size: 18px;
+}
+
+.about {
+  font-size: 14px;
+}
+
+.count {
+  color: rgba(255, 255, 255, 0.75);
+}
