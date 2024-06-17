@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { ICONS } from '@/shared/constants'
 import FormBlockWrapper from '../forum-block-wrapper/form-block-wrapper'
 import styles from './forum-block-item.module.css'
@@ -12,6 +13,10 @@ interface IForumBlockItemProps {
 }
 
 const ForumBlockItem = (props: IForumBlockItemProps) => {
+  const navigate = useNavigate()
+  const onRoute = () => {
+    navigate('/forum/1')
+  }
   const {
     author = 'Автор',
     count = 2,
@@ -33,7 +38,7 @@ const ForumBlockItem = (props: IForumBlockItemProps) => {
         </div>
       </div>
       <div>
-        <button className={styles.action}>
+        <button className={styles.action} onClick={onRoute}>
           <img src={ICONS.Plus} alt="Развернуть" />
         </button>
       </div>

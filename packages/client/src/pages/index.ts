@@ -1,4 +1,5 @@
 export * from './forum-page'
+export * from './forum-create-page'
 export * from './game-page'
 export * from './leader-board-page'
 export * from './main-page'
