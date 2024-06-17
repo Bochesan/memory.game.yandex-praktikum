@@ -5,6 +5,7 @@ import {
   UserProfilePage,
   TopicPage,
   ForumPage,
+  ForumCreatePage,
   NotFoundPage,
   ErrorPage,
   ChooseLevelPage,
@@ -45,6 +46,10 @@ export const routesConfig = [
       {
         path: '/forum/:topicId',
         Component: TopicPage,
+      },
+      {
+        path: '/forum-create',
+        Component: ForumCreatePage,
       },
       {
         path: '/levels',

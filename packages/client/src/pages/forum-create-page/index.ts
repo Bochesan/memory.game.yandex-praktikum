@@ -1,1 +1,1 @@
-export { default } from './forum-create-page'
+export * from './forum-create-page'
