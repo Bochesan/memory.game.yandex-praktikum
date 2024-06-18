@@ -1,5 +1,5 @@
 ### Спринты 5/6
-[Видеоописание](https://disk.yandex.ru/client/disk/%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D0%BA%D1%83%D0%BC?idApp=client&dialog=slider&idDialog=%2Fdisk%2F%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D0%BA%D1%83%D0%BC%2Fvideo2637829469.mp4)
+[Видеоописание](https://disk.yandex.ru/i/wmGM-l2WhqEUNQ)
 
 Данные спринты разрабатываются только на стороне клиента, поэтому для запуска нужно использовать только запуск клиента (yarn dev --scope=client)*
 
