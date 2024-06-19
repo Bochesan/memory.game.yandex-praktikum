@@ -76,7 +76,7 @@ const LEVELS_PARAMS: GameLevelParamsType[] = [
     title: 'Горная Тропа',
     description:
       'Узкая тропинка, ведущая через высокие горы. Здесь вам предстоит сражаться с горными зверями и преодолевать крутые склоны.',
-    gameTimer: 30,
+    gameTimer: 40,
     cardCount: 16,
     cardCol: 4,
   },
@@ -85,7 +85,7 @@ const LEVELS_PARAMS: GameLevelParamsType[] = [
     title: 'Затерянный Город',
     description:
       'Древний город, давно заброшенный его жителями. Исследуйте его разрушенные улицы и здания, чтобы найти скрытые сокровища и информацию о карточном драконе.',
-    gameTimer: 25,
+    gameTimer: 35,
     cardCount: 16,
     cardCol: 4,
   },
@@ -94,7 +94,7 @@ const LEVELS_PARAMS: GameLevelParamsType[] = [
     title: 'Проклятое Болото',
     description:
       'Мрачное болото, полное ядовитых растений и опасных тварей. Легенды гласят, что здесь обитает призрак карточного колдуна.',
-    gameTimer: 20,
+    gameTimer: 30,
     cardCount: 16,
     cardCol: 4,
   },
@@ -112,7 +112,7 @@ const LEVELS_PARAMS: GameLevelParamsType[] = [
     title: 'Логово Дракона',
     description:
       'Последняя остановка на вашем пути. Логово карточного дракона, где вам предстоит сразиться с главным противником и завершить свое великое приключение.',
-    gameTimer: 25,
+    gameTimer: 30,
     cardCount: 20,
     cardCol: 5,
   },
