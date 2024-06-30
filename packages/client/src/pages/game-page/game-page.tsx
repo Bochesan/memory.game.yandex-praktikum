@@ -8,6 +8,8 @@ import {
   ModalExit,
 } from '@/shared/components'
 import { useLevel, useToggle, useProgress } from '@/shared/hooks'
+import { useSetLeaderboardMutation, useGetUserQuery } from '@/shared'
+import { IDENTIFIER } from '@/utils'
 import { TypeModal } from '@/shared/components/modal-comps/types'
 import styles from './styles.module.css'
 
@@ -30,6 +32,7 @@ export const GamePage = () => {
     selectedLevel,
     selectLevel,
     userLevel,
+    userScore,
     levelUp,
     scoreUp,
   } = useProgress()
@@ -38,6 +41,11 @@ export const GamePage = () => {
   const [score, setScore] = useState(0)
   const [seconds, setSeconds] = useState(level.gameTimer)
   const [resultText, setResultText] = useState('')
+  const [setLeader] = useSetLeaderboardMutation()
+  const { currentData } = useGetUserQuery()
+
+  if (!currentData) return null
+  const { first_name, display_name, avatar } = currentData
 
   const onRestart = (): void => {
     setRestartKey(prevKey => prevKey + 1)
@@ -55,7 +63,10 @@ export const GamePage = () => {
     selectLevel(nextLevel)
 
     if (!isFinal) levelUp(nextLevel)
-    if (userLevel === level.id) scoreUp(scoreTotal)
+    if (userLevel === level.id) {
+      scoreUp(scoreTotal)
+      handleSetLeader(userLevel, userScore + scoreTotal)
+    }
 
     if (!isFinal) {
       onRestart()
@@ -107,6 +118,27 @@ export const GamePage = () => {
 
   const handleSeconds = (reSeconds: number): void => {
     setSeconds(reSeconds)
+  }
+
+  const handleSetLeader = async (level: number, score: number) => {
+    try {
+      const leader = {
+        data: {
+          avatar: avatar,
+          nickname: display_name,
+          firstname: first_name,
+          level: level,
+          scorePSS: score,
+        },
+        ratingFieldName: IDENTIFIER.LeaderboardRatingFieldName,
+        teamName: IDENTIFIER.TeamName,
+      }
+      await setLeader(leader)
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.log(`Не удалось добавить лидера: ${error.message}`)
+      }
+    }
   }
 
   return (
