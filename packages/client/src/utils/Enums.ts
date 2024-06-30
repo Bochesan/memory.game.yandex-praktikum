@@ -25,6 +25,11 @@ export const enum CODE_STATUS {
   InternalServerError = 500,
 }
 
+export const enum IDENTIFIER {
+  TeamName = 'PrecisionStrikeSquad',
+  LeaderboardRatingFieldName = 'scorePSS',
+}
+
 export enum RESOURCES {
   Images = 'https://ya-praktikum.tech/api/v2/resources',
 }

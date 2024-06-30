@@ -1,13 +1,14 @@
 import React from 'react'
 import { useGetLeaderboardQuery, renderError } from '@/shared'
 import { Spinner } from '@/shared/components'
+import { IDENTIFIER } from '@/utils'
 import { LeaderBoardItem } from './leader-board-item'
 import styles from './styles.module.css'
 
 export const LeaderBoard: React.FC = () => {
   const { data, error, isLoading } = useGetLeaderboardQuery({
-    teamName: 'all',
-    ratingFieldName: 'scorePSS',
+    teamName: IDENTIFIER.TeamName,
+    ratingFieldName: IDENTIFIER.LeaderboardRatingFieldName,
     cursor: 0,
     limit: 10,
   })

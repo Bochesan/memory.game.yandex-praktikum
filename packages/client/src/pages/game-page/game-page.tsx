@@ -9,6 +9,7 @@ import {
 } from '@/shared/components'
 import { useLevel, useToggle, useProgress } from '@/shared/hooks'
 import { useSetLeaderboardMutation, useGetUserQuery } from '@/shared'
+import { IDENTIFIER } from '@/utils'
 import { TypeModal } from '@/shared/components/modal-comps/types'
 import styles from './styles.module.css'
 
@@ -129,8 +130,8 @@ export const GamePage = () => {
           level: level,
           scorePSS: score,
         },
-        ratingFieldName: 'scorePSS',
-        teamName: 'PrecisionStrikeSquad',
+        ratingFieldName: IDENTIFIER.LeaderboardRatingFieldName,
+        teamName: IDENTIFIER.TeamName,
       }
       await setLeader(leader)
     } catch (error: unknown) {
