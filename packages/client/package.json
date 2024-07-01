@@ -1,11 +1,11 @@
 {
   "name": "client",
   "version": "0.0.0",
-  "type": "module",
+
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
+    "dev": "tsc --project tsconfig.server.json && cross-env NODE_ENV=development EXTERNAL_SERVER_URL='http://localhost:3001' INTERNAL_SERVER_URL='http://localhost:3001' node server/index.js",
+    "build": "tsc --project tsconfig.server.json && vite build && vite build --ssr src/app/ssr.tsx --outDir dist/server",
+    "preview": "node server/index.js",
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "jest -c ./config/jest/jest.config.ts"
@@ -20,13 +20,15 @@
     "classnames": "^2.5.1",
     "dotenv": "^16.0.2",
     "eslint-config-prettier": "^8.5.0",
+    "express": "^4.19.2",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^9.1.2",
     "react-router-dom": "^6.23.1",
     "react-svg": "^16.1.34",
-    "styled-components": "^6.1.11"
+    "styled-components": "^6.1.11",
+      "vite": "^4.4.9"
   },
   "devDependencies": {
     "@testing-library/dom": "9.3.4",
@@ -49,7 +51,6 @@
     "prettier": "^2.7.1",
     "ts-jest": "^28.0.8",
     "typescript": "^4.8.2",
-    "vite": "^3.0.7",
     "vite-plugin-webp-compress": "^1.1.4",
     "whatwg-fetch": "^3.6.20"
   },
