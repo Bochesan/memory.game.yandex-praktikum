@@ -11,7 +11,8 @@ export default defineConfig({
     port: Number(process.env.CLIENT_PORT) || 3000,
   },
   define: {
-    __SERVER_PORT__: process.env.SERVER_PORT,
+    __EXTERNAL_SERVER_URL__: JSON.stringify(process.env.EXTERNAL_SERVER_URL),
+    __INTERNAL_SERVER_URL__: JSON.stringify(process.env.INTERNAL_SERVER_URL),
   },
   plugins: [react(), VitePluginWebpCompress()],
   resolve: {
@@ -20,11 +21,16 @@ export default defineConfig({
     },
   },
   build: {
+    outDir: path.join(__dirname, 'dist/client'),
     rollupOptions: {
       input: {
         app: 'src/app/app.tsx',
         html: 'index.html',
       },
     },
+    ssr: true,
+  },
+  ssr: {
+    format: 'cjs',
   },
 })
