@@ -1,10 +1,18 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { TLogin, TPassword, TRegister, TUser } from '@/types'
+import {
+  TLogin,
+  TPassword,
+  TRegister,
+  TUser,
+  TSetLeaderboard,
+  TGetLeaderboard,
+  TLeaderboardItem,
+} from '@/types'
 import { API, METHODS } from '@/utils'
 
 export const apiSlices = createApi({
   reducerPath: 'api',
-  tagTypes: ['User'],
+  tagTypes: ['User', 'Leaderboard'],
   baseQuery: fetchBaseQuery({
     baseUrl: API.Base,
     credentials: 'include',
@@ -67,6 +75,24 @@ export const apiSlices = createApi({
       }),
       invalidatesTags: ['User'],
     }),
+
+    getLeaderboard: builder.query<TLeaderboardItem[], TGetLeaderboard>({
+      query: (credentials: TGetLeaderboard) => ({
+        method: METHODS.Post,
+        url: `/leaderboard/${credentials.teamName}`,
+        body: credentials,
+      }),
+      providesTags: ['Leaderboard'],
+    }),
+
+    setLeaderboard: builder.mutation({
+      query: (credentials: TSetLeaderboard) => ({
+        method: METHODS.Post,
+        url: '/leaderboard',
+        body: credentials,
+      }),
+      invalidatesTags: ['Leaderboard'],
+    }),
   }),
 })
 
@@ -78,4 +104,6 @@ export const {
   useEditProfileMutation,
   useEditPasswordMutation,
   useUploadAvatarMutation,
+  useGetLeaderboardQuery,
+  useSetLeaderboardMutation,
 } = apiSlices

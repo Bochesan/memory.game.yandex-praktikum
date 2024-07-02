@@ -1,27 +1,33 @@
 import React from 'react'
-import { LeaderBoardItemType } from '@/shared/services/leader-board/types'
+import { RESOURCES } from '@/utils'
+import { TLeaderBoardItemProps } from '@/types'
 import styles from './styles.module.css'
 
-export const LeaderBoardItem: React.FC<LeaderBoardItemType> = ({
+export const LeaderBoardItem: React.FC<TLeaderBoardItemProps> = ({
   place,
   avatar,
   nickname,
   firstname,
-  score,
+  level,
+  scorePSS,
 }) => {
   return (
     <div className={styles['leader-board-item']}>
       <div className={styles['leader-board-item__place']}>{place}</div>
       <div className={styles['leader-board-item__avatar']}>
         <div className={styles['leader-board-item__avatar-wrap']}>
-          <img src={avatar} alt="Avatar" />
+          <img src={`${RESOURCES.Images}${avatar}`} alt="Avatar" />
         </div>
       </div>
       <div className={styles['leader-board-item__name']}>
         <strong>{nickname}</strong>
         <span>{firstname}</span>
       </div>
-      <div className={styles['leader-board-item__score']}>{score}</div>
+      <div className={styles['leader-board-item__level']}>
+        <small>Lvl.</small>
+        {level}
+      </div>
+      <div className={styles['leader-board-item__score']}>{scorePSS}</div>
     </div>
   )
 }
