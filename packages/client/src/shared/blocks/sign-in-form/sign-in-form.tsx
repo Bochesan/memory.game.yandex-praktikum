@@ -1,5 +1,6 @@
+import styles from './styles.module.css'
 import React from 'react'
-import { Form, useSignInMutation } from '@/shared'
+import { Form, Oauth, useSignInMutation } from '@/shared'
 
 import { ICONS } from '@/shared/constants/icons'
 
@@ -26,5 +27,12 @@ export const SignInForm = () => {
   ]
 
   const [signIn] = useSignInMutation()
-  return <Form fields={fields} submitText={'Войти'} callback={signIn} />
+  return (
+    <>
+      <Form fields={fields} submitText={'Войти'} callback={signIn} />
+      <div className={styles['oauth-button']}>
+        <Oauth />
+      </div>
+    </>
+  )
 }
