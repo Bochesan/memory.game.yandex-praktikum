@@ -11,7 +11,7 @@ ReactDOM.hydrateRoot(
 )
 
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
+  window?.addEventListener('load', () => {
     navigator.serviceWorker.register('sw.js')
   })
 }

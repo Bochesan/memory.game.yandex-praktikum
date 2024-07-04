@@ -5,7 +5,7 @@ import classNames from 'classnames'
 
 export const Fullscreen: React.FC = () => {
   const [isFullscreen, setIsFullscreen] = useState(false)
-  const documentElement = useRef(document.documentElement)
+  const documentElement = useRef<HTMLElement>(null)
   const handleFullscreenToggle = useCallback(() => {
     setIsFullscreen(prevIsFullscreen => !prevIsFullscreen)
   }, [])
@@ -24,7 +24,7 @@ export const Fullscreen: React.FC = () => {
 
   useEffect(() => {
     if (isFullscreen) {
-      documentElement.current.requestFullscreen()
+      documentElement?.current?.requestFullscreen()
     } else if (document.fullscreenElement) {
       document.exitFullscreen()
     }

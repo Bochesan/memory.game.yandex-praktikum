@@ -1,15 +1,13 @@
-import { Navigation, UserInfo, Experience, useGetUserQuery } from '@/shared'
 import { useProgress } from '@/shared/hooks'
 import bgUrl from '@/assets/bg.png'
 import styles from './styles.module.css'
+import { UserInfo } from '@/shared/components/user-info/user-info'
+import { Experience } from '@/shared/components/experience/experience'
+import { useGetUserQuery } from '@/shared/slices/api-slices'
+import { Navigation } from '@/shared/components/navigation/navigation'
 
-const ControlPanel = () => {
-  return (
-    <>
-      <UserInfo />
-    </>
-  )
-}
+const ControlPanel = () => <UserInfo />
+
 const AuthControlPanel = () => {
   const { userScore } = useProgress()
   const userScorePercent = (userScore / 550) * 100

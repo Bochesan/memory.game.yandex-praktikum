@@ -28,7 +28,6 @@ export default defineConfig({
         html: 'index.html',
       },
     },
-    ssr: true,
   },
   ssr: {
     format: 'cjs',

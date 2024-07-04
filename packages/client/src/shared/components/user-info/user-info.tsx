@@ -4,6 +4,7 @@ import { Defs } from './defs'
 import { useGetUserQuery, useLogOutMutation } from '@/shared/slices'
 import { TUser } from '@/types'
 import { MouseEventHandler } from 'react'
+import { isBrowser } from '@/shared/utils/entry-server'
 
 const Fullname = (currentData: TUser) => {
   return (
@@ -89,7 +90,8 @@ export const UserInfo = () => {
   const { currentData } = useGetUserQuery()
 
   const handleRedirectClick = () => navigate('/profile')
-  const handleExit = () => logOut('').then(() => window.location.reload())
+  const handleExit = () =>
+    logOut('').then(() => isBrowser && window.location.reload())
   const handleEnter = () => navigate('/sign-in')
   const handleRegister = () => navigate('/sign-up')
 

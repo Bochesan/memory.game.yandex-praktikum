@@ -1,6 +1,8 @@
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Spinner, useGetUserQuery } from '@/shared'
+
 import { useEffect } from 'react'
+import { useGetUserQuery } from '@/shared/slices/api-slices'
+import { Spinner } from '@/shared/components/spinner/spinner'
 
 export const AuthGuard = ({ children }: { children: React.ReactNode }) => {
   const { data, isLoading, isError, isSuccess } = useGetUserQuery()

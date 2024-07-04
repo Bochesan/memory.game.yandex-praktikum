@@ -3,6 +3,7 @@ dotenv.config()
 
 import express, { Request as ExpressRequest } from 'express'
 import path from 'path'
+import serialize from 'serialize-javascript'
 
 import fs from 'fs/promises'
 import { createServer as createViteServer, ViteDevServer } from 'vite'
@@ -30,15 +31,15 @@ async function createServer() {
     )
   }
 
-  app.get('/', async (req, res, next) => {
+  app.get('*', async (req, res, next) => {
     const url = req.originalUrl
 
     try {
       // Получаем файл client/index.html который мы правили ранее
       // Создаём переменные
-      let render: (req: ExpressRequest) => Promise<{
-        html: string
-      }>
+      let render: (
+        req: ExpressRequest
+      ) => Promise<{ html: string; initialState: unknown }>
       let template: string
 
       if (vite) {
@@ -49,7 +50,6 @@ async function createServer() {
 
         // Применяем встроенные HTML-преобразования vite и плагинов
         template = await vite.transformIndexHtml(url, template)
-
         // Загружаем модуль клиента, который писали выше,
         // он будет рендерить HTML-код
         render = (
@@ -69,10 +69,18 @@ async function createServer() {
       }
 
       // Получаем HTML-строку из JSX
-      const { html: appHtml } = await render(req)
+      const { html: appHtml, initialState } = await render(req)
 
       // Заменяем комментарий на сгенерированную HTML-строку
-      const html = template.replace(`<!--ssr-outlet-->`, appHtml)
+      const html = template
+        // .replace('<!--ssr-styles-->', )
+        .replace(`<!--ssr-outlet-->`, appHtml)
+        .replace(
+          `<!--ssr-initial-state-->`,
+          `<script>window.APP_INITIAL_STATE = ${serialize(initialState, {
+            isJSON: true,
+          })}</script>`
+        )
 
       // Завершаем запрос и отдаём HTML-страницу
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
