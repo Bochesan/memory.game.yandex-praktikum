@@ -12,7 +12,14 @@ export const useOAuth = (): void => {
 
   useEffect(() => {
     if (!currentData && code) {
-      signInOAuth({ code, redirect_uri: OAUTH.Redirect })
+      signInOAuth({ code, redirect_uri: OAUTH.Redirect }).then(() => {
+        // Очистка query параметров после успешной аутентификации
+        window.history.replaceState(
+          {},
+          document.title,
+          window.location.pathname
+        )
+      })
     }
   }, [])
 }
