@@ -1,3 +1,5 @@
+import { isBrowser } from '@/shared/utils/entry-server'
+
 export const createCardValues = (count: number): string[] => {
   if (count % 2 !== 0) {
     throw new Error('Число карт CARD_COUNT должно быть четным')
@@ -16,14 +18,17 @@ export const computCardRow = (count: number, col: number): number => {
 export const computCardWidth = (col: number, row: number, margin: number) => {
   const canvasMarginLeft = 300
   const canvasMarginTop = 100
-  const windowWidth = window.innerWidth - canvasMarginLeft
-  const windowHeight = window.innerHeight - canvasMarginTop
+  const windowWidth = !isBrowser ? 0 : window.innerWidth - canvasMarginLeft
+  const windowHeight = !isBrowser ? 0 : window.innerHeight - canvasMarginTop
+
   let cardWidth = windowWidth / col - margin
   let cardHeight = cardWidth * 1.5
+
   if (windowHeight - row * (cardHeight + margin) < 0) {
     cardHeight = windowHeight / row - margin
     cardWidth = cardHeight / 1.5
   }
+
   return cardWidth
 }
 

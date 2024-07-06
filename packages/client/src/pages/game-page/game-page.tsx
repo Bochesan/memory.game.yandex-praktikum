@@ -12,9 +12,16 @@ import { useSetLeaderboardMutation, useGetUserQuery } from '@/shared'
 import { IDENTIFIER } from '@/utils'
 import { TypeModal } from '@/shared/components/modal-comps/types'
 import styles from './styles.module.css'
+import { isBrowser } from '@/shared/utils/entry-server'
 
 // Вычисляем размер UI эдементов относительно высоты экрана
-const scalePercent = window.innerHeight < 1040 ? window.innerHeight / 1040 : 1
+
+let scalePercent = 0
+
+if (isBrowser) {
+  scalePercent = window.innerHeight < 1040 ? window.innerHeight / 1040 : 1
+}
+
 const scaleMarginPercent = ((1 - scalePercent) * 100) / 2
 const scaleStyle = {
   transform: `scale(${scalePercent})`,
