@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { useEffect } from 'react'
+import { useOAuth } from '@/shared/hooks/useOAuth'
 import { useGetUserQuery } from '@/shared/slices/api-slices'
 import { Spinner } from '@/shared/components/spinner/spinner'
 
@@ -10,6 +11,8 @@ export const AuthGuard = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate()
   const AUTH_ROUTES = ['/sign-in', '/sign-up']
   const UNAUTH_ROUTES = ['/', '/sign-in', '/sign-up']
+
+  useOAuth()
 
   useEffect(() => {
     if (isSuccess) {

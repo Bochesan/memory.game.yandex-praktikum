@@ -8,7 +8,7 @@ import {
   TGetLeaderboard,
   TLeaderboardItem,
 } from '@/types'
-import { API, METHODS } from '@/utils'
+import { API, METHODS, OAUTH } from '@/utils'
 
 export const apiSlices = createApi({
   reducerPath: 'api',
@@ -93,6 +93,25 @@ export const apiSlices = createApi({
       }),
       invalidatesTags: ['Leaderboard'],
     }),
+
+    signInOAuth: builder.mutation<void, { code: string; redirect_uri: string }>(
+      {
+        query: credentials => ({
+          url: OAUTH.Yandex,
+          method: METHODS.Post,
+          body: credentials,
+        }),
+        invalidatesTags: ['User'],
+      }
+    ),
+
+    getServiceId: builder.query<{ service_id: string }, void>({
+      query: () => ({
+        url: `${API.Base}${OAUTH.ServiceId}`,
+        params: { redirect_uri: OAUTH.Redirect },
+        credentials: 'include',
+      }),
+    }),
   }),
 })
 
@@ -106,4 +125,6 @@ export const {
   useUploadAvatarMutation,
   useGetLeaderboardQuery,
   useSetLeaderboardMutation,
+  useSignInOAuthMutation,
+  useGetServiceIdQuery,
 } = apiSlices

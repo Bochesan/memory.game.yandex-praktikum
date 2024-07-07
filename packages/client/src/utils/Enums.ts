@@ -15,6 +15,12 @@ export const enum API {
   Base = 'https://ya-praktikum.tech/api/v2',
 }
 
+export const enum OAUTH {
+  ServiceId = '/oauth/yandex/service-id',
+  Yandex = '/oauth/yandex',
+  Redirect = 'http://localhost:3000',
+}
+
 export const enum CODE_STATUS {
   Success = 200,
   Created = 201,
