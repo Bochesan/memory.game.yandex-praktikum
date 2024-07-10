@@ -7,19 +7,21 @@ export const useOAuth = (): void => {
   const [signInOAuth] = useSignInOAuthMutation()
   const { currentData } = useGetUserQuery()
 
-  const urlParams = new URLSearchParams(window.location.search)
-  const code = urlParams.get('code')
+  if (typeof window !== 'undefined') {
+    const urlParams = new URLSearchParams(window.location.search)
+    const code = urlParams.get('code')
 
-  useEffect(() => {
-    if (!currentData && code) {
-      signInOAuth({ code, redirect_uri: OAUTH.Redirect }).then(() => {
-        // Очистка query параметров после успешной аутентификации
-        window.history.replaceState(
-          {},
-          document.title,
-          window.location.pathname
-        )
-      })
-    }
-  }, [])
+    useEffect(() => {
+      if (!currentData && code) {
+        signInOAuth({ code, redirect_uri: OAUTH.Redirect }).then(() => {
+          // Очистка query параметров после успешной аутентификации
+          window.history.replaceState(
+            {},
+            document.title,
+            window.location.pathname
+          )
+        })
+      }
+    }, [])
+  }
 }
