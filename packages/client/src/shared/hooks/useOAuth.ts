@@ -2,12 +2,13 @@ import { useEffect } from 'react'
 
 import { OAUTH } from '@/utils'
 import { useGetUserQuery, useSignInOAuthMutation } from '@/shared'
+import { isBrowser } from '@/shared/utils/entry-server'
 
 export const useOAuth = (): void => {
   const [signInOAuth] = useSignInOAuthMutation()
   const { currentData } = useGetUserQuery()
 
-  if (typeof window !== 'undefined') {
+  if (isBrowser) {
     const urlParams = new URLSearchParams(window.location.search)
     const code = urlParams.get('code')
 
