@@ -2,7 +2,7 @@ import styles from './styles.module.css'
 import React, { useEffect, useMemo, useState } from 'react'
 import { InputField } from '@/shared/components/input-field'
 import { LinkText } from '@/shared'
-import { useValidate } from '@/shared/hooks'
+import { validate } from '@/shared/utils'
 import { CODE_STATUS } from '@/utils'
 
 type Field = {
@@ -48,7 +48,7 @@ export const Form = ({ fields, submitText, callback }: Props) => {
     )?.validation
 
     if (validationRules !== undefined && validationRules.length > 0) {
-      const { valid, message } = useValidate(validationRules, value)
+      const { valid, message } = validate(validationRules, value)
 
       setValidFields(prevData => ({ ...prevData, [name]: valid }))
       setFormData(prevData =>

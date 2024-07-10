@@ -1,5 +1,5 @@
 import { PATTERNS, VALIDATION_ERRORS } from '@/shared'
-export const useValidate = (rules: Array<string>, value: string) => {
+export const validate = (rules: Array<string>, value: string) => {
   let valid = true
   let message = ''
 
