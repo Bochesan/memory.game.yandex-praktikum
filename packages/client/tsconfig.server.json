@@ -8,5 +8,9 @@
     "lib": ["es2019", "DOM"],
     "skipLibCheck": true
   },
-  "include": ["server/index.ts"]
+  "include": [
+    "server/index.ts",
+    "models/*.ts",
+    "./config/sequelize.ts"
+  ]
 }

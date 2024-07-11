@@ -22,6 +22,8 @@
   },
   "include": [
     "src",
+    "models/*.ts",
+    "./config/sequelize.ts",
     "./config/jest/setup.tests.ts",
     "./config/jest/Component.tsx"
   ],
