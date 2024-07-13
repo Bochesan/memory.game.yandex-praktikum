@@ -7,7 +7,7 @@ import {
   ModalResult,
   ModalExit,
 } from '@/shared/components'
-import { useLevel, useToggle, useProgress } from '@/shared/hooks'
+import { useLevel, useToggle, useProgress, useMusic } from '@/shared/hooks'
 import { useSetLeaderboardMutation, useGetUserQuery } from '@/shared'
 import { IDENTIFIER } from '@/utils'
 import { TypeModal } from '@/shared/components/modal-comps/types'
@@ -50,6 +50,9 @@ export const GamePage = () => {
   const [resultText, setResultText] = useState('')
   const [setLeader] = useSetLeaderboardMutation()
   const { currentData } = useGetUserQuery()
+
+  useMusic({ src: '/music/success.mp3', conditional: isOpenModalWin })
+  useMusic({ src: '/music/timeout.mp3', conditional: isOpenModalLose })
 
   if (!currentData) return null
   const { first_name, display_name, avatar } = currentData

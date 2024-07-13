@@ -1,0 +1,94 @@
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { ICONS } from '../constants'
+
+interface IMusicProps {
+  src: string
+  loop?: boolean
+  conditional?: boolean
+  ui?: boolean
+}
+
+export const useMusic = (props: IMusicProps) => {
+  const { loop = false, src = '', conditional = true, ui = false } = props
+
+  const [isPlaying, setIsPlaying] = useState(false)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+  const btnRef = useRef<HTMLButtonElement | null>(null)
+
+  const onClickBtn = useCallback(() => {
+    setIsPlaying(prevState => !prevState)
+  }, [])
+
+  useEffect(() => {
+    const audio = new Audio()
+
+    audio.src = src
+    audio.loop = loop
+
+    audioRef.current = audio
+
+    document.body.appendChild(audio)
+
+    return () => {
+      // Убираем со страницы, убираем звук
+      audioRef.current?.pause()
+      document.body.removeChild(audio)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (ui || !conditional) return
+
+    if (!audioRef.current?.HAVE_ENOUGH_DATA) return
+
+    audioRef.current?.play()
+
+    return () => {
+      audioRef.current?.pause()
+    }
+  }, [conditional, ui])
+
+  useEffect(() => {
+    if (!ui || !conditional) return
+
+    const onPlayUiHandler = () => {
+      if (!audioRef.current?.HAVE_ENOUGH_DATA) return
+
+      if (isPlaying) {
+        audioRef.current?.pause()
+
+        return
+      }
+
+      audioRef.current?.play()
+    }
+
+    btnRef.current?.addEventListener('click', onPlayUiHandler)
+
+    return () => {
+      btnRef.current?.removeEventListener('click', onPlayUiHandler)
+    }
+  }, [isPlaying, conditional, ui])
+
+  if (!ui) return null
+
+  return (
+    <button style={btnStyle} onClick={onClickBtn} ref={btnRef}>
+      {!isPlaying && <img src={ICONS.Play} alt={'Начать мелодию'} />}
+      {isPlaying && <img src={ICONS.Pause} alt={'Остановить мелодию'} />}
+    </button>
+  )
+}
+
+const btnStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  margin: 'auto',
+  width: '100%',
+  height: '100%',
+  backgroundColor: 'transparent',
+  outline: 'none',
+  border: 'none',
+  cursor: 'pointer',
+}
