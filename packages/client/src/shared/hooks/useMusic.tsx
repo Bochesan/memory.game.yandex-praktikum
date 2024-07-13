@@ -42,10 +42,6 @@ export const useMusic = (props: IMusicProps) => {
     if (!audioRef.current?.HAVE_ENOUGH_DATA) return
 
     audioRef.current?.play()
-
-    return () => {
-      audioRef.current?.pause()
-    }
   }, [conditional, ui])
 
   useEffect(() => {
