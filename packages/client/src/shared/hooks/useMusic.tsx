@@ -13,7 +13,7 @@ export const useMusic = (props: IMusicProps) => {
 
   const [isPlaying, setIsPlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
-  const btnRef = useRef<HTMLButtonElement | null>(null)
+  const buttonRef = useRef<HTMLButtonElement | null>(null)
 
   const onClickBtn = useCallback(() => {
     setIsPlaying(prevState => !prevState)
@@ -59,24 +59,24 @@ export const useMusic = (props: IMusicProps) => {
       audioRef.current?.play()
     }
 
-    btnRef.current?.addEventListener('click', onPlayUiHandler)
+    buttonRef.current?.addEventListener('click', onPlayUiHandler)
 
     return () => {
-      btnRef.current?.removeEventListener('click', onPlayUiHandler)
+      buttonRef.current?.removeEventListener('click', onPlayUiHandler)
     }
   }, [isPlaying, conditional, ui])
 
   if (!ui) return null
 
   return (
-    <button style={btnStyle} onClick={onClickBtn} ref={btnRef}>
+    <button style={buttonStyle} onClick={onClickBtn} ref={buttonRef}>
       {!isPlaying && <img src={ICONS.Play} alt={'Начать мелодию'} />}
       {isPlaying && <img src={ICONS.Pause} alt={'Остановить мелодию'} />}
     </button>
   )
 }
 
-const btnStyle = {
+const buttonStyle = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

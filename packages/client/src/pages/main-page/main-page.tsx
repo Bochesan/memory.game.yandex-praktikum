@@ -23,11 +23,15 @@ const AuthControlPanel = () => {
 export const MainPage = () => {
   const { currentData } = useGetUserQuery()
 
-  const musicBtn = useMusic({ src: '/music/theme.mp3', loop: true, ui: true })
+  const musicButton = useMusic({
+    src: '/music/theme.mp3',
+    loop: true,
+    ui: true,
+  })
 
   return (
     <div className={styles.root}>
-      <div className={styles.music}>{musicBtn}</div>
+      <div className={styles.music}>{musicButton}</div>
       <img src={bgUrl} className={styles.bg} alt="Background main page" />
       <div className={styles.menu}>
         <Navigation />
