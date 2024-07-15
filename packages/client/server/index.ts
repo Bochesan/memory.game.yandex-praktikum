@@ -8,15 +8,17 @@ import sequelize from '../config/sequelize'
 
 import fs from 'fs/promises'
 import { createServer as createViteServer, ViteDevServer } from 'vite'
+import cookieParser from 'cookie-parser'
 
 const port = process.env.PORT || 3030
 const clientPath = path.join(__dirname, '..')
 const isDev = process.env.NODE_ENV === 'development'
 
 async function createServer() {
+  let vite: ViteDevServer | undefined
   const app = express()
 
-  let vite: ViteDevServer | undefined
+  app.use(cookieParser())
 
   if (isDev) {
     vite = await createViteServer({
