@@ -5,10 +5,10 @@ import { Comment } from '../models/comment'
 import { Reply } from '../models/reply'
 
 const sequelize = new Sequelize({
-  database: 'your_db_name',
+  database: 'postgres',
   dialect: 'postgres',
-  username: 'your_db_username',
-  password: 'your_db_password',
+  username: 'postgres',
+  password: 'postgres',
   storage: ':memory:',
   models: [User, Topic, Comment, Reply],
 })

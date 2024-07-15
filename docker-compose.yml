@@ -1,6 +1,29 @@
 version: "3.9"
 
 services:
+    postgres:
+      image: postgres:14     
+      ports:
+        - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+      environment:
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        POSTGRES_USER: ${POSTGRES_USER}
+        POSTGRES_DB: ${POSTGRES_DB}
+      volumes:
+        - ./tmp/pgdata:/var/lib/postgresql/data
+
+    pgadmin:
+      container_name: pgadmin
+      image: dpage/pgadmin4:4.18
+      environment:
+        PGADMIN_DEFAULT_EMAIL: admin@admin.com
+        PGADMIN_DEFAULT_PASSWORD: secret
+        PGADMIN_LISTEN_PORT: 80
+      ports:
+        - "8080:80"
+      depends_on:
+        - postgres
+        
     client:
         container_name: prakticum-client
         image: prakticum-client
@@ -12,6 +35,9 @@ services:
         restart: always
         ports:
             - "${CLIENT_PORT}:80"
+        volumes:
+          - ./packages/client/nginx.conf:/etc/nginx/nginx.conf
+          - ./packages/client/dist/client:/app
         environment:
           - CLIENT_PORT=${CLIENT_PORT}
           - SERVER_PORT=${SERVER_PORT}
@@ -29,14 +55,5 @@ services:
         environment:
           SERVER_PORT: ${SERVER_PORT}
 
-    postgres:
-      image: postgres:14     
-      ports:
-        - "${POSTGRES_PORT}:${POSTGRES_PORT}"
-      environment:
-        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-        POSTGRES_USER: ${POSTGRES_USER}
-        POSTGRES_DB: ${POSTGRES_DB}
-      volumes:
-        - ./tmp/pgdata:/var/lib/postgresql/data
-
+volumes:
+  postgres-data:

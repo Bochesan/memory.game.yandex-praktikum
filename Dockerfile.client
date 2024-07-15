@@ -1,5 +1,5 @@
-ARG NODE_VERSION=16
-ARG CLIENT_PORT=3001
+ARG NODE_VERSION=20
+ARG CLIENT_PORT=3030
 
 FROM node:$NODE_VERSION-buster as base
 
@@ -11,6 +11,11 @@ COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 COPY . .
+
+# # Копирование файла конфигурации Sequelize
+# COPY packages/client/config/config.json ./config/config.json
+# # Выполнение миграций
+# RUN npx sequelize-cli db:migrate
 
 RUN yarn lerna bootstrap
 RUN rm -rf /app/packages/client/dist/ && yarn build --scope=client
