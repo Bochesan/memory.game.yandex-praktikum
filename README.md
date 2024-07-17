@@ -69,9 +69,22 @@
 
 Все ваши PR будут автоматически деплоиться на vercel. URL вам предоставит деплоящий бот
 
-## Production окружение в докере
-Перед первым запуском выполните `node init.js`
 
+
+
+## Production окружение в докере
+Для локальной разработки необходимо добавить .env со следующими значениями
+
+```
+NODE_VERSION=18
+CLIENT_PORT=80
+SERVER_PORT=3001
+POSTGRES_PASSWORD=password
+POSTGRES_USER=user
+POSTGRES_DB=db
+POSTGRES_HOST=memory_game_postgres
+PGDATA=/data/postgres
+```
 
 `docker compose up` - запустит три сервиса
 1. nginx, раздающий клиентскую статику (client)
