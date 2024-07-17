@@ -1,20 +1,37 @@
 import dotenv from 'dotenv'
-import cors from 'cors'
 dotenv.config()
-
+import cors from 'cors'
 import express from 'express'
-import { createClientAndConnect } from './db'
+import bodyParser from 'body-parser'
+import userRoute from './src/routes/userRoute'
+import topicRoute from './src/routes/topicRoute'
+import sequelize from './config/sequelize'
+
+const portServer = Number(process.env.SERVER_PORT) || 3001
+const portClient = Number(process.env.CLIENT_PORT) || 3030
 
 const app = express()
-app.use(cors())
-const port = Number(process.env.SERVER_PORT) || 3001
 
-createClientAndConnect()
+app.use(bodyParser.json())
 
-app.get('/', (_, res) => {
-  res.json('👋 Howdy from the server :)')
-})
+const corsOptions = {
+  origin: `http://localhost:${portClient}`,
+  credentials: true,
+}
+app.use(cors(corsOptions))
 
-app.listen(port, () => {
-  console.log(`  ➜ 🎸 Server is listening on port: ${port}`)
-})
+app.use('/api', userRoute)
+app.use('/api', topicRoute)
+
+const startServer = async () => {
+  try {
+    await sequelize.sync()
+    app.listen(portServer, () => {
+      console.log(`Server is running on port ${portServer}`)
+    })
+  } catch (err) {
+    console.error('Unable to connect to the database:', err)
+  }
+}
+
+startServer()

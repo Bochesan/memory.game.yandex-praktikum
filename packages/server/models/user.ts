@@ -12,6 +12,12 @@ export class User extends Model {
     type: DataType.STRING,
     allowNull: false,
   })
+  login!: string
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
   first_name!: string
 
   @Column({

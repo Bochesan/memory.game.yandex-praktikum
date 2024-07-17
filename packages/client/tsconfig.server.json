@@ -10,7 +10,5 @@
   },
   "include": [
     "server/index.ts",
-    "models/*.ts",
-    "./config/sequelize.ts"
   ]
 }

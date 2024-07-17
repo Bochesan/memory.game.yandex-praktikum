@@ -4,7 +4,6 @@ dotenv.config()
 import express, { Request as ExpressRequest } from 'express'
 import path from 'path'
 import serialize from 'serialize-javascript'
-import sequelize from '../config/sequelize'
 
 import fs from 'fs/promises'
 import { createServer as createViteServer, ViteDevServer } from 'vite'
@@ -92,8 +91,6 @@ async function createServer() {
       next(e)
     }
   })
-
-  await sequelize.sync()
 
   app.listen(port, () => {
     console.log(`Client is listening on port: ${port}`)

@@ -4,11 +4,13 @@ import { Topic } from '../models/topic'
 import { Comment } from '../models/comment'
 import { Reply } from '../models/reply'
 
+const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB } = process.env
+
 const sequelize = new Sequelize({
-  database: 'your_db_name',
+  database: POSTGRES_DB,
   dialect: 'postgres',
-  username: 'your_db_username',
-  password: 'your_db_password',
+  username: POSTGRES_USER,
+  password: POSTGRES_PASSWORD,
   storage: ':memory:',
   models: [User, Topic, Comment, Reply],
 })
