@@ -4,6 +4,7 @@ import FormBlockWrapper from '../forum-block-wrapper/form-block-wrapper'
 import styles from './forum-block-item.module.css'
 import FormBlockMain from '../form-block-main/form-block-main'
 import FormBlockIcon from '../form-block-icon/form-block-icon'
+import { Reactions } from '@/shared'
 
 interface IForumBlockItemProps {
   title?: string
@@ -35,6 +36,9 @@ const ForumBlockItem = (props: IForumBlockItemProps) => {
         <div className={styles.about}>
           <div className={styles.count}>{count} ответа</div>
           <div className={styles.date}>{date.toLocaleDateString()}</div>
+          <div className={styles.reactions}>
+            <Reactions forumId={1} />
+          </div>
         </div>
       </div>
       <div>
