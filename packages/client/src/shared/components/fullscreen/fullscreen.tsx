@@ -1,32 +1,33 @@
 import styles from './styles.module.css'
-import React, { useState, useCallback, useEffect, useRef } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { ICONS } from '@/shared/constants/icons'
 import classNames from 'classnames'
 
 export const Fullscreen: React.FC = () => {
   const [isFullscreen, setIsFullscreen] = useState(false)
-  const documentElement = useRef<HTMLElement>(null)
-  const handleFullscreenToggle = useCallback(() => {
-    setIsFullscreen(prevIsFullscreen => !prevIsFullscreen)
-  }, [])
+  const handleFullscreenToggle = useCallback(
+    () => setIsFullscreen(prevIsFullscreen => !prevIsFullscreen),
+    []
+  )
 
-  const handleFullscreenChange = useCallback(() => {
-    setIsFullscreen(!!document.fullscreenElement)
-  }, [])
+  const handleFullscreenChange = useCallback(
+    () => setIsFullscreen(!!document.fullscreenElement),
+    []
+  )
 
   useEffect(() => {
     document.addEventListener('fullscreenchange', handleFullscreenChange)
-
-    return () => {
+    return () =>
       document.removeEventListener('fullscreenchange', handleFullscreenChange)
-    }
   }, [handleFullscreenChange])
 
   useEffect(() => {
     if (isFullscreen) {
-      documentElement?.current?.requestFullscreen()
-    } else if (document.fullscreenElement) {
-      document.exitFullscreen()
+      document.documentElement.requestFullscreen()
+    } else {
+      if (document.fullscreenElement !== null) {
+        document.exitFullscreen()
+      }
     }
   }, [isFullscreen])
 
