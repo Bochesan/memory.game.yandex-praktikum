@@ -1,8 +1,14 @@
 import { Comment } from '../../models/comment'
+import { Reply } from '../../models/reply'
+import { User } from '../../models/user'
 
 interface CommentsDTO {
   message_text: string
   created_at: Date
+}
+
+interface GetCommentsDTO {
+  topic_id: number
 }
 
 interface CreateCommentDTO {
@@ -11,8 +17,24 @@ interface CreateCommentDTO {
   message_text: string
 }
 
-export const getComments = async (): Promise<CommentsDTO[]> => {
-  const comments = await Comment.findAll()
+export const getComments = async (
+  data: GetCommentsDTO
+): Promise<CommentsDTO[]> => {
+  const { topic_id } = data
+  const comments = await Comment.findAll({
+    where: {
+      topic_id: topic_id,
+    },
+    include: [
+      {
+        model: User,
+        attributes: ['first_name', 'second_name', 'display_name'],
+      },
+      {
+        model: Reply,
+      },
+    ],
+  })
   return comments
 }
 

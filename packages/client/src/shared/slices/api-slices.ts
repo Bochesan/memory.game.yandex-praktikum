@@ -9,6 +9,7 @@ import {
   TLeaderboardItem,
   TGetUserInternal,
   TAddUserInternal,
+  TGetTopic,
   TAddTopic,
   TAddComment,
   TAddReply,
@@ -152,12 +153,60 @@ export const apiSlices = createApi({
       providesTags: ['Topic'],
     }),
 
+    getTopic: builder.query<any, TGetTopic>({
+      queryFn: async (credentials: TGetTopic, api, extraOptions) => {
+        const queryString = new URLSearchParams(credentials).toString()
+        const result = await internalBaseQuery(
+          {
+            url: `/topics?${queryString}`,
+            method: 'GET',
+          },
+          api,
+          extraOptions
+        )
+        return result
+      },
+      providesTags: ['Topic'],
+    }),
+
     addTopic: builder.mutation({
       queryFn: async (credentials: TAddTopic, api, extraOptions) => {
         const result = await internalBaseQuery(
           {
             method: METHODS.Post,
             url: '/topics',
+            body: credentials,
+          },
+          api,
+          extraOptions
+        )
+        return result
+      },
+      invalidatesTags: ['Topic'],
+    }),
+
+    addComments: builder.mutation({
+      queryFn: async (credentials: TAddComment, api, extraOptions) => {
+        const result = await internalBaseQuery(
+          {
+            method: METHODS.Post,
+            url: '/comments',
+            body: credentials,
+          },
+          api,
+          extraOptions
+        )
+        return result
+      },
+      invalidatesTags: ['Topic'],
+    }),
+
+    addReplies: builder.mutation({
+      queryFn: async (credentials: TAddReply, api, extraOptions) => {
+        const result = await internalBaseQuery(
+          {
+            method: METHODS.Post,
+            url: '/replies',
             body: credentials,
           },
           api,

@@ -5,11 +5,12 @@ import {
 } from '../services/commentService'
 
 export const getComments = async (
-  _req: Request,
+  req: Request,
   res: Response
 ): Promise<void> => {
   try {
-    const comments = await getCommentsService()
+    const { topic_id } = req.query as unknown as { topic_id: number }
+    const comments = await getCommentsService({ topic_id })
     res.status(200).json(comments)
   } catch (error) {
     res

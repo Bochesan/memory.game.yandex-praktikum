@@ -5,11 +5,12 @@ import {
 } from '../services/replyService'
 
 export const getReplies = async (
-  _req: Request,
+  req: Request,
   res: Response
 ): Promise<void> => {
   try {
-    const replies = await getRepliesService()
+    const { topic_id } = req.query as unknown as { topic_id: number }
+    const replies = await getRepliesService({ topic_id })
     res.status(200).json(replies)
   } catch (error) {
     res
@@ -31,10 +32,8 @@ export const createReply = async (
     })
     res.status(201).json(reply)
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        error: 'При создании ответов на комментарий произошла ошибка:' + error,
-      })
+    res.status(500).json({
+      error: 'При создании ответов на комментарий произошла ошибка:' + error,
+    })
   }
 }

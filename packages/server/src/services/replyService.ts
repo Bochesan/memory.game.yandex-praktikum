@@ -1,8 +1,13 @@
 import { Reply } from '../../models/reply'
+import { User } from '../../models/user'
 
 interface RepliesDTO {
   message_text: string
   created_at: Date
+}
+
+interface GetRepliesDTO {
+  topic_id: number
 }
 
 interface CreateReplyDTO {
@@ -11,8 +16,21 @@ interface CreateReplyDTO {
   message_text: string
 }
 
-export const getReplies = async (): Promise<RepliesDTO[]> => {
-  const replies = await Reply.findAll()
+export const getReplies = async (
+  data: GetRepliesDTO
+): Promise<RepliesDTO[]> => {
+  const { topic_id } = data
+  const replies = await Reply.findAll({
+    where: {
+      topic_id: topic_id,
+    },
+    include: [
+      {
+        model: User,
+        attributes: ['first_name', 'second_name', 'display_name'],
+      },
+    ],
+  })
   return replies
 }
 

@@ -25,7 +25,3 @@ dist-ssr
 
 server/*.d.ts
 server/*.js
-models/*.d.ts
-models/*.js
-config/*.d.ts
-config/*.js

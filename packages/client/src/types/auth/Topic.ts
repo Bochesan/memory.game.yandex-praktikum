@@ -3,3 +3,7 @@ export type TAddTopic = {
   title: string
   message_text: string
 }
+
+export type TGetTopic = {
+  topic_id: string
+}

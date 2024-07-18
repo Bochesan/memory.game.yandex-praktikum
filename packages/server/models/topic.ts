@@ -6,6 +6,7 @@ import {
   ForeignKey,
   BelongsTo,
   HasMany,
+  Length,
 } from 'sequelize-typescript'
 import { User } from './user'
 import { Comment } from './comment'
@@ -15,15 +16,19 @@ import { Comment } from './comment'
   tableName: 'Topics',
 })
 export class Topic extends Model {
+  @Length({ max: 100, min: 1 })
   @Column({
     type: DataType.STRING,
     allowNull: false,
+    unique: true,
   })
   title!: string
 
+  @Length({ max: 999, min: 1 })
   @Column({
     type: DataType.TEXT,
     allowNull: false,
+    unique: true,
   })
   message_text!: string
 

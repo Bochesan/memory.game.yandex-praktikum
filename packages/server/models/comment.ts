@@ -6,6 +6,7 @@ import {
   ForeignKey,
   BelongsTo,
   HasMany,
+  Length,
 } from 'sequelize-typescript'
 import { User } from './user'
 import { Topic } from './topic'
@@ -16,6 +17,7 @@ import { Reply } from './reply'
   tableName: 'Comments',
 })
 export class Comment extends Model {
+  @Length({ max: 999, min: 1 })
   @Column({
     type: DataType.TEXT,
     allowNull: false,
