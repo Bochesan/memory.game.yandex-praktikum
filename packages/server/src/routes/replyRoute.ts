@@ -1,9 +1,9 @@
 import { Router } from 'express'
-import { getReplies, createReply } from '../controllers/replyController'
+import ReplyController from '../controllers/replyController'
 
 const router = Router()
 
-router.get('/topics', getReplies)
-router.post('/topics', createReply)
+router.get('/reply', ReplyController.getReplies)
+router.post('/reply', ReplyController.createReply)
 
 export default router

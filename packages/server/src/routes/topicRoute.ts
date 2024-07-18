@@ -1,9 +1,10 @@
 import { Router } from 'express'
-import { getTopics, createTopic } from '../controllers/topicController'
+import TopicController from '../controllers/topicController'
 
 const router = Router()
 
-router.get('/topics', getTopics)
-router.post('/topics', createTopic)
+router.get('/topics', TopicController.getTopics)
+router.get('/topics/:id', TopicController.getTopic)
+router.post('/topics', TopicController.createTopic)
 
 export default router
