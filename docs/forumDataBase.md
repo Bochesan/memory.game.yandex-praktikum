@@ -46,33 +46,33 @@
 
 ### ./.env
 
-NODE_VERSION=18
-CLIENT_PORT=80
-SERVER_PORT=3001
-POSTGRES_PASSWORD=password
-POSTGRES_USER=user
-POSTGRES_DB=db
-POSTGRES_HOST=memory_game_postgres
-POSTGRES_PORT=5432
-PGDATA=/data/postgres
-PGADMIN_EMAIL=admin@admin.com
-PGADMIN_PASSWORD=secret
+NODE_VERSION=18  
+CLIENT_PORT=80  
+SERVER_PORT=3001  
+POSTGRES_PASSWORD=password  
+POSTGRES_USER=user  
+POSTGRES_DB=db  
+POSTGRES_HOST=memory_game_postgres  
+POSTGRES_PORT=5432  
+PGDATA=/data/postgres  
+PGADMIN_EMAIL=admin@admin.com  
+PGADMIN_PASSWORD=secret  
 PGADMIN_PORT=8080
 
 ### ./packages/server/.env
 
-POSTGRES_PASSWORD=password
-POSTGRES_USER=user
-POSTGRES_DB=db
-POSTGRES_HOST=memory_game_postgres
+POSTGRES_PASSWORD=password  
+POSTGRES_USER=user  
+POSTGRES_DB=db  
+POSTGRES_HOST=memory_game_postgres  
 POSTGRES_PORT=5432
 
 ## Запуск проекта
 
 ### Dev режим
 
-docker-compose up postgres
-docker-compose up pgadmin
+docker-compose up postgres  
+docker-compose up pgadmin  
 yarn dev
 
 ### Сборка
@@ -81,7 +81,7 @@ docker-compose up
 
 ## Выполнение миграций
 
-cd packages/server
+cd packages/server  
 npx sequelize-cli db:migrate
 
 ## SQL-запросоы для создания таблиц
