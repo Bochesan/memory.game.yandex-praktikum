@@ -7,18 +7,31 @@ import {
   TSetLeaderboard,
   TGetLeaderboard,
   TLeaderboardItem,
+  TGetUserInternal,
+  TAddUserInternal,
+  TGetTopic,
+  TAddTopic,
+  TAddComment,
+  TAddReply,
 } from '@/types'
 import { API, METHODS, OAUTH } from '@/utils'
 
+const defaultBaseQuery = fetchBaseQuery({
+  baseUrl: API.Base,
+  credentials: 'include',
+})
+
+const internalBaseQuery = fetchBaseQuery({
+  baseUrl: API.Internal,
+  credentials: 'include',
+})
+
 export const apiSlices = createApi({
   reducerPath: 'api',
-  tagTypes: ['User', 'Leaderboard'],
-  baseQuery: fetchBaseQuery({
-    baseUrl: API.Base,
-    credentials: 'include',
-  }),
+  tagTypes: ['User', 'Leaderboard', 'Topic'],
+  baseQuery: defaultBaseQuery,
   endpoints: builder => ({
-    getUser: builder.query<void, void>({
+    getUser: builder.query<TUser, void>({
       query: () => `auth/user`,
       providesTags: ['User'],
     }),
@@ -94,6 +107,116 @@ export const apiSlices = createApi({
       invalidatesTags: ['Leaderboard'],
     }),
 
+    getUserInternal: builder.query<any, TGetUserInternal>({
+      queryFn: async (credentials: TGetUserInternal, api, extraOptions) => {
+        const queryString = new URLSearchParams(credentials).toString()
+        const result = await internalBaseQuery(
+          {
+            url: `/users?${queryString}`,
+            method: 'GET',
+          },
+          api,
+          extraOptions
+        )
+        return result
+      },
+    }),
+
+    addUserInternal: builder.mutation({
+      queryFn: async (credentials: TAddUserInternal, api, extraOptions) => {
+        const result = await internalBaseQuery(
+          {
+            method: METHODS.Post,
+            url: '/users',
+            body: credentials,
+          },
+          api,
+          extraOptions
+        )
+        return result
+      },
+      invalidatesTags: ['Topic'],
+    }),
+
+    getTopics: builder.query({
+      queryFn: async (credentials, api, extraOptions) => {
+        const result = await internalBaseQuery(
+          {
+            url: `/topics`,
+            method: 'GET',
+          },
+          api,
+          extraOptions
+        )
+        return result
+      },
+      providesTags: ['Topic'],
+    }),
+
+    getTopic: builder.query<any, TGetTopic>({
+      queryFn: async (credentials: TGetTopic, api, extraOptions) => {
+        const queryString = new URLSearchParams(credentials).toString()
+        const result = await internalBaseQuery(
+          {
+            url: `/topics?${queryString}`,
+            method: 'GET',
+          },
+          api,
+          extraOptions
+        )
+        return result
+      },
+      providesTags: ['Topic'],
+    }),
+
+    addTopic: builder.mutation({
+      queryFn: async (credentials: TAddTopic, api, extraOptions) => {
+        const result = await internalBaseQuery(
+          {
+            method: METHODS.Post,
+            url: '/topics',
+            body: credentials,
+          },
+          api,
+          extraOptions
+        )
+        return result
+      },
+      invalidatesTags: ['Topic'],
+    }),
+
+    addComments: builder.mutation({
+      queryFn: async (credentials: TAddComment, api, extraOptions) => {
+        const result = await internalBaseQuery(
+          {
+            method: METHODS.Post,
+            url: '/comments',
+            body: credentials,
+          },
+          api,
+          extraOptions
+        )
+        return result
+      },
+      invalidatesTags: ['Topic'],
+    }),
+
+    addReplies: builder.mutation({
+      queryFn: async (credentials: TAddReply, api, extraOptions) => {
+        const result = await internalBaseQuery(
+          {
+            method: METHODS.Post,
+            url: '/replies',
+            body: credentials,
+          },
+          api,
+          extraOptions
+        )
+        return result
+      },
+      invalidatesTags: ['Topic'],
+    }),
+
     signInOAuth: builder.mutation<void, { code: string; redirect_uri: string }>(
       {
         query: credentials => ({
@@ -125,6 +248,10 @@ export const {
   useUploadAvatarMutation,
   useGetLeaderboardQuery,
   useSetLeaderboardMutation,
+  useGetUserInternalQuery,
+  useAddUserInternalMutation,
+  useGetTopicsQuery,
+  useAddTopicMutation,
   useSignInOAuthMutation,
   useGetServiceIdQuery,
 } = apiSlices

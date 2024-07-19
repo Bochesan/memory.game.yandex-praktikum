@@ -9,3 +9,14 @@ export type TUser = {
   avatar: string
   display_name: string
 }
+
+export type TGetUserInternal = {
+  login: string
+}
+
+export type TAddUserInternal = {
+  first_name: string
+  second_name: string
+  login: string
+  display_name: string
+}
