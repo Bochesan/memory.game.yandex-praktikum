@@ -1,6 +1,6 @@
 # Структура базы данных: Тема
 
-### Users
+### Theme
 
 - `id` ID темы - DataTypes.INTEGER
 - `theme`: Тип темы - DataTypes.STRING
