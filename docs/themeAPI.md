@@ -8,6 +8,6 @@
 
 ### Темы
 
-- get: /api/theme/{user_id} - получение темы по логину API яндекса
+- get: /api/theme - получение темы по логину API яндекса
 - post: /api/theme - добавить тему
-- put: /api/theme/{user_id} - поменять тему
+- put: /api/theme - поменять тему
