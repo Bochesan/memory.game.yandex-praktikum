@@ -138,7 +138,7 @@ export const apiSlices = createApi({
       invalidatesTags: ['Topic'],
     }),
 
-    getTopics: builder.query({
+    getTopics: builder.query<any, unknown>({
       queryFn: async (credentials, api, extraOptions) => {
         const result = await internalBaseQuery(
           {
@@ -155,10 +155,10 @@ export const apiSlices = createApi({
 
     getTopic: builder.query<any, TGetTopic>({
       queryFn: async (credentials: TGetTopic, api, extraOptions) => {
-        const queryString = new URLSearchParams(credentials).toString()
+        const topicId = credentials.topic_id
         const result = await internalBaseQuery(
           {
-            url: `/topics?${queryString}`,
+            url: `/topics/${topicId}`,
             method: 'GET',
           },
           api,
@@ -185,7 +185,7 @@ export const apiSlices = createApi({
       invalidatesTags: ['Topic'],
     }),
 
-    addComments: builder.mutation({
+    addComment: builder.mutation({
       queryFn: async (credentials: TAddComment, api, extraOptions) => {
         const result = await internalBaseQuery(
           {
@@ -201,7 +201,7 @@ export const apiSlices = createApi({
       invalidatesTags: ['Topic'],
     }),
 
-    addReplies: builder.mutation({
+    addReply: builder.mutation({
       queryFn: async (credentials: TAddReply, api, extraOptions) => {
         const result = await internalBaseQuery(
           {
@@ -251,7 +251,10 @@ export const {
   useGetUserInternalQuery,
   useAddUserInternalMutation,
   useGetTopicsQuery,
+  useGetTopicQuery,
   useAddTopicMutation,
+  useAddCommentMutation,
+  useAddReplyMutation,
   useSignInOAuthMutation,
   useGetServiceIdQuery,
 } = apiSlices

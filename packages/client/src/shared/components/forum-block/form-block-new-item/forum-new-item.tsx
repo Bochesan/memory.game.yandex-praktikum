@@ -1,3 +1,5 @@
+import { SetStateAction, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styles from './forum-new-item.module.css'
 import question from '@/assets/images/icons/question.svg'
 import answer from '@/assets/images/icons/answer.svg'
@@ -14,26 +16,69 @@ import FormBlockIcon from '../form-block-icon/form-block-icon'
 import FormBlockBody from '../form-block-body/form-block-body'
 
 const ForumNewItem = () => {
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [errors, setErrors] = useState({ title: '', description: '' })
+  const [addTopic] = useAddTopicMutation()
+  const navigate = useNavigate()
+
+  // Получаем логин юзера от api яндекса
   const { data, isSuccess } = useGetUserQuery()
   const login = data?.login || ''
+
+  // Получаемя данные пользоватеья из внутреннего api
   const { data: internalData } = useGetUserInternalQuery(
     { login },
     { skip: !isSuccess }
   )
-  const [addTopic] = useAddTopicMutation()
+
+  const handleTitleChange = (event: {
+    target: { value: SetStateAction<string> }
+  }) => {
+    setTitle(event.target.value)
+    setErrors({ ...errors, title: '' })
+  }
+
+  const handleDescriptionChange = (event: {
+    target: { value: SetStateAction<string> }
+  }) => {
+    setDescription(event.target.value)
+    setErrors({ ...errors, description: '' })
+  }
 
   const handleAddTopic = async () => {
-    try {
-      const topic = {
-        user_id: internalData.id,
-        title: 'Заголовок топика',
-        message_text: 'Сообщение топика',
+    let hasError = false
+    const newErrors = { title: '', description: '' }
+
+    if (title.trim() === '') {
+      newErrors.title = 'Тема не может быть пустой'
+      hasError = true
+    }
+
+    if (description.trim() === '') {
+      newErrors.description = 'Описание не может быть пустым'
+      hasError = true
+    }
+
+    if (hasError) {
+      setErrors(newErrors)
+    } else {
+      try {
+        const topic = {
+          user_id: internalData.id,
+          title: title,
+          message_text: description,
+        }
+        await addTopic(topic)
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.log(`Не удалось добавить топик: ${error.message}`)
+        }
       }
-      await addTopic(topic)
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.log(`Не удалось добавить топик: ${error.message}`)
-      }
+      setTitle('')
+      setDescription('')
+      setErrors({ title: '', description: '' })
+      navigate(`/forum`)
     }
   }
 
@@ -43,19 +88,32 @@ const ForumNewItem = () => {
         <FormBlockIcon path={ICONS.Emblem} alt="Эмблема" />
         <FormBlockMain
           title="Новая тема"
-          author="Игорь Николаев"
+          author={`${data?.display_name}`}
           className={styles.left}
         />
-        <div className={styles.date}>27.05.24</div>
+        <div className={styles.date}>
+          {new Date().toISOString().slice(0, 10)}
+        </div>
       </div>
       <FormBlockBody>
         <div className={styles.box}>
-          <input placeholder="Введите тему" />
+          <input
+            placeholder="Введите тему"
+            value={title}
+            onChange={handleTitleChange}
+          />
           <img src={question} alt="Иконка Вопроса" />
+          {errors.title && <div className={styles.error}>{errors.title}</div>}
         </div>
         <div className={styles.box}>
-          <textarea placeholder="Введите текст темы"></textarea>
+          <textarea
+            placeholder="Введите текст темы"
+            value={description}
+            onChange={handleDescriptionChange}></textarea>
           <img src={answer} alt="Иконка Темы" />
+          {errors.description && (
+            <div className={styles.error}>{errors.description}</div>
+          )}
         </div>
       </FormBlockBody>
       <FormBlockActions onClick={handleAddTopic} />
