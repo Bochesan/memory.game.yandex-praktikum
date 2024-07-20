@@ -9,8 +9,7 @@ import {
 import { User } from './user'
 
 @Table({
-  timestamps: true,
-  tableName: 'Comments',
+  tableName: 'Theme',
 })
 export class Theme extends Model {
   @Length({ max: 25, min: 1 })
