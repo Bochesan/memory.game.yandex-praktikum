@@ -11,6 +11,8 @@ import Emblem from '@/assets/images/icons/emblem.svg'
 import Comment from '@/assets/images/icons/comment.svg'
 import FullscreenIn from '@/assets/images/icons/fullscreen-in.svg'
 import FullscreenOut from '@/assets/images/icons/fullscreen-out.svg'
+import Play from '@/assets/images/icons/play.svg'
+import Pause from '@/assets/images/icons/pause.svg'
 
 export const ICONS = {
   Clock,
@@ -26,4 +28,6 @@ export const ICONS = {
   Comment,
   FullscreenIn,
   FullscreenOut,
+  Play,
+  Pause,
 }

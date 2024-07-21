@@ -13,6 +13,7 @@ export const enum ROUTE {
 
 export const enum API {
   Base = 'https://ya-praktikum.tech/api/v2',
+  Internal = 'http://localhost:3001/api',
 }
 
 export const enum OAUTH {

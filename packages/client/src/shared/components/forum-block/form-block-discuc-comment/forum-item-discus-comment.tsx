@@ -5,23 +5,26 @@ import FormBlockIcon from '../form-block-icon/form-block-icon'
 import FormBlockAuthor from '../form-block-author/form-block-author'
 import FormBlockBody from '../form-block-body/form-block-body'
 
-const ForumItemDiscusComment = () => {
+interface IForumBlockDiscusCommentProps {
+  author?: string
+  message?: string
+  date?: Date
+}
+
+const ForumItemDiscusComment = (props: IForumBlockDiscusCommentProps) => {
+  const { author = '', message = '', date = new Date() } = props
+
   return (
     <FormBlockWrapper>
       <div className={styles.top}>
         <FormBlockIcon path={ICONS.Comment} alt="Комментарий" />
         <div className={styles.info}>
-          <FormBlockAuthor author={'Игорь Николаев'} />
+          <FormBlockAuthor author={author} />
         </div>
-        <div className={styles.date}>27.07.2022</div>
+        <div className={styles.date}>{new Date(date).toLocaleDateString()}</div>
       </div>
       <FormBlockBody>
-        <p>
-          {' '}
-          Инсайдер Dusk Golem раскрыл ещё немного подробностей о закулисье
-          франшизы Resident Evil. В частности, он поведал, какие ремейки
-          «Обители зла» добрались до производства, а какие — нет.
-        </p>
+        <p>{message}</p>
       </FormBlockBody>
     </FormBlockWrapper>
   )
