@@ -13,11 +13,9 @@ class ReplyController {
       const replies = await getRepliesService({ topic_id })
       res.status(200).json(replies)
     } catch (error) {
-      res
-        .status(500)
-        .json({
-          error: 'При получении ответов на комментарий произошла ошибка.',
-        })
+      res.status(500).json({
+        error: 'При получении ответов на комментарий произошла ошибка.',
+      })
     }
   }
 
