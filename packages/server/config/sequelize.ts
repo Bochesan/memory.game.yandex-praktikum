@@ -3,6 +3,7 @@ import { User } from '../models/user'
 import { Topic } from '../models/topic'
 import { Comment } from '../models/comment'
 import { Reply } from '../models/reply'
+import { Theme } from '../models/theme'
 
 const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB } = process.env
 
@@ -12,7 +13,7 @@ const sequelize = new Sequelize({
   username: POSTGRES_USER,
   password: POSTGRES_PASSWORD,
   storage: ':memory:',
-  models: [User, Topic, Comment, Reply],
+  models: [User, Topic, Comment, Reply, Theme],
 })
 
 export default sequelize
