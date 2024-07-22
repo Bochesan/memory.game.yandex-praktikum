@@ -6,6 +6,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import userRoute from './src/routes/userRoute'
 import topicRoute from './src/routes/topicRoute'
+import themeRoute from './src/routes/themeRoute'
 import commentRoute from './src/routes/commentRoute'
 import sequelize from './config/sequelize'
 import reactionRoute from './src/routes/reactionRoute'
@@ -25,6 +26,7 @@ app.use(cors(corsOptions))
 
 app.use('/api', userRoute)
 app.use('/api', topicRoute)
+app.use('/api', themeRoute)
 app.use('/api', commentRoute)
 app.use('/api', reactionRoute)
 
