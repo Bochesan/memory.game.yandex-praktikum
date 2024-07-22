@@ -7,6 +7,7 @@ import bodyParser from 'body-parser'
 import userRoute from './src/routes/userRoute'
 import topicRoute from './src/routes/topicRoute'
 import themeRoute from './src/routes/themeRoute'
+import commentRoute from './src/routes/commentRoute'
 import sequelize from './config/sequelize'
 
 const portServer = Number(process.env.SERVER_PORT) || 3001
@@ -25,6 +26,7 @@ app.use(cors(corsOptions))
 app.use('/api', userRoute)
 app.use('/api', topicRoute)
 app.use('/api', themeRoute)
+app.use('/api', commentRoute)
 
 const startServer = async () => {
   try {

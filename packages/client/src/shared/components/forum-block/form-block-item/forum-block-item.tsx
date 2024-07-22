@@ -4,8 +4,10 @@ import FormBlockWrapper from '../forum-block-wrapper/form-block-wrapper'
 import styles from './forum-block-item.module.css'
 import FormBlockMain from '../form-block-main/form-block-main'
 import FormBlockIcon from '../form-block-icon/form-block-icon'
+import { Reactions } from '@/shared'
 
 interface IForumBlockItemProps {
+  id?: number
   title?: string
   author?: string
   count?: number
@@ -15,12 +17,13 @@ interface IForumBlockItemProps {
 const ForumBlockItem = (props: IForumBlockItemProps) => {
   const navigate = useNavigate()
   const onRoute = () => {
-    navigate('/forum/1')
+    navigate(`/forum/${id}`)
   }
   const {
-    author = 'Автор',
-    count = 2,
-    title = 'Заголовок',
+    id = 1,
+    title = '',
+    author = '',
+    // count = 0,
     date = new Date(),
   } = props
   return (
@@ -33,8 +36,13 @@ const ForumBlockItem = (props: IForumBlockItemProps) => {
         />
         <FormBlockMain title={title} author={author} />
         <div className={styles.about}>
-          <div className={styles.count}>{count} ответа</div>
-          <div className={styles.date}>{date.toLocaleDateString()}</div>
+          {/* <div className={styles.count}>{count} ответа</div> */}
+          <div className={styles.date}>
+            {new Date(date).toLocaleDateString()}
+          </div>
+          <div className={styles.reactions}>
+            <Reactions forumId={1} />
+          </div>
         </div>
       </div>
       <div>

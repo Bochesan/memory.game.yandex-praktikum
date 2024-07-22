@@ -65,3 +65,14 @@
 .box textarea::placeholder {
   color: white;
 }
+
+.box .error {
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  line-height: 1;
+  color: #f15050;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.65);
+  position: absolute;
+  bottom: 40px;
+  left: 80px;
+}

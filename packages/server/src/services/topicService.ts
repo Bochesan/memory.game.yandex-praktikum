@@ -46,9 +46,14 @@ export const getTopic = async (data: GetTopicDTO): Promise<Topic[]> => {
         model: Comment,
         include: [
           {
+            model: User,
+            attributes: ['first_name', 'second_name', 'display_name'],
+          },
+          {
             model: Reply,
           },
         ],
+        order: [['id', 'DESC']],
       },
     ],
   })

@@ -22,8 +22,8 @@ class TopicController {
     try {
       const { id } = req.params as unknown as { id: number }
       const topic = await getTopicService({ id })
-      if (topic) {
-        res.status(200).json(topic)
+      if (topic.length) {
+        res.status(200).json(topic[0])
       } else {
         res.status(404).json({ error: 'Тема не найден' })
       }
