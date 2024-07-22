@@ -41,7 +41,7 @@ const ForumBlockItem = (props: IForumBlockItemProps) => {
             {new Date(date).toLocaleDateString()}
           </div>
           <div className={styles.reactions}>
-            <Reactions forumId={1} />
+            <Reactions forumId={id} />
           </div>
         </div>
       </div>

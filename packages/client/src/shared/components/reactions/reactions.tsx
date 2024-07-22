@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import styles from './styles.module.css'
 import classNames from 'classnames'
-import { arrEmoji } from '@/shared'
+import { arrEmoji, useGetUserQuery } from '@/shared'
+import {
+  useGetReactionsQuery,
+  useSetReactionMutation,
+  renderError,
+} from '@/shared'
 
 interface Reaction {
   emoji: string
@@ -9,71 +14,21 @@ interface Reaction {
   picked: boolean
 }
 
-// Моковые данные
-const mockReactionsList = [
-  {
-    emoji: '1F600',
-    count: 10,
-    picked: false,
-  },
-  {
-    emoji: '1F601',
-    count: 5,
-    picked: true,
-  },
-  {
-    emoji: '1F602',
-    count: 3,
-    picked: false,
-  },
-  {
-    emoji: '1F603',
-    count: 2,
-    picked: false,
-  },
-]
-
 export const Reactions = ({ forumId }: { forumId: number }) => {
+  const { currentData } = useGetUserQuery()
+  const { data, refetch } = useGetReactionsQuery({
+    topic_id: forumId,
+    user_id: currentData ? currentData.id : undefined,
+  })
+  const [createReaction] = useSetReactionMutation()
   const [isOpen, setIsOpen] = useState(false)
   const [reactions, setReactions] = useState<Reaction[]>([])
 
-  // Моковая функция отправки новой реакции
-  const mockReactions = (emoji: string) => {
-    const newReactions = [...mockReactionsList]
-    const existingReactionIndex = newReactions.findIndex(
-      reaction => reaction.emoji === emoji
-    )
-    const pickedReactionIndex = newReactions.findIndex(
-      reaction => reaction.picked
-    )
-
-    if (existingReactionIndex !== -1) {
-      if (!newReactions[existingReactionIndex].picked) {
-        newReactions[pickedReactionIndex] = {
-          ...newReactions[pickedReactionIndex],
-          count: newReactions[pickedReactionIndex].count - 1,
-          picked: false,
-        }
-        newReactions[existingReactionIndex] = {
-          ...newReactions[existingReactionIndex],
-          count: newReactions[existingReactionIndex].count + 1,
-          picked: true,
-        }
-      }
-    } else {
-      newReactions[pickedReactionIndex] = {
-        ...newReactions[pickedReactionIndex],
-        count: newReactions[pickedReactionIndex].count - 1,
-        picked: false,
-      }
-      newReactions.push({
-        emoji,
-        count: 1,
-        picked: true,
-      })
+  useEffect(() => {
+    if (data) {
+      setReactions(data)
     }
-    return setReactions(newReactions)
-  }
+  }, [data])
 
   const handleShowEmoji = () => {
     setIsOpen(true)
@@ -83,37 +38,26 @@ export const Reactions = ({ forumId }: { forumId: number }) => {
     setIsOpen(false)
   }
 
-  // const handleSetEmoji = (emoji: string) => {
-  //   // Нужно отправить новую реакцию и получить список заново
-  // }
-
-  useEffect(() => {
-    const getEmoji = async (forumId: number) => {
-      try {
-        // Запрос за реакциями для конкретного форума по его id
-        // Моковый запрос
-        const response = {
-          ok: true,
-          json: () => mockReactionsList,
-        }
-        if (response.ok) {
-          const data = await response.json()
-          setReactions(data)
-        } else {
-          throw new Error('Failed to fetch reactions')
-        }
-      } catch (error) {
-        console.error('Error fetching reactions:', error)
-      }
+  const handleSetReaction = (emoji: string) => {
+    if (currentData) {
+      createReaction({
+        topic_id: forumId,
+        user_id: currentData.id,
+        reaction_type: emoji,
+      })
+        .unwrap()
+        .then(() => refetch())
+        .catch(error => {
+          console.error('Ошибка при добавлении реакции:', error)
+        })
     }
-    getEmoji(forumId)
-  }, [forumId])
+  }
 
   const listEmoji = arrEmoji.map(emoji => (
     <div
       className={styles.reactions__emoji}
       key={emoji}
-      onClick={() => mockReactions(emoji)}>
+      onClick={() => handleSetReaction(emoji)}>
       {String.fromCodePoint(parseInt(emoji, 16))}
     </div>
   ))
@@ -125,7 +69,7 @@ export const Reactions = ({ forumId }: { forumId: number }) => {
         emoji.picked && styles.reactions__list_active_emoji_picked
       )}
       key={emoji.emoji}
-      onClick={() => mockReactions(emoji.emoji)}>
+      onClick={() => handleSetReaction(emoji.emoji)}>
       {String.fromCodePoint(parseInt(emoji.emoji, 16))}
       {emoji.count > 1 && (
         <span className={styles.reactions__list_active_emoji_count}>
@@ -138,12 +82,19 @@ export const Reactions = ({ forumId }: { forumId: number }) => {
   return (
     <div className={styles.reactions} onMouseLeave={handleHideEmoji}>
       <div className={styles.reactions__list}>
-        <div className={styles.reactions__list_active}>{activeEmoji}</div>
+        {activeEmoji.length > 0 && (
+          <div className={styles.reactions__list_active}>{activeEmoji}</div>
+        )}
         <div className={styles.reactions__button} onClick={handleShowEmoji}>
           +
         </div>
       </div>
-      {isOpen && <div className={styles.reactions__grids}>{listEmoji}</div>}
+      {/*{isOpen && <div className={styles.reactions__grids}>{listEmoji}</div>}*/}
+      {isOpen && (
+        <div className={styles.reactions__grids_layout}>
+          <div className={styles.reactions__grids}>{listEmoji}</div>
+        </div>
+      )}
     </div>
   )
 }

@@ -13,6 +13,8 @@ import {
   TAddTopic,
   TAddComment,
   TAddReply,
+  TGetReactions,
+  TSetReaction,
 } from '@/types'
 import { API, METHODS, OAUTH } from '@/utils'
 
@@ -28,7 +30,7 @@ const internalBaseQuery = fetchBaseQuery({
 
 export const apiSlices = createApi({
   reducerPath: 'api',
-  tagTypes: ['User', 'Leaderboard', 'Topic'],
+  tagTypes: ['User', 'Leaderboard', 'Topic', 'Reactions'],
   baseQuery: defaultBaseQuery,
   endpoints: builder => ({
     getUser: builder.query<TUser, void>({
@@ -235,6 +237,39 @@ export const apiSlices = createApi({
         credentials: 'include',
       }),
     }),
+
+    getReactions: builder.query<any, TGetReactions>({
+      queryFn: async (credentials: TGetReactions, api, extraOptions) => {
+        const topicId = credentials.topic_id
+        const userId = credentials.user_id
+        const response = await internalBaseQuery(
+          {
+            url: `/reactions?topic_id=${topicId}&?user_id=${userId}`,
+            method: 'GET',
+          },
+          api,
+          extraOptions
+        )
+        return response
+      },
+      providesTags: ['Reactions'],
+    }),
+
+    setReaction: builder.mutation({
+      queryFn: async (credentials: TSetReaction, api, extraOptions) => {
+        const response = await internalBaseQuery(
+          {
+            method: METHODS.Post,
+            url: '/reaction',
+            body: credentials,
+          },
+          api,
+          extraOptions
+        )
+        return response
+      },
+      invalidatesTags: ['Reactions'],
+    }),
   }),
 })
 
@@ -257,4 +292,6 @@ export const {
   useAddReplyMutation,
   useSignInOAuthMutation,
   useGetServiceIdQuery,
+  useGetReactionsQuery,
+  useSetReactionMutation,
 } = apiSlices
