@@ -15,6 +15,6 @@ CREATE TABLE Reactions (
     topic_id INTEGER,
     reaction_type TEXT,
     user_id INTEGER,
-    FOREIGN KEY (post_id) REFERENCES Posts(post_id)
+    FOREIGN KEY (topic_id) REFERENCES Topics(topic_id)
 );
 ```

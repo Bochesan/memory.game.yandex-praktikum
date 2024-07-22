@@ -8,5 +8,5 @@
 
 ### Реакции
 
-- get: /api/reactions/{id} - получение реакций топика
+- get: /api/reactions?topic_id={topicId}&user_id={userId} - получение реакций топика
 - post: /api/reaction - добавление реакции
