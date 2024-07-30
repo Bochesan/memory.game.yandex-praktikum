@@ -3,15 +3,18 @@ import {
   getUser as getUserService,
   createUser as createUserService,
 } from '../services/userService'
-import { Authorize } from '../decorators/auth'
+import { generateToken } from '../../utils/jwt'
 
 class UserController {
-  @Authorize
   public async getUser(req: Request, res: Response): Promise<void> {
     try {
       const { login } = req.query as { login: string }
       const user = await getUserService({ login })
       if (user) {
+        // Сохранение токена пользователя в куке
+        const token = generateToken(user.id)
+        res.cookie('token', token, { httpOnly: true, secure: false }) // secure: true, если HTTPS
+
         res.status(200).json(user)
       } else {
         res.status(200).json({ error: 'Пользователь не найден' })
@@ -23,7 +26,6 @@ class UserController {
     }
   }
 
-  @Authorize
   public async createUser(req: Request, res: Response): Promise<void> {
     try {
       const { login, first_name, second_name, display_name } = req.body

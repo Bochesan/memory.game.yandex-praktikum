@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
+import { verifyToken } from '../../utils/jwt'
 
 export function Authorize(
   _target: any,
@@ -12,10 +13,14 @@ export function Authorize(
     res: Response,
     next: NextFunction
   ) {
-    // TODO - здесь будет реализация PSS-68, middleware, которая проверяет, авторизован ли пользователь
-    console.log('Middleware auth')
-    const authHeader = true
-    if (!authHeader) {
+    const token = req.cookies.token
+    if (!token) {
+      return res.status(401).json({ message: 'Пользователь не авторизован!' })
+    }
+
+    try {
+      verifyToken(token)
+    } catch (err) {
       return res.status(401).json({ message: 'Пользователь не авторизован!' })
     }
 
