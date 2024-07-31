@@ -4,6 +4,7 @@ dotenv.config()
 import cors from 'cors'
 import express from 'express'
 import bodyParser from 'body-parser'
+import cookieParser from 'cookie-parser'
 import userRoute from './src/routes/userRoute'
 import topicRoute from './src/routes/topicRoute'
 import themeRoute from './src/routes/themeRoute'
@@ -17,6 +18,7 @@ const portClient = Number(process.env.CLIENT_PORT) || 3030
 const app = express()
 
 app.use(bodyParser.json())
+app.use(cookieParser())
 
 const corsOptions = {
   origin: `http://localhost:${portClient}`,

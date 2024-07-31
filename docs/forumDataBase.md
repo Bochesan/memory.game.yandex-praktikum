@@ -66,6 +66,7 @@ POSTGRES_USER=user
 POSTGRES_DB=db  
 POSTGRES_HOST=memory_game_postgres  
 POSTGRES_PORT=5432
+JWT_SECRET_KEY=memory_game_jwt_key
 
 ## Запуск проекта
 
