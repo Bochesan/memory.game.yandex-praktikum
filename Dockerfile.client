@@ -1,6 +1,6 @@
 ARG NODE_VERSION=18
 
-FROM node:$NODE_VERSION-buster as base
+FROM node:${NODE_VERSION}-buster as base
 
 WORKDIR /app
 
