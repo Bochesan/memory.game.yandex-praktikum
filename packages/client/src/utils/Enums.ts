@@ -19,7 +19,7 @@ export const enum API {
 export const enum OAUTH {
   ServiceId = '/oauth/yandex/service-id',
   Yandex = '/oauth/yandex',
-  Redirect = 'http://localhost:3000',
+  Redirect = 'https://memory-game.website.yandexcloud.net',
 }
 
 export const enum CODE_STATUS {
